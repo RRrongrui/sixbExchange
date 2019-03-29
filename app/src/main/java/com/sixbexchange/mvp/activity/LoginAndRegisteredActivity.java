@@ -2,7 +2,7 @@ package com.sixbexchange.mvp.activity;
 
 import android.support.v4.app.Fragment;
 
-import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.AppUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -41,7 +41,7 @@ public class LoginAndRegisteredActivity extends BaseDataBindActivity<LoginAndReg
     public void onBackPressedSupport() {
         super.onBackPressedSupport();
         if (!HomeActivity.isLogin) {
-            ActivityUtils.finishAllActivities();
+            AppUtils.exitApp();
         }
     }
 
