@@ -15,7 +15,7 @@ public class FollowOrderDetailsDelegate extends BaseDelegate {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_follow_order_details;
+        return R.layout.fragment_follow_order_details;
     }
 
 

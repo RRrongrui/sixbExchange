@@ -27,7 +27,6 @@ public class AssetsFragment extends BaseDataBindFragment<AssetsDelegate, AssetsB
                 .setmRightImg1(CommonUtils.getString(R.string.ic_file_search) + "账单"));
         viewDelegate.setToolColor(R.color.mark_color, false);
 
-
     }
 
 

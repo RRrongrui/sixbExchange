@@ -13,7 +13,8 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        startActivity(new Intent(this,LoginAndRegisteredActivity.class));
+        startActivity(new Intent(this,HomeActivity.class));
+        finish();
     }
 
 }

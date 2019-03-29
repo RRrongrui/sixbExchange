@@ -1,11 +1,11 @@
-package com.sixbexchange.mvp.activity;
+package com.sixbexchange.mvp.fragment;
 
-import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
+import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.sixbexchange.mvp.databinder.FollowOrderDetailsBinder;
 import com.sixbexchange.mvp.delegate.FollowOrderDetailsDelegate;
 
-public class FollowOrderDetailsActivity extends BaseDataBindActivity<FollowOrderDetailsDelegate, FollowOrderDetailsBinder> {
+public class FollowOrderDetailsFragment extends BaseDataBindFragment<FollowOrderDetailsDelegate, FollowOrderDetailsBinder> {
 
     @Override
     protected Class<FollowOrderDetailsDelegate> getDelegateClass() {
@@ -28,7 +28,6 @@ public class FollowOrderDetailsActivity extends BaseDataBindActivity<FollowOrder
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
         }
     }

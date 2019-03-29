@@ -2,6 +2,7 @@ package com.sixbexchange.mvp.activity;
 
 import android.support.v4.app.Fragment;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -34,11 +35,20 @@ public class LoginAndRegisteredActivity extends BaseDataBindActivity<LoginAndReg
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle("注册或登录"));
         initTablelayout();
-
     }
+
+    @Override
+    public void onBackPressedSupport() {
+        super.onBackPressedSupport();
+        if (!HomeActivity.isLogin) {
+            ActivityUtils.finishAllActivities();
+        }
+    }
+
     ArrayList<Fragment> fragments;
     InnerPagerAdapter innerPagerAdapter;
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
+
     private void initTablelayout() {
         fragments = new ArrayList<>();
         fragments.add(new LoginFragment());

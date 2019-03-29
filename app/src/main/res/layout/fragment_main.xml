@@ -8,18 +8,19 @@
         android:id="@+id/fl_tab_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/trans_100px"/>
+        android:layout_marginBottom="@dimen/trans_90px"/>
 
     <com.fivefivelike.mybaselibrary.view.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/trans_100px"
+        android:layout_height="@dimen/trans_90px"
         android:layout_gravity="bottom"/>
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/trans_10px"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="@dimen/trans_100px"
+        android:layout_marginBottom="@dimen/trans_90px"
+        android:scaleType="fitXY"
         android:background="@drawable/actionbar_shadow_up"/>
 </FrameLayout>

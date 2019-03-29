@@ -39,7 +39,7 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if(activity instanceof BaseActivity){
+        if (activity instanceof BaseActivity) {
             this.mActivity = (BaseActivity) activity;
         }
     }
@@ -100,19 +100,21 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
     private View rootView;
 
 
-
-
     @Override
     public void onPause() {
         super.onPause();
     }
 
 
-
-
     @Override
     public void onResume() {
         super.onResume();
+
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
         if (viewDelegate != null) {
             if (viewDelegate.getmToolbar() != null) {
                 if (viewDelegate.isNoStatusBarFlag()) {
@@ -120,10 +122,10 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
                 } else {
                     clearNoStatusBarFlag();
                 }
+                checkToolbarColor();
             }
         }
     }
-
 
     public void checkToolbarColor() {
         if (viewDelegate != null) {
@@ -174,7 +176,6 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
         super.onDestroy();
 
     }
-
 
 
 }

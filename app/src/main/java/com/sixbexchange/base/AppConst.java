@@ -12,10 +12,10 @@ public class AppConst {
     //        public static final String app2BaseUrl = BuildConfig.app2BaseUrl;// "https://tblz.bicoin.com.cn";
     //        public static final boolean isSSL = BuildConfig.isSSL;
 
-    public static final String app2BaseUrl = "https://ex.bicoin.info";
-    public static final boolean isSSL = true;
-//                public static final String app2BaseUrl = "http://tex.bicoin.info";
-//                public static final boolean isSSL = false;
+    //    public static final String app2BaseUrl = "https://ex.bicoin.info";
+    //    public static final boolean isSSL = true;
+    public static final String app2BaseUrl = "http://test.6b.top";
+    public static final boolean isSSL = false;
     //    public static final String app2BaseUrl = "http://ex.bicoin.info";
     //    public static final boolean isSSL = false;
     //    public static final String serviceId = BuildConfig.serviceId;// "KEFU151728371459995";

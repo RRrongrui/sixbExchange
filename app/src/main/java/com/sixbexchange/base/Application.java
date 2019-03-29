@@ -16,8 +16,11 @@ import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.fivefivelike.mybaselibrary.utils.UUIDS;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
 import com.sixbexchange.BuildConfig;
+import com.sixbexchange.mvp.activity.HomeActivity;
 import com.sixbexchange.mvp.activity.LoginAndRegisteredActivity;
+import com.sixbexchange.server.TraceServiceImpl;
 import com.umeng.commonsdk.UMConfigure;
+import com.xdandroid.hellodaemon.DaemonEnv;
 import com.yanzhenjie.nohttp.Headers;
 import com.yanzhenjie.nohttp.InitializationConfig;
 import com.yanzhenjie.nohttp.Logger;
@@ -103,8 +106,12 @@ public class Application extends BaseApp {
             getResources().updateConfiguration(configuration, displayMetrics);
             //初始化换肤
             initSkin();
-            // CrashHandler crashHandler = CrashHandler.getInstance();
-            //crashHandler.init(getApplicationContext());
+
+            DaemonEnv.initialize(this, TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
+            TraceServiceImpl.sShouldStopService = false;
+            DaemonEnv.startServiceMayBind(TraceServiceImpl.class);
+
+
             KLog.i("NdkUtils", getSign());
             Fragmentation.builder()
                     // 设置 栈视图 模式为 （默认）悬浮球模式   SHAKE: 摇一摇唤出  NONE：隐藏， 仅在Debug环境生效
@@ -230,7 +237,7 @@ public class Application extends BaseApp {
 
     @Override
     public Class getMainActivityClass() {
-        return null;//MainActivity.class;
+        return HomeActivity.class;//MainActivity.class;
     }
 
 
