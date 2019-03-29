@@ -100,25 +100,6 @@ public abstract class BaseActivity<T extends BaseDelegate> extends ActivityPrese
         KeyboardUtils.fixSoftInputLeaks(this);
     }
 
-    @Override
-    public void onBackPressed() {
-        if (isDoubleClickExit) {
-            if ((System.currentTimeMillis() - exitTime) > 2000) {
-                ToastUtil.show("再按一次退出程序");
-                exitTime = System.currentTimeMillis();
-            } else {
-                //ActUtil.getInstance().AppExit(this);
-                Intent intent = new Intent();
-                // 为Intent设置Action、Category属性
-                intent.setAction(Intent.ACTION_MAIN);// "android.intent.action.MAIN"
-                intent.addCategory(Intent.CATEGORY_HOME); //"android.intent.category.HOME"
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-            return;
-        }
-        super.onBackPressed();
-    }
 
     /**
      * 去掉状态栏

@@ -68,9 +68,16 @@
                 <data android:scheme="ggmspc"/>
             </intent-filter>
         </activity>
-        <activity android:name=".mvp.activity.LoginAndRegisteredActivity"/>
-        <activity android:name=".mvp.activity.MainActivity"/>
-        <activity android:name=".mvp.activity.FollowOrderDetailsActivity"/>
+        <activity
+            android:name=".mvp.activity.LoginAndRegisteredActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".mvp.activity.HomeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

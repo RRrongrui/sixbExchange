@@ -256,6 +256,7 @@ KDJ#73C5FF
     <color name="toolbar_bg">#ffffff</color>
     <color name="status_bg">#ffffff</color>
     <color name="area_bg">#fafcfe</color>
-
+    <color name="tab_unselect">#c9c9c9</color>
+    <color name="bg_btn">#dadada</color>
 
 </resources>

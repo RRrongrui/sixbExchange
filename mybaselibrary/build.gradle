@@ -114,6 +114,9 @@ dependencies {
     compile rootProject.ext.dependencies["ultra"]
     compile rootProject.ext.dependencies["roundedimageview"]
     compile rootProject.ext.dependencies["youthbanner"]
+    compile rootProject.ext.dependencies["fragmentation"]
+    compile rootProject.ext.dependencies["fragmentation-core"]
+    compile rootProject.ext.dependencies["eventbus-activity-scope"]
     annotationProcessor rootProject.ext.dependencies["bumptech"]
     implementation files('libs/tbs_sdk_thirdapp_v3.6.0.1183_43604_sharewithdownload_withoutGame_obfs_20180211_105126.jar')
 }

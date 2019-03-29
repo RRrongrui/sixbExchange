@@ -123,7 +123,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="subtitle"
-                    android:textSize="@dimen/text_trans_32px"
+                    android:textSize="@dimen/text_trans_28px"
                     android:visibility="gone"
                     />
 
@@ -150,7 +150,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="subtitle"
-                    android:textSize="@dimen/text_trans_32px"
+                    android:textSize="@dimen/text_trans_28px"
                     android:visibility="gone"
                     />
 
@@ -178,7 +178,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="subtitle"
-                    android:textSize="@dimen/text_trans_32px"
+                    android:textSize="@dimen/text_trans_28px"
                     android:visibility="gone"
                     />
 

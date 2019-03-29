@@ -2,10 +2,10 @@ package com.fivefivelike.mybaselibrary.mvp.presenter;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import com.fivefivelike.mybaselibrary.mvp.view.IDelegate;
 
+import me.yokeyword.fragmentation.SupportActivity;
 import skin.support.annotation.Skinable;
 
 
@@ -13,7 +13,7 @@ import skin.support.annotation.Skinable;
  * Created by 郭青枫 on 2017/7/3.
  */
 @Skinable
-public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatActivity {
+public abstract class ActivityPresenter<T extends IDelegate> extends SupportActivity {
     protected T viewDelegate;
     private static final String TAG = "BaseActivity";
 

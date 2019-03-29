@@ -17,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 
 import com.biv.view.BigImageView;
 import com.fivefivelike.mybaselibrary.R;
@@ -279,10 +278,10 @@ public class BigImageviewActivity extends BaseActivity<BigImageveiwDelegate> {
         finish();
     }
 
-    @Override
-    public void onBackPressed() {
-        onGalleryCancel();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        onGalleryCancel();
+//    }ao
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

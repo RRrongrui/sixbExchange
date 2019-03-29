@@ -17,7 +17,6 @@ import com.fivefivelike.mybaselibrary.utils.UUIDS;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
 import com.sixbexchange.BuildConfig;
 import com.sixbexchange.mvp.activity.LoginAndRegisteredActivity;
-import com.sixbexchange.mvp.activity.MainActivity;
 import com.umeng.commonsdk.UMConfigure;
 import com.yanzhenjie.nohttp.Headers;
 import com.yanzhenjie.nohttp.InitializationConfig;
@@ -27,6 +26,8 @@ import com.yanzhenjie.nohttp.OkHttpNetworkExecutor;
 import com.yanzhenjie.nohttp.cache.DBCacheStore;
 import com.yanzhenjie.nohttp.cookie.DBCookieStore;
 
+import me.yokeyword.fragmentation.Fragmentation;
+import me.yokeyword.fragmentation.helper.ExceptionHandler;
 import skin.support.SkinCompatManager;
 import skin.support.app.SkinCardViewInflater;
 import skin.support.constraint.app.SkinConstraintViewInflater;
@@ -105,7 +106,22 @@ public class Application extends BaseApp {
             // CrashHandler crashHandler = CrashHandler.getInstance();
             //crashHandler.init(getApplicationContext());
             KLog.i("NdkUtils", getSign());
-
+            Fragmentation.builder()
+                    // 设置 栈视图 模式为 （默认）悬浮球模式   SHAKE: 摇一摇唤出  NONE：隐藏， 仅在Debug环境生效
+                    .stackViewMode(Fragmentation.BUBBLE)
+                    .debug(true) // 实际场景建议.debug(BuildConfig.DEBUG)
+                    /**
+                     * 可以获取到{@link me.yokeyword.fragmentation.exception.AfterSaveStateTransactionWarning}
+                     * 在遇到After onSaveInstanceState时，不会抛出异常，会回调到下面的ExceptionHandler
+                     */
+                    .handleException(new ExceptionHandler() {
+                        @Override
+                        public void onException(Exception e) {
+                            // 以Bugtags为例子: 把捕获到的 Exception 传到 Bugtags 后台。
+                            // Bugtags.sendException(e);
+                        }
+                    })
+                    .install();
         }
     }
 
@@ -214,7 +230,7 @@ public class Application extends BaseApp {
 
     @Override
     public Class getMainActivityClass() {
-        return MainActivity.class;//MainActivity.class;
+        return null;//MainActivity.class;
     }
 
 

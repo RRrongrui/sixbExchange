@@ -2,19 +2,20 @@ package com.fivefivelike.mybaselibrary.mvp.presenter;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.fivefivelike.mybaselibrary.mvp.view.IDelegate;
 
+import me.yokeyword.fragmentation.SupportFragment;
+
 
 /**
  * Created by 郭青枫 on 2017/7/3.
  */
 
-public abstract class FragmentPresenter<T extends IDelegate> extends Fragment {
+public abstract class FragmentPresenter<T extends IDelegate> extends SupportFragment {
     public T viewDelegate;
     private IntentHelper intentHelper;
 

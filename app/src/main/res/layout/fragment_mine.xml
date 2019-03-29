@@ -116,7 +116,7 @@
                     android:textColor="@color/color_font1"
                     android:textSize="@dimen/text_trans_34px"/>
 
-                <TextView
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -150,7 +150,7 @@
                     android:textColor="@color/color_font1"
                     android:textSize="@dimen/text_trans_34px"/>
 
-                <TextView
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -193,7 +193,7 @@
                     android:textColor="@color/color_font3"
                     android:textSize="@dimen/text_trans_28px" />
 
-                <TextView
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -227,7 +227,7 @@
                     android:textColor="@color/color_font1"
                     android:textSize="@dimen/text_trans_34px"/>
 
-                <TextView
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -261,7 +261,7 @@
                     android:textColor="@color/color_font1"
                     android:textSize="@dimen/text_trans_34px"/>
 
-                <TextView
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -295,7 +295,7 @@
                     android:textColor="@color/color_font1"
                     android:textSize="@dimen/text_trans_34px"/>
 
-                <TextView
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -319,6 +319,7 @@
                 android:gravity="center"
                 android:padding="@dimen/trans_25px"
                 android:text="退出登录"
+                android:visibility="gone"
                 android:textColor="@color/color_font1"
                 android:textSize="@dimen/text_trans_34px"/>
 

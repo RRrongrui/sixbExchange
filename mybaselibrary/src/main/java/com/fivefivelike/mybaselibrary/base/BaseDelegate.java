@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -16,7 +14,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,13 +30,8 @@ import com.fivefivelike.mybaselibrary.view.NoDataView;
 import com.fivefivelike.mybaselibrary.view.dialog.NetWorkDialog;
 import com.githang.statusbar.StatusBarCompat;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
 
 /**
  * Created by 郭青枫 on 2017/7/7.
@@ -62,15 +54,6 @@ public abstract class BaseDelegate extends IDelegateImpl {
     private LinearLayout layoutTitleBar;
     private FrameLayout fl_content;
 
-
-    private ImageButton mNavButtonView;
-    private int cuurentFragmentPosition = -1;
-    private int fragmentContainId = -1;
-    // private List<Fragment> fragmentList;
-    // private List<String> fragmentTags;
-    private Map<Integer, Fragment> fragmentList;
-    private Map<Integer, String> fragmentTags;
-
     private FragmentManager fragmentManager;
     private boolean isNoStatusBarFlag = false;
     private CircleDialog.CircleDialogLinsener circleDialogLinsener;
@@ -78,8 +61,6 @@ public abstract class BaseDelegate extends IDelegateImpl {
     private TextView mToolbarBackTxt;
     private IconFontTextview mToolbarBack;
     private View mViewSubtitlePoint;
-
-    private String FRAGMENT_TAG = "fragment_tag";
 
     public static int status_hight=0;
 
@@ -371,215 +352,6 @@ public abstract class BaseDelegate extends IDelegateImpl {
     }
 
 
-    /**
-     * 设置左图标padding
-     */
-    public void initNavigation() {
-        try {
-            Field file = mToolbar.getClass().getDeclaredField("mNavButtonView");
-            file.setAccessible(true);
-            mNavButtonView = (ImageButton) file.get(mToolbar);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 如果要添加fragment 先调用此方法
-     *
-     * @param fragmentContainId FrameLayout id
-     * @param fragmentManager   fragment管理
-     */
-    public void initAddFragment(int fragmentContainId, FragmentManager fragmentManager) {
-        this.fragmentContainId = fragmentContainId;
-        this.fragmentManager = fragmentManager;
-        if (this.fragmentManager.getFragments() != null) {
-            if (this.fragmentManager.getFragments().size() != 0) {
-                int backStackCount = this.fragmentManager.getBackStackEntryCount();
-                for (int i = 0; i < backStackCount; i++) {
-                    //清除所有addToBackStack
-                    this.fragmentManager.popBackStack();
-                }
-                if (fragmentList != null) {
-                    fragmentList.clear();
-                }
-            }
-        }
-        initFromSave();
-    }
-
-
-
-    /**
-     * 添加fragment  在{@link #initAddFragment(int, FragmentManager)}之后使用
-     *
-     * @param fragment
-     */
-    public void addFragment(Fragment fragment, String tag) {
-        if (fragmentList == null) {
-            fragmentList = new HashMap<>();
-            fragmentTags = new HashMap<>();
-        }
-        fragmentList.put(fragmentList.size(), fragment);
-        fragmentTags.put(fragmentTags.size(), tag);
-    }
-
-    public void addFragment(Fragment fragment, String tag, int index) {
-        if (fragmentList == null) {
-            fragmentList = new HashMap<>();
-            fragmentTags = new HashMap<>();
-        }
-        fragmentList.put(index, fragment);
-        fragmentTags.put(index, tag);
-    }
-
-    public void removeAddFragment() {
-        if (fragmentList != null) {
-            fragmentList.clear();
-            fragmentTags.clear();
-        }
-        int backStackCount = this.fragmentManager.getBackStackEntryCount();
-        for (int i = 0; i < backStackCount; i++) {
-            this.fragmentManager.popBackStack();
-        }
-        fragmentContainId = -1;
-        fragmentManager = null;
-        fragmentList=null;
-        fragmentTags=null;
-        cuurentFragmentPosition=-1;
-    }
-
-    public void initFromSave() {
-        if (fragmentContainId == -1) {//没有设置容器
-            return;
-        }
-        if (fragmentManager == null) {//没有初始化管理器
-            return;
-        }
-        if (fragmentList == null) {
-            fragmentList = new HashMap<>();
-            fragmentTags = new HashMap<>();
-        }
-        if (fragmentList.size() == 0) {
-            if (fragmentManager.getFragments() != null) {
-                if (fragmentManager.getFragments().size() > 0) {
-                    for (int i = 0; i < fragmentManager.getFragments().size(); i++) {
-                        String tag = fragmentManager.getFragments().get(i).getTag();
-                        if (!TextUtils.isEmpty(tag)) {
-                            String index = tag.substring(0, 1);
-                            if (isInteger(index)) {
-                                String substring = tag.substring(1, tag.length());
-                                fragmentTags.put(Integer.parseInt(index), substring);
-                                fragmentList.put(Integer.parseInt(index),
-                                        fragmentManager.getFragments().get(i));
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    public boolean isInteger(String str) {
-        Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
-        return pattern.matcher(str).matches();
-    }
-
-    /**
-     * 显示某一个fragment
-     *
-     * @param index 指定索引
-     */
-    public void showFragment(int index) {
-        if (fragmentContainId == -1) {//没有设置容器
-            return;
-        }
-        if (fragmentManager == null) {//没有初始化管理器
-            return;
-        }
-        if (fragmentList == null || fragmentList.size() == 0) {//如果没有添加
-            return;
-        }
-        if (cuurentFragmentPosition != -1 && cuurentFragmentPosition == index) {//当前选择与显示一致
-            return;
-        }
-        cuurentFragmentPosition = index;
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        Fragment frl = fragmentList.get(index);
-        boolean isResume = false;
-        if (frl.isAdded()) {
-            isResume = true;
-        } else {
-            if (null == fragmentManager.findFragmentByTag(index + fragmentTags.get(index))) {
-                transaction.add(fragmentContainId, frl, index + fragmentTags.get(index));
-            } else {
-                isResume = true;
-            }
-        }
-        Set<Integer> integers = fragmentList.keySet();
-        List<Integer> list1 = new ArrayList<Integer>(integers);
-        for (int i = 0; i < fragmentList.size(); i++) {
-            Fragment fragment = fragmentManager.findFragmentByTag(list1.get(i) +
-                    fragmentTags.get(list1.get(i)));
-            if (fragment != null) {
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                if (index == list1.get(i)) {
-                    ft.show(fragment);
-                } else {
-                    ft.hide(fragment);
-                }
-                ft.commitAllowingStateLoss();
-            }
-        }
-        transaction.commitAllowingStateLoss();
-        if (isResume) {
-            // frl.onResume();
-        }
-    }
-
-
-    public String getFramentTag(int index) {
-        return FRAGMENT_TAG + index;
-    }
-
-    public Fragment getFragmentByTag(String tag, int index) {
-        if (fragmentManager == null) {
-            return null;
-        }
-        return fragmentManager.findFragmentByTag(index + tag);
-    }
-
-    //    public Fragment getFragmentByIndex(int index) {
-    //        if (ListUtils.isEmpty(fragmentList)) {
-    //            return null;
-    //        }
-    //        if (index > fragmentList.size()) {
-    //            return null;
-    //        }
-    //        return fragmentList.get(index);
-    //    }
-
-    //    public void replaceFragment(int index, Fragment fragment) {
-    //        if (fragmentContainId == -1) {//没有设置容器
-    //            return;
-    //        }
-    //        if (fragmentManager == null) {//没有初始化管理器
-    //            return;
-    //        }
-    //        if (fragmentList == null || fragmentList.size() == 0) {//如果没有添加
-    //            return;
-    //        }
-    //        FragmentTransaction transaction = fragmentManager.beginTransaction();
-    //        transaction.remove(fragmentList.get(index));
-    //        transaction.add(fragmentContainId, fragment);
-    //        transaction.commitAllowingStateLoss();
-    //        fragmentList.remove(index);
-    //        fragmentList.add(index, fragment);
-    //        showFragment(index);
-    //    }
-
     public void setPointNum(int num, FrameLayout fl_content) {
         if (num > 0) {
             String showNum;
@@ -753,15 +525,6 @@ public abstract class BaseDelegate extends IDelegateImpl {
         this.view_line = view_line;
     }
 
-    /**
-     * 得到当前的fragment
-     *
-     * @return
-     */
-    public Fragment getCurrentFrgment() {
-        return fragmentList.get(cuurentFragmentPosition);
-    }
-
     public TextView getmToolbarTitle() {
         return mToolbarTitle;
     }
@@ -790,26 +553,8 @@ public abstract class BaseDelegate extends IDelegateImpl {
         return layoutTitleBar;
     }
 
-    public ImageButton getmNavButtonView() {
-        return mNavButtonView;
-    }
-
-    public int getCuurentFragmentPosition() {
-        return cuurentFragmentPosition;
-    }
-
-    public int getFragmentContainId() {
-        return fragmentContainId;
-    }
-
-    //    public List<Fragment> getFragmentList() {
-    //        return fragmentList;
-    //    }
 
 
-    public Map<Integer, Fragment> getFragmentList() {
-        return fragmentList;
-    }
 
     public LinearLayout getmToolbarBackLin() {
         return mToolbarBackLin;

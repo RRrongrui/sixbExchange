@@ -18,7 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:layout_marginTop="@dimen/trans_90px"
+            android:layout_marginBottom="@dimen/trans_20px"
+            android:layout_marginTop="@dimen/trans_70px"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:src="@drawable/sixblogo"
@@ -468,7 +469,6 @@
                             app:lineHeight="@dimen/trans_1px"
                             app:lineWidth="@dimen/trans_5px"
                             />
-
 
 
                     </LinearLayout>
