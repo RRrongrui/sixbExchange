@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
-import com.fivefivelike.mybaselibrary.entity.TabSelectedEvent;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.UUIDS;
 import com.fivefivelike.mybaselibrary.view.BottomBar;
@@ -13,9 +12,16 @@ import com.sixbexchange.R;
 import com.sixbexchange.mvp.databinder.MainBinder;
 import com.sixbexchange.mvp.delegate.MainDelegate;
 
-import me.yokeyword.eventbusactivityscope.EventBusActivityScope;
 import me.yokeyword.fragmentation.SupportFragment;
 
+/*
+*主页
+* @author gqf
+* @Description
+* @Date  2019/4/3 0003 11:17
+* @Param
+* @return
+**/
 public class MainFragment extends BaseDataBindFragment<MainDelegate, MainBinder> {
     public static final int FIRST = 0;
     public static final int SECOND = 1;
@@ -52,26 +58,24 @@ public class MainFragment extends BaseDataBindFragment<MainDelegate, MainBinder>
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        mFragments = new SupportFragment[4];
-        SupportFragment firstFragment = findChildFragment(TransactionFragment.class);
+        mFragments = new SupportFragment[3];
+        SupportFragment firstFragment = findChildFragment(UserOrderFragment.class);
         if (firstFragment == null) {
-            mFragments[FIRST] = transactionFragment = new TransactionFragment();
-            mFragments[SECOND] = userOrderFragment = new UserOrderFragment();
-            mFragments[THIRD] = assetsFragment = new AssetsFragment();
-            mFragments[FOUR] = mineFragment = new MineFragment();
+            //mFragments[FIRST] = transactionFragment = new TransactionFragment();
+            mFragments[FIRST] = userOrderFragment = new UserOrderFragment();
+            mFragments[SECOND] = assetsFragment = new AssetsFragment();
+            mFragments[THIRD] = mineFragment = new MineFragment();
 
             loadMultipleRootFragment(R.id.fl_tab_container, FIRST,
                     mFragments[FIRST],
                     mFragments[SECOND],
-                    mFragments[THIRD],
-                    mFragments[FOUR]);
+                    mFragments[THIRD]);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
             // 这里我们需要拿到mFragments的引用
             mFragments[FIRST] = firstFragment;
-            mFragments[SECOND] = findChildFragment(UserOrderFragment.class);
-            mFragments[THIRD] = findChildFragment(AssetsFragment.class);
+            mFragments[SECOND] = findChildFragment(AssetsFragment.class);
             mFragments[THIRD] = findChildFragment(MineFragment.class);
         }
     }
@@ -91,8 +95,8 @@ public class MainFragment extends BaseDataBindFragment<MainDelegate, MainBinder>
         viewDelegate.viewHolder.bottomBar
                 .addItem(new BottomBarTab(_mActivity, R.drawable.icon1_active, R.drawable.icon1, mTitles[0]))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.icon2_active, R.drawable.icon2, mTitles[1]))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.icon3_active, R.drawable.icon3, mTitles[2]))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.icon4_active, R.drawable.icon4, mTitles[3]));
+                .addItem(new BottomBarTab(_mActivity, R.drawable.icon3_active, R.drawable.icon3, mTitles[2]));
+        // .addItem(new BottomBarTab(_mActivity, R.drawable.icon4_active, R.drawable.icon4, mTitles[3]));
 
         viewDelegate.viewHolder.bottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override
@@ -111,7 +115,9 @@ public class MainFragment extends BaseDataBindFragment<MainDelegate, MainBinder>
             public void onTabReselected(int position) {
                 // 在FirstPagerFragment,FirstHomeFragment中接收, 因为是嵌套的Fragment
                 // 主要为了交互: 重选tab 如果列表不在顶部则移动到顶部,如果已经在顶部,则刷新
-                EventBusActivityScope.getDefault(_mActivity).post(new TabSelectedEvent(position));
+                if (position == SECOND && assetsFragment != null) {
+                    assetsFragment.onRefresh();
+                }
             }
         });
     }

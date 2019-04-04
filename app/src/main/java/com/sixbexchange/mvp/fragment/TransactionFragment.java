@@ -1,5 +1,7 @@
 package com.sixbexchange.mvp.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
@@ -32,6 +34,13 @@ public class TransactionFragment extends BaseDataBindFragment<TransactionDelegat
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle("").setShowBack(false));
         viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
+
+    }
+
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
         initTablelayout();
     }
 

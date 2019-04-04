@@ -7,7 +7,8 @@
 
     <string name="ic_Down">&#xe64d;</string>
     <string name="ic_Next">&#xe652;</string>
-    <string name="ic_Info">&#xe620;</string>
+    <string name="ic_Info2">&#xe620;</string>
+    <string name="ic_Info"> </string>
     <string name="ic_file_search">&#xe8a6;</string>
     <string name="ic_envelope">&#xe871;</string>
     <string name="ic_6btop">&#xe77d;</string>
@@ -27,6 +28,9 @@
     <string name="ic_flip_h">&#xe8b7;</string>
     <string name="ic_wallet">&#xeaa9;</string>
     <string name="ic_adjust_circle">&#xe6dd;</string>
+    <string name="ic_dice_one">&#xe83a;</string>
+    <string name="ic_erweima">&#xe640;</string>
+    <string name="ic_Dots1">&#xe648;</string>
 
 
 </resources>

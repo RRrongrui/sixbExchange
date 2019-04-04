@@ -48,7 +48,8 @@ public abstract class BasePullDelegate extends BaseDelegate {
     private View.OnClickListener noDataClickListener;
     public int defaultPage = 1;
     private int noDataImgId = -1;
-    private boolean isCanToTop = false;
+    private boolean isCanToTop = true;
+    private boolean isPullDown = true;
 
     /**
      * 下拉刷新控件
@@ -125,6 +126,7 @@ public abstract class BasePullDelegate extends BaseDelegate {
         mWwipeRefreshLayout = getViewById(R.id.swipeRefreshLayout);
         mPullRecyclerView = getViewById(R.id.pull_recycleview);
         mWwipeRefreshLayout.setRecyclerView(mPullRecyclerView);
+        mWwipeRefreshLayout.setEnabled(isPullDown);
         fl_top = getViewById(R.id.fl_top);
         ((SimpleItemAnimator) mPullRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         mPullRecyclerView.getItemAnimator().setChangeDuration(0);// 通过设置动画执行时间为0来解决闪烁问题
@@ -161,6 +163,7 @@ public abstract class BasePullDelegate extends BaseDelegate {
                     mPullRecyclerView.scrollToPosition(0);
                 }
             });
+            setCanToTop(isCanToTop);
         }
         this.headerCount = headerCount;
         callbacks = new Paginate.Callbacks() {
@@ -206,7 +209,7 @@ public abstract class BasePullDelegate extends BaseDelegate {
                 .setHeaderCount(headerCount)
                 .build();
         mWwipeRefreshLayout.setOnRefreshListener(onRefreshListener);
-        mWwipeRefreshLayout.setRefreshing(true);
+        mWwipeRefreshLayout.setRefreshing(isPullDown);
     }
 
     private void addFoot(ViewGroup parent) {
@@ -354,6 +357,7 @@ public abstract class BasePullDelegate extends BaseDelegate {
      * @param isPullDown
      */
     public void setIsPullDown(boolean isPullDown) {
+        this.isPullDown=isPullDown;
         if (mWwipeRefreshLayout != null) {
             mWwipeRefreshLayout.setEnabled(isPullDown);
             mWwipeRefreshLayout.setRefreshing(false);

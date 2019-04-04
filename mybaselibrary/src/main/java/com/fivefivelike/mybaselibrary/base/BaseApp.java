@@ -15,6 +15,10 @@ import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.smtt.sdk.WebView;
 import com.yanzhenjie.nohttp.Headers;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 /**
  * @创建者 CSDN_LQR
  * @描述 Application基类
@@ -45,6 +49,7 @@ public abstract class BaseApp extends Application {
 
     //获取登录页面class
     public abstract Class getLoginActivityClass();
+
     public abstract Class getMainActivityClass();
 
     public abstract void returnHeader(Headers headers);
@@ -59,6 +64,29 @@ public abstract class BaseApp extends Application {
             UUIDS.buidleID(this).check();
             preinitX5WebCore();
             Utils.init(this);
+            closeAndroidPDialog();
+        }
+    }
+
+    // 去掉android P 反射警告
+    private void closeAndroidPDialog() {
+        try {
+            Class aClass = Class.forName("android.content.pm.PackageParser$Package");
+            Constructor declaredConstructor = aClass.getDeclaredConstructor(String.class);
+            declaredConstructor.setAccessible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Class cls = Class.forName("android.app.ActivityThread");
+            Method declaredMethod = cls.getDeclaredMethod("currentActivityThread");
+            declaredMethod.setAccessible(true);
+            Object activityThread = declaredMethod.invoke(null);
+            Field mHiddenApiWarningShown = cls.getDeclaredField("mHiddenApiWarningShown");
+            mHiddenApiWarningShown.setAccessible(true);
+            mHiddenApiWarningShown.setBoolean(activityThread, true);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

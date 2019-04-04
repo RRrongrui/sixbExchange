@@ -5,7 +5,6 @@ import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.blankj.utilcode.util.EncryptUtils;
 import com.fivefivelike.mybaselibrary.base.BaseApp;
 import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
@@ -217,6 +216,7 @@ public class HttpRequest {
 
                     } else if ("appVersion".equals(key)) {
                     } else if ("token".equals(key)) {
+                    } else if ("auth".equals(key)) {
 
                     } else if ("userTempId".equals(key)) {
 
@@ -305,6 +305,11 @@ public class HttpRequest {
                 mRequest.addHeader("loginTime", map.get("loginTime").toString());
             }
         }
+        if (map.containsKey("auth")) {
+            if (mParameterMode != ParameterMode.Rest) {
+                mRequest.addHeader("auth", map.get("auth").toString());
+            }
+        }
         if (map.containsKey("apiKey")) {
             if (mParameterMode != ParameterMode.Rest) {
                 mRequest.addHeader("apiKey", map.get("apiKey").toString());
@@ -327,7 +332,7 @@ public class HttpRequest {
                 errorData.append("提交参数: " + key + " = " + value).append("\n");
                 if (!key.equals("loginTime") && !key.equals("token") &&
                         !key.equals("apiKey") && !key.equals("apiSecret") &&
-                        !key.equals("language") && !key.equals("unit")) {
+                        !key.equals("language") && !key.equals("unit")&& !key.equals("auth")) {
                     sb.append(key + "=" + value);
                     sb.append("&");
                     if (null != value && !"null".equals(value)) {
@@ -336,7 +341,7 @@ public class HttpRequest {
                 }
             }
             stringBuffe.append("params=" + GsonUtil.getInstance().toJson(mRequest.getParamKeyValues()));
-            mRequest.addHeader("sign", EncryptUtils.encryptMD5ToString(stringBuffe.toString()));
+            //mRequest.addHeader("sign", EncryptUtils.encryptMD5ToString(stringBuffe.toString()));
         } else if (mRequest.getRequestMethod() == RequestMethod.GET && mParameterMode == ParameterMode.Rest) {
             setRestUrl();
         } else if (mRequest.getRequestMethod() == RequestMethod.POST && mParameterMode == ParameterMode.Json) {
@@ -346,6 +351,7 @@ public class HttpRequest {
             map.remove("token");
             map.remove("loginTime");
             map.remove("apiKey");
+            map.remove("auth");
             map.remove("apiSecret");
             String json = GsonUtil.getInstance().toJson(map);
             stringBuffe.append("params=" + json);
@@ -355,7 +361,7 @@ public class HttpRequest {
                 KLog.i(REQUEST_TAG, "Json请求: " + json);
                 errorData.append("Json请求: " + json).append("\n");
                 mRequest.setDefineRequestBodyForJson(myJsonObject);
-                mRequest.addHeader("sign", EncryptUtils.encryptMD5ToString(stringBuffe.toString()));
+                //mRequest.addHeader("sign", EncryptUtils.encryptMD5ToString(stringBuffe.toString()));
             } catch (JSONException e) {
                 KLog.e(REQUEST_TAG, "Json请求失败 json转换出错: " + json);
             }

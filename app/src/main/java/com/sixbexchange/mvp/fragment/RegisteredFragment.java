@@ -5,6 +5,8 @@ import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
+import com.fivefivelike.mybaselibrary.utils.UiHeplUtils;
+import com.sixbexchange.mvp.activity.LoginAndRegisteredActivity;
 import com.sixbexchange.mvp.databinder.RegisteredBinder;
 import com.sixbexchange.mvp.delegate.RegisteredDelegate;
 
@@ -35,19 +37,21 @@ public class RegisteredFragment extends BaseDataBindFragment<RegisteredDelegate,
                     ToastUtil.show("请输入验证码");
                     return;
                 }
-                if (TextUtils.isEmpty(viewDelegate.viewHolder.et_code.getText().toString())) {
+                if (TextUtils.isEmpty(viewDelegate.viewHolder.et_pass.getText().toString())) {
                     ToastUtil.show("请设置密码");
                     return;
                 }
-                if (viewDelegate.viewHolder.et_code.getText().toString().length() < 6) {
+                if (viewDelegate.viewHolder.et_pass.getText().toString().length() < 6) {
                     ToastUtil.show("密码长度不能小于6位");
                     return;
                 }
-                if (TextUtils.isEmpty(viewDelegate.viewHolder.et_invite.getText().toString())) {
-                    ToastUtil.show("请输入邀请码");
-                    return;
-                }
-
+                addRequest(binder.signup(
+                        viewDelegate.viewHolder.et_phone.getText().toString(),
+                        viewDelegate.viewHolder.et_pass.getText().toString(),
+                        viewDelegate.viewHolder.et_code.getText().toString(),
+                        viewDelegate.viewHolder.et_invite.getText().toString(),
+                        RegisteredFragment.this
+                ));
             }
         });
         viewDelegate.viewHolder.tv_get_code.setOnClickListener(new View.OnClickListener() {
@@ -57,14 +61,29 @@ public class RegisteredFragment extends BaseDataBindFragment<RegisteredDelegate,
                     ToastUtil.show("请输入手机号");
                     return;
                 }
+                getCode();
             }
         });
     }
 
+    private void getCode() {
+        addRequest(binder.vcode(
+                viewDelegate.viewHolder.et_phone.getText().toString(),
+                this
+        ));
+    }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
+            case 0x123:
+                if (getActivity() instanceof LoginAndRegisteredActivity) {
+                    ((LoginAndRegisteredActivity) getActivity()).setCurrentView(0);
+                }
+                break;
+            case 0x124:
+                addRequest(UiHeplUtils.getCode(viewDelegate.viewHolder.tv_get_code, 60));
+                break;
         }
     }
 

@@ -8,6 +8,7 @@ import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.sixbexchange.R;
+import com.sixbexchange.entity.bean.UserLoginInfo;
 import com.sixbexchange.mvp.databinder.LoginAndRegisteredBinder;
 import com.sixbexchange.mvp.delegate.LoginAndRegisteredDelegate;
 import com.sixbexchange.mvp.fragment.LoginFragment;
@@ -34,13 +35,14 @@ public class LoginAndRegisteredActivity extends BaseDataBindActivity<LoginAndReg
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle("注册或登录"));
+        UserLoginInfo.logout();
         initTablelayout();
     }
 
     @Override
     public void onBackPressedSupport() {
         super.onBackPressedSupport();
-        if (!HomeActivity.isLogin) {
+        if (!UserLoginInfo.isLoginNoToast()) {
             AppUtils.exitApp();
         }
     }
@@ -71,6 +73,11 @@ public class LoginAndRegisteredActivity extends BaseDataBindActivity<LoginAndReg
         }
         viewDelegate.viewHolder.tl_2.setCurrentTab(0);
         viewDelegate.viewHolder.vp_root.setCurrentItem(0);
+    }
+
+    public void setCurrentView(int position) {
+        viewDelegate.viewHolder.tl_2.setCurrentTab(position);
+        viewDelegate.viewHolder.vp_root.setCurrentItem(position);
     }
 
     @Override

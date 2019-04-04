@@ -1,6 +1,7 @@
 package com.sixbexchange.mvp.delegate;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class MineDelegate extends BaseDelegate {
         public TextView tv_name;
         public TextView tv_uid;
         public TextView tv_type;
+        public ImageView iv_invite;
         public LinearLayout lin1;
         public LinearLayout lin2;
         public TextView tv_version;
@@ -46,6 +48,7 @@ public class MineDelegate extends BaseDelegate {
             this.tv_name = (TextView) rootView.findViewById(R.id.tv_name);
             this.tv_uid = (TextView) rootView.findViewById(R.id.tv_uid);
             this.tv_type = (TextView) rootView.findViewById(R.id.tv_type);
+            this.iv_invite = (ImageView) rootView.findViewById(R.id.iv_invite);
             this.lin1 = (LinearLayout) rootView.findViewById(R.id.lin1);
             this.lin2 = (LinearLayout) rootView.findViewById(R.id.lin2);
             this.tv_version = (TextView) rootView.findViewById(R.id.tv_version);

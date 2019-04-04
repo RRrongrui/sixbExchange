@@ -144,7 +144,7 @@ public abstract class BaseDataBind<T extends IDelegate> implements IDataBind<T> 
 
     public boolean isMissToken(int status) {
         //需要重新登录的 错误码
-        return status == 4444 || status == 4445;
+        return status == 4444 || status == 4445 || status == 9998;
     }
 
     public void loginAgain(FragmentActivity activity) {
@@ -283,22 +283,15 @@ public abstract class BaseDataBind<T extends IDelegate> implements IDataBind<T> 
     }
 
     public static Map<String, Object> getBaseMapWith(Map<String, Object> baseMap) {
-        String apiKey = SaveUtil.getInstance().getString("apiKey");
-        String apiSecret = SaveUtil.getInstance().getString("apiSecret");
-        if (!TextUtils.isEmpty(apiKey) && !TextUtils.isEmpty(apiSecret)) {
-            baseMap.put("apiKey", apiKey);
-            baseMap.put("apiSecret", apiSecret);
-        }
+        String auth = SaveUtil.getInstance().getString("auth");
+        baseMap.put("auth", auth);
         baseMap.put("loginTime", System.currentTimeMillis());
-        baseMap.put("token",  SaveUtil.getInstance().getString("token"));
+        baseMap.put("token", SaveUtil.getInstance().getString("token"));
         return baseMap;
     }
 
 
     public void put(String key, Object val) {
-        if (baseMap == null) {
-            getBaseMapWithUid();
-        }
         baseMap.put(key, val);
     }
 

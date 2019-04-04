@@ -5,7 +5,6 @@
         <item>注册</item>
     </string-array>
     <string-array name="sa_select_bottom_title">
-        <item>交易</item>
         <item>跟单</item>
         <item>资产</item>
         <item>我的</item>
@@ -14,5 +13,13 @@
         <item>交易</item>
         <item>订单</item>
         <item>持仓</item>
+    </string-array>
+    <string-array name="sa_select_user_oredr">
+        <item>列表</item>
+        <item>持有</item>
+    </string-array>
+    <string-array name="sa_select_recharge">
+        <item>地址充值</item>
+        <item>资金划转</item>
     </string-array>
 </resources>

@@ -55,12 +55,12 @@ public class Application extends BaseApp {
         }
         UMConfigure.setLogEnabled(BuildConfig.isLog);
         UMConfigure.init(this,
-                AppConst. pushId,
+                AppConst.pushId,
                 AppConst.umS1,
                 UMConfigure.DEVICE_TYPE_PHONE,
                 AppConst.pushSecret);
-//        PlatformConfig.setWeixin("wxffed2b6f51e0ae36",
-//                "dc8eedc035aff9a01d703e344d0aaeef");
+        //        PlatformConfig.setWeixin("wxffed2b6f51e0ae36",
+        //                "dc8eedc035aff9a01d703e344d0aaeef");
         if (UMConfigure.getInitStatus()) {
             //initUmeng();
         }
@@ -115,8 +115,8 @@ public class Application extends BaseApp {
             KLog.i("NdkUtils", getSign());
             Fragmentation.builder()
                     // 设置 栈视图 模式为 （默认）悬浮球模式   SHAKE: 摇一摇唤出  NONE：隐藏， 仅在Debug环境生效
-                    .stackViewMode(Fragmentation.BUBBLE)
-                    .debug(true) // 实际场景建议.debug(BuildConfig.DEBUG)
+                    .stackViewMode(Fragmentation.NONE)
+                    .debug(BuildConfig.isLog) // 实际场景建议.debug(BuildConfig.DEBUG)
                     /**
                      * 可以获取到{@link me.yokeyword.fragmentation.exception.AfterSaveStateTransactionWarning}
                      * 在遇到After onSaveInstanceState时，不会抛出异常，会回调到下面的ExceptionHandler
@@ -182,7 +182,7 @@ public class Application extends BaseApp {
                 )
                 // 配置网络层，默认URLConnectionNetworkExecutor，如果想用OkHttp：OkHttpNetworkExecutor。
                 .networkExecutor(new OkHttpNetworkExecutor())
-                .sslSocketFactory( null)
+                .sslSocketFactory(null)
                 .retry(1) // 全局重试次数，配置后每个请求失败都会重试x次。
                 .build();
         Logger.setDebug(false);

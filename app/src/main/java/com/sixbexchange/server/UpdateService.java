@@ -363,24 +363,6 @@ public class UpdateService extends Service {
         }
         appVersion.setLoadSuccess(true);
         EventBus.getDefault().post(appVersion);
-        //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        //            if (getPackageManager().canRequestPackageInstalls()) {
-        //                //已经同意权限在这里执行安装应用的代码
-        //                startActivity(i);
-        //            } else {
-        //                //没有允许  需要去申请权限，由于这个权限不是运行时权限，所有需要用户手
-        //
-        //                //动去开启权限，可以给用户一个弹窗 提示用户去权限列表开启权限     开启设
-        //
-        //                //置的代码  8.0新的API
-        //                ToastUtil.show(CommonUtils.getString(R.string.str_toast_install));
-        //                Intent it = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
-        //                startActivity(it);
-        //            }
-        //
-        //        } else {
-        //            startActivity(i);
-        //        }
         AndPermission.with(this)
                 .install()
                 .file(new File(path))
@@ -406,9 +388,6 @@ public class UpdateService extends Service {
                 })
                 .start();
 
-
-        //        AppUtils.installApp(UpdateService.getDownloadDir(this),
-        //                apkName);
     }
 
     private void error() {

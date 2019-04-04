@@ -99,11 +99,25 @@
                 android:layout_height="@dimen/trans_20px"
                 android:background="@color/base_mask"/>
 
+            <ImageView
+                android:id="@+id/iv_invite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/trans_20px"
+                android:background="@color/base_mask"/>
+
             <LinearLayout
                 android:id="@+id/lin1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/select_default_click"
+                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -191,7 +205,7 @@
                     android:gravity="center"
                     android:text="当前版本v.1.0.0"
                     android:textColor="@color/color_font3"
-                    android:textSize="@dimen/text_trans_28px" />
+                    android:textSize="@dimen/text_trans_28px"/>
 
                 <com.fivefivelike.mybaselibrary.view.IconFontTextview
                     android:layout_width="wrap_content"
@@ -249,6 +263,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/select_default_click"
+                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -319,13 +334,12 @@
                 android:gravity="center"
                 android:padding="@dimen/trans_25px"
                 android:text="退出登录"
-                android:visibility="gone"
                 android:textColor="@color/color_font1"
                 android:textSize="@dimen/text_trans_34px"/>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/trans_200px"
+                android:layout_height="@dimen/trans_499px"
                 android:background="@color/base_mask"/>
 
 
