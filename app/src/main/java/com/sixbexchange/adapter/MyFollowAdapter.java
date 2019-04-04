@@ -57,14 +57,14 @@ public class MyFollowAdapter extends BaseAdapter<MyFollowBean> {
         tv_sub.setText(s.getTitle());
 
         tv_end_time.setText(s.getCloseTimeStr());
-
-        tv_money.setText(new BigDecimal(s.getAllMoney())
+        BigDecimal divide = new BigDecimal(s.getAllMoney())
                 .multiply(new BigDecimal(s.getAmount()))
-                .divide(new BigDecimal(s.getAllAmount()), 4, RoundingMode.DOWN)
-                .stripTrailingZeros().toPlainString() + s.getCurrency());
+                .divide(new BigDecimal(s.getAllAmount()), 4, RoundingMode.DOWN);
+        tv_money.setText(
+                divide.stripTrailingZeros().toPlainString() + s.getCurrency());
 
         tv_rate.setText(Html.fromHtml(
-                s.getAllAmount() +
+                s.getWelfare() +
                         "<font color=\"" + CommonUtils.getStringColor(R.color.color_font3) +
                         "\"<small><small><small>%</small></small></small>"
         ));
@@ -72,7 +72,10 @@ public class MyFollowAdapter extends BaseAdapter<MyFollowBean> {
                 new BigDecimal(s.getWelfare()).floatValue() >= 0 ?
                         UserSet.getinstance().getRiseColor() : UserSet.getinstance().getDropColor()));
         tv_comein.setText(Html.fromHtml(
-                s.getWelfare() +
+                new BigDecimal(s.getWelfare())
+                        .multiply(divide)
+                        .divide(new BigDecimal("100"), 4, RoundingMode.DOWN)
+                        .stripTrailingZeros().toPlainString() +
                         "<font color=\"" + CommonUtils.getStringColor(R.color.color_font3) +
                         "\"<small><small><small>" + s.getCurrency() + "</small></small></small>"
         ));

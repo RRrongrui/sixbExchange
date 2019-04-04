@@ -13,16 +13,17 @@ public class RechargeAddressBinder extends BaseDataBind<RechargeAddressDelegate>
     public RechargeAddressBinder(RechargeAddressDelegate viewDelegate) {
         super(viewDelegate);
     }
+
     public Disposable addrinfo(
             String coin,
             int position,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        put("coin", coin);
+        put("coin", coin.toLowerCase());
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestUrl(position==1?HttpUrl.getIntance().depositAddress:HttpUrl.getIntance().addrinfo)
+                .setRequestUrl(position == 1 ? HttpUrl.getIntance().depositAddress : HttpUrl.getIntance().addrinfo)
                 .setShowDialog(true)
                 .setRequestName("充币地址")
                 .setRequestMode(HttpRequest.RequestMode.GET)
@@ -32,6 +33,7 @@ public class RechargeAddressBinder extends BaseDataBind<RechargeAddressDelegate>
                 .build()
                 .RxSendRequest();
     }
+
     public Disposable getAccountDetail(
             RequestCallback requestCallback) {
         getBaseMapWithUid();

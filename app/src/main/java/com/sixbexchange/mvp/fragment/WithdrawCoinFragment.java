@@ -194,7 +194,7 @@ public class WithdrawCoinFragment extends BaseDataBindFragment<WithdrawCoinDeleg
                 withdrawCoinBean = GsonUtil.getInstance().toObj(data, WithdrawCoinBean.class);
                 viewDelegate.viewHolder.tv_num.setHint("最小提币单位" + withdrawCoinBean.getMin() + typeStr);
                 coinAddressBeans = GsonUtil.getInstance().toList(data, "list", CoinAddressBean.class);
-                viewDelegate.viewHolder.tv_content.setText("提币手续费"+withdrawCoinBean.getFee()+typeStr);
+                viewDelegate.viewHolder.tv_content.setText("提币手续费" + withdrawCoinBean.getFee() + typeStr);
                 break;
             case 0x124:
                 List<String> list = GsonUtil.getInstance().toList(
@@ -218,6 +218,11 @@ public class WithdrawCoinFragment extends BaseDataBindFragment<WithdrawCoinDeleg
                                 public void onClick(View view, int position, Object item) {
                                     typeStr = coins.get(position);
                                     viewDelegate.viewHolder.tv_select_coins.setText(typeStr);
+                                    viewDelegate.viewHolder.tv_num.setText("");
+                                    viewDelegate.viewHolder.tv_content.setText("");
+                                    viewDelegate.viewHolder.tv_addr.setText("");
+                                    viewDelegate.viewHolder.tv_code.setText("");
+                                    selectAddr = null;
                                     addRequest(binder.extract(typeStr, WithdrawCoinFragment.this));
                                 }
                             });

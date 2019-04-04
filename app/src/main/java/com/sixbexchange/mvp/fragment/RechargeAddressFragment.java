@@ -72,7 +72,7 @@ public class RechargeAddressFragment extends BaseDataBindFragment<RechargeAddres
     }
 
     String typeStr = "";
-    int exchPosition =0;
+    int exchPosition = 0;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -91,7 +91,7 @@ public class RechargeAddressFragment extends BaseDataBindFragment<RechargeAddres
             typeStr = this.getArguments().getString("typeStr", "");
             exchPosition = this.getArguments().getInt("exchPosition");
         }
-        addRequest(binder.addrinfo(typeStr,exchPosition, this));
+        addRequest(binder.addrinfo(typeStr, exchPosition, this));
         addRequest(binder.getAccountDetail(this));
         viewDelegate.viewHolder.tv_select_coins.setText(typeStr);
     }
@@ -172,8 +172,12 @@ public class RechargeAddressFragment extends BaseDataBindFragment<RechargeAddres
                                 @Override
                                 public void onClick(View view, int position, Object item) {
                                     typeStr = coins.get(position);
+                                    viewDelegate.viewHolder.iv_address.setImageDrawable(null);
+                                    viewDelegate.viewHolder.tv_content.setText("");
+                                    viewDelegate.viewHolder.tv_address.setText("");
+                                    viewDelegate.viewHolder.tv_memo.setText("");
                                     viewDelegate.viewHolder.tv_select_coins.setText(typeStr);
-                                    addRequest(binder.addrinfo(typeStr,exchPosition, RechargeAddressFragment.this));
+                                    addRequest(binder.addrinfo(typeStr, exchPosition, RechargeAddressFragment.this));
                                 }
                             });
                         }
