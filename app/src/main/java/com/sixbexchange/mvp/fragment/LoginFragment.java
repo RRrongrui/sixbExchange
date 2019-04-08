@@ -7,7 +7,6 @@ import android.view.View;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
-import com.sixbexchange.BuildConfig;
 import com.sixbexchange.entity.bean.UserLoginInfo;
 import com.sixbexchange.mvp.activity.FindPassWordActivity;
 import com.sixbexchange.mvp.activity.HomeActivity;
@@ -55,10 +54,10 @@ public class LoginFragment extends BaseDataBindFragment<LoginDelegate, LoginBind
                 startActivity(new Intent(viewDelegate.getActivity(), FindPassWordActivity.class));
             }
         });
-        if (BuildConfig.isLog) {
-            viewDelegate.viewHolder.et_phone.setText("18936133001");
-            viewDelegate.viewHolder.et_pass.setText("1995629zrz");
-        }
+//        if (BuildConfig.isLog) {
+//            viewDelegate.viewHolder.et_phone.setText("18936133001");
+//            viewDelegate.viewHolder.et_pass.setText("1995629zrz");
+//        }
     }
 
 

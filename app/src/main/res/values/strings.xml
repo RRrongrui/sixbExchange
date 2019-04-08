@@ -5,6 +5,7 @@
         <item>注册</item>
     </string-array>
     <string-array name="sa_select_bottom_title">
+        <item>交易</item>
         <item>跟单</item>
         <item>资产</item>
         <item>我的</item>

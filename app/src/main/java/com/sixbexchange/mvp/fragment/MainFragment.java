@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.UUIDS;
 import com.fivefivelike.mybaselibrary.view.BottomBar;
 import com.fivefivelike.mybaselibrary.view.BottomBarTab;
@@ -58,25 +59,27 @@ public class MainFragment extends BaseDataBindFragment<MainDelegate, MainBinder>
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        mFragments = new SupportFragment[3];
+        mFragments = new SupportFragment[4];
         SupportFragment firstFragment = findChildFragment(UserOrderFragment.class);
         if (firstFragment == null) {
-            //mFragments[FIRST] = transactionFragment = new TransactionFragment();
-            mFragments[FIRST] = userOrderFragment = new UserOrderFragment();
-            mFragments[SECOND] = assetsFragment = new AssetsFragment();
-            mFragments[THIRD] = mineFragment = new MineFragment();
+            mFragments[FIRST] = transactionFragment = new TransactionFragment();
+            mFragments[SECOND] = userOrderFragment = new UserOrderFragment();
+            mFragments[THIRD] = assetsFragment = new AssetsFragment();
+            mFragments[FOUR] = mineFragment = new MineFragment();
 
-            loadMultipleRootFragment(R.id.fl_tab_container, FIRST,
+            loadMultipleRootFragment(R.id.fl_tab_container, SECOND,
                     mFragments[FIRST],
                     mFragments[SECOND],
-                    mFragments[THIRD]);
+                    mFragments[THIRD],
+                    mFragments[FOUR]);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
             // 这里我们需要拿到mFragments的引用
-            mFragments[FIRST] = firstFragment;
-            mFragments[SECOND] = findChildFragment(AssetsFragment.class);
-            mFragments[THIRD] = findChildFragment(MineFragment.class);
+            mFragments[FIRST] = findChildFragment(TransactionFragment.class);
+            mFragments[SECOND] = firstFragment;
+            mFragments[THIRD] = findChildFragment(AssetsFragment.class);
+            mFragments[FOUR] = findChildFragment(MineFragment.class);
         }
     }
 
@@ -95,14 +98,17 @@ public class MainFragment extends BaseDataBindFragment<MainDelegate, MainBinder>
         viewDelegate.viewHolder.bottomBar
                 .addItem(new BottomBarTab(_mActivity, R.drawable.icon1_active, R.drawable.icon1, mTitles[0]))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.icon2_active, R.drawable.icon2, mTitles[1]))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.icon3_active, R.drawable.icon3, mTitles[2]));
-        // .addItem(new BottomBarTab(_mActivity, R.drawable.icon4_active, R.drawable.icon4, mTitles[3]));
-
+                .addItem(new BottomBarTab(_mActivity, R.drawable.icon3_active, R.drawable.icon3, mTitles[2]))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.icon4_active, R.drawable.icon4, mTitles[3]));
+        viewDelegate.viewHolder.bottomBar.setCurrentItem(SECOND);
         viewDelegate.viewHolder.bottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
-                if (mFragments != null) {
+                if (mFragments != null && position != FIRST) {
                     showHideFragment(mFragments[position], mFragments[prePosition]);
+                } else {
+                    viewDelegate.viewHolder.bottomBar.setCurrentItem(prePosition);
+                    ToastUtil.show("即将开放");
                 }
             }
 
@@ -115,7 +121,7 @@ public class MainFragment extends BaseDataBindFragment<MainDelegate, MainBinder>
             public void onTabReselected(int position) {
                 // 在FirstPagerFragment,FirstHomeFragment中接收, 因为是嵌套的Fragment
                 // 主要为了交互: 重选tab 如果列表不在顶部则移动到顶部,如果已经在顶部,则刷新
-                if (position == SECOND && assetsFragment != null) {
+                if (position == THIRD && assetsFragment != null) {
                     assetsFragment.onRefresh();
                 }
             }

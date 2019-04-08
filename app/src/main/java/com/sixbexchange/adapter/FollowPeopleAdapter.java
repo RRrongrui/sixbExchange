@@ -115,11 +115,18 @@ public class FollowPeopleAdapter extends BaseAdapter<FollowPeopleBean> {
         } else if (s.getStatus() == 1) {
             tv_commit.setEnabled(false);
             tv_commit.setText("即将开始");
-            tv_commit.setSolidColor(CommonUtils.getColor(R.color.base_mask));
+            tv_commit.setSolidColor(CommonUtils.getColor(R.color.black_transparent_100));
+            long time = System.currentTimeMillis();
+            int hour = (int) (s.getStartTime() - time) / 1000 / 60 / 60;
+            int minute = (int) ((s.getStartTime() - time) - (hour * 60 * 60 * 1000)) / 1000 / 60;
 
+            tv_progress.setText(
+                    hour + "小时" +
+                            minute + "分后开始"
+            );
 
             tv_rate_title.setText("实盘收益率");
-            tv_divided_into_title.setText("投资周期");
+            tv_divided_into_title.setText("用户分成");
             tv_money_title.setText("起投金额");
             tv_rate.setText(Html.fromHtml(
                     s.getBicoinRate() +
@@ -127,9 +134,9 @@ public class FollowPeopleAdapter extends BaseAdapter<FollowPeopleBean> {
                             "\"<small><small><small>%</small></small></small>"
             ));
             tv_divided_into.setText(Html.fromHtml(
-                    s.getCloseDay() +
+                    s.getBenitfitRate() +
                             "<font color=\"" + CommonUtils.getStringColor(R.color.color_font3) +
-                            "\"<small><small><small>天</small></small></small>"
+                            "\"<small><small><small>%</small></small></small>"
             ));
             tv_money.setText(Html.fromHtml(
                     (new BigDecimal(s.getAllMoney()).divide(
@@ -142,7 +149,7 @@ public class FollowPeopleAdapter extends BaseAdapter<FollowPeopleBean> {
         } else if (s.getStatus() == 3) {
             tv_commit.setEnabled(false);
             tv_commit.setText("已结束");
-            tv_commit.setSolidColor(CommonUtils.getColor(R.color.base_mask));
+            tv_commit.setSolidColor(CommonUtils.getColor(R.color.black_transparent_100));
 
             tv_rate_title.setText("实盘收益率");
             tv_divided_into_title.setText("用户分成");
@@ -177,10 +184,7 @@ public class FollowPeopleAdapter extends BaseAdapter<FollowPeopleBean> {
                             "\"<small><small><small>%</small></small></small>"
             ));
             tv_divided_into.setText(Html.fromHtml(
-                    (new BigDecimal(s.getWelfare())
-                            .multiply(new BigDecimal("100"))
-                            .divide(new BigDecimal(s.getAllMoney()), 4, RoundingMode.DOWN)
-                            .stripTrailingZeros().toPlainString()) +
+                    s.getBenitfitRate() +
                             "<font color=\"" + CommonUtils.getStringColor(R.color.color_font3) +
                             "\"<small><small><small>%</small></small></small>"
             ));

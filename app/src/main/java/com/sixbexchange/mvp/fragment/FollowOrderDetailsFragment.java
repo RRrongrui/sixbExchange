@@ -134,7 +134,7 @@ public class FollowOrderDetailsFragment extends BaseDataBindFragment<FollowOrder
         viewDelegate.viewHolder.tv_content_interest.setText(s.getShareMemo());
         viewDelegate.viewHolder.tv_content_introduction.setText(s.getMemo());
 
-        viewDelegate.viewHolder.tv_info1.setText(s.getCloseTimeStr());
+        viewDelegate.viewHolder.tv_info1.setText(s.getEndTimeStr());
         viewDelegate.viewHolder.tv_info2.setText(s.getDealType());
         viewDelegate.viewHolder.tv_info3.setText(s.getLeverage());
         viewDelegate.viewHolder.tv_info4.setText(s.getStopRate() + "%");
