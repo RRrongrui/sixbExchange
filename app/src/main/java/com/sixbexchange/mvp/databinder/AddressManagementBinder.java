@@ -13,11 +13,12 @@ public class AddressManagementBinder extends BaseDataBind<AddressManagementDeleg
     public AddressManagementBinder(AddressManagementDelegate viewDelegate) {
         super(viewDelegate);
     }
+
     public Disposable extractAddr(
             String coin,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        put("coin",coin);
+        put("coin", coin);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setDialog(viewDelegate.getNetConnectDialog())
@@ -31,11 +32,12 @@ public class AddressManagementBinder extends BaseDataBind<AddressManagementDeleg
                 .build()
                 .RxSendRequest();
     }
+
     public Disposable delExtractAddr(
             String id,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        put("id",id);
+        put("id", id);
         return new HttpRequest.Builder()
                 .setRequestCode(0x125)
                 .setDialog(viewDelegate.getNetConnectDialog())
@@ -49,6 +51,7 @@ public class AddressManagementBinder extends BaseDataBind<AddressManagementDeleg
                 .build()
                 .RxSendRequest();
     }
+
     public Disposable getAccountDetail(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
@@ -65,17 +68,20 @@ public class AddressManagementBinder extends BaseDataBind<AddressManagementDeleg
                 .build()
                 .RxSendRequest();
     }
+
     public Disposable addExtractAddr(
             String addr,
             String coin,
             String remark,
+            String memo,
             String vCode,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        put("addr",addr);
-        put("coin",coin);
-        put("remark",remark);
-        put("vCode",vCode);
+        put("addr", addr);
+        put("coin", coin);
+        put("remark", remark);
+        put("vCode", vCode);
+        put("memo", memo);
         return new HttpRequest.Builder()
                 .setRequestCode(0x126)
                 .setDialog(viewDelegate.getNetConnectDialog())
@@ -89,6 +95,7 @@ public class AddressManagementBinder extends BaseDataBind<AddressManagementDeleg
                 .build()
                 .RxSendRequest();
     }
+
     public Disposable vcode(
             String mobile,
             RequestCallback requestCallback) {

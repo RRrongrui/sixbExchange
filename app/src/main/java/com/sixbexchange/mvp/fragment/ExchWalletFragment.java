@@ -7,11 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.alibaba.fastjson.TypeReference;
+import com.blankj.utilcode.util.CacheUtils;
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.sixbexchange.R;
 import com.sixbexchange.adapter.WalletCoinAdapter;
+import com.sixbexchange.base.CacheName;
 import com.sixbexchange.entity.bean.WalletCoinBean;
 import com.sixbexchange.mvp.databinder.BaseFragmentPullBinder;
 import com.sixbexchange.mvp.delegate.BaseFragentPullDelegate;
@@ -50,22 +52,26 @@ public class ExchWalletFragment extends BasePullFragment<BaseFragentPullDelegate
 
     public static ExchWalletFragment newInstance(
             String typeStr,
+            String exchName,
             int position) {
         ExchWalletFragment newFragment = new ExchWalletFragment();
         Bundle bundle = new Bundle();
         bundle.putString("typeStr", typeStr);
+        bundle.putString("exchName", exchName);
         bundle.putInt("position", position);
         newFragment.setArguments(bundle);
         return newFragment;
     }
 
     String typeStr = "";
+    String exchName = "";
     int position = 0;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("typeStr", typeStr);
+        outState.putString("exchName", exchName);
         outState.putInt("position", position);
     }
 
@@ -77,9 +83,11 @@ public class ExchWalletFragment extends BasePullFragment<BaseFragentPullDelegate
         super.onLazyInitView(savedInstanceState);
         if (savedInstanceState != null) {
             typeStr = savedInstanceState.getString("typeStr", "");
+            exchName = savedInstanceState.getString("exchName", "");
             position = savedInstanceState.getInt("position");
         } else {
             typeStr = this.getArguments().getString("typeStr", "");
+            exchName = this.getArguments().getString("exchName", "");
             position = this.getArguments().getInt("position");
         }
         initList(new ArrayList<WalletCoinBean>());
@@ -95,13 +103,13 @@ public class ExchWalletFragment extends BasePullFragment<BaseFragentPullDelegate
                     if (getParentFragment().getParentFragment() instanceof MainFragment) {
                         if (view.getId() == R.id.tv_withdraw) {
                             ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(
-                                    WithdrawCoinFragment.newInstance(adapter.getDatas().get(p).getCoin(),position));
+                                    WithdrawCoinFragment.newInstance(adapter.getDatas().get(p).getCoin(), position));
                         } else if (view.getId() == R.id.tv_transfer) {
                             ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(
-                                    RechargeFragment.newInstance(adapter.getDatas().get(p).getCoin(), 1,position));
+                                    RechargeFragment.newInstance(adapter.getDatas().get(p).getCoin(), exchName, 1, position));
                         } else if (view.getId() == R.id.tv_recharge) {
                             ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(
-                                    RechargeFragment.newInstance(adapter.getDatas().get(p).getCoin(), 0,position));
+                                    RechargeFragment.newInstance(adapter.getDatas().get(p).getCoin(), exchName, 0, position));
                         }
                     }
                 }
@@ -146,9 +154,11 @@ public class ExchWalletFragment extends BasePullFragment<BaseFragentPullDelegate
                     walletCoinBeans.add(walletCoinBean);
                 }
                 initList(walletCoinBeans);
+                CacheUtils.getInstance().put(CacheName.ExchWalletCache, data);
                 break;
         }
     }
+
 
     @Override
     protected void refreshData() {

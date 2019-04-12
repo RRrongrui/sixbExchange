@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.fastjson.TypeReference;
+import com.blankj.utilcode.util.StringUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
@@ -61,7 +62,7 @@ public class AddressManagementFragment extends BaseDataBindFragment<AddressManag
     }
 
     String typeStr = "";
-    int exchPosition =0;
+    int exchPosition = 0;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -80,8 +81,10 @@ public class AddressManagementFragment extends BaseDataBindFragment<AddressManag
             typeStr = this.getArguments().getString("typeStr", "");
             exchPosition = this.getArguments().getInt("exchPosition");
         }
+        viewDelegate.viewHolder.lin_memo.setVisibility((StringUtils.equalsIgnoreCase("eos", typeStr) ||
+                StringUtils.equalsIgnoreCase("xrp", typeStr)) ? View.VISIBLE : View.GONE);
         viewDelegate.viewHolder.tv_select_coins.setText(typeStr);
-        viewDelegate.viewHolder.tv_already.setText("已添加的"+typeStr+"地址");
+        viewDelegate.viewHolder.tv_already.setText("已添加的" + typeStr + "地址");
         addRequest(binder.getAccountDetail(this));
         addRequest(binder.extractAddr(typeStr, this));
         initList(new ArrayList<CoinAddressBean>());
@@ -100,11 +103,19 @@ public class AddressManagementFragment extends BaseDataBindFragment<AddressManag
                     ToastUtil.show("请输入验证码");
                     return;
                 }
+                if ((StringUtils.equalsIgnoreCase("eos", typeStr) ||
+                        StringUtils.equalsIgnoreCase("xrp", typeStr)) &&
+                        TextUtils.isEmpty(viewDelegate.viewHolder.tv_memo.getText().toString())) {
+                    ToastUtil.show("请输入memo");
+                    return;
+                }
                 addRequest(binder.addExtractAddr(
                         viewDelegate.viewHolder.tv_addr.getText().toString(),
                         typeStr,
                         viewDelegate.viewHolder.tv_num.getText().toString(),
-                        viewDelegate.viewHolder.tv_code.getText().toString(), AddressManagementFragment.this
+                        viewDelegate.viewHolder.tv_memo.getText().toString(),
+                        viewDelegate.viewHolder.tv_code.getText().toString(),
+                        AddressManagementFragment.this
                 ));
             }
         });
@@ -166,7 +177,9 @@ public class AddressManagementFragment extends BaseDataBindFragment<AddressManag
                                 public void onClick(View view, int position, Object item) {
                                     typeStr = coins.get(position);
                                     viewDelegate.viewHolder.tv_select_coins.setText(typeStr);
-                                    viewDelegate.viewHolder.tv_already.setText("已添加的"+typeStr+"地址");
+                                    viewDelegate.viewHolder.lin_memo.setVisibility((StringUtils.equalsIgnoreCase("eos", typeStr) ||
+                                            StringUtils.equalsIgnoreCase("xrp", typeStr)) ? View.VISIBLE : View.GONE);
+                                    viewDelegate.viewHolder.tv_already.setText("已添加的" + typeStr + "地址");
                                     addRequest(binder.extractAddr(typeStr, AddressManagementFragment.this));
                                 }
                             });

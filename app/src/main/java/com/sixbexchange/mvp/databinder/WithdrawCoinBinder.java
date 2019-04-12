@@ -89,6 +89,7 @@ public class WithdrawCoinBinder extends BaseDataBind<WithdrawCoinDelegate> {
 
     public Disposable sendExtract(
             String addr,
+            String memo,
             String coin,
             String amount,
             String fee,
@@ -96,6 +97,7 @@ public class WithdrawCoinBinder extends BaseDataBind<WithdrawCoinDelegate> {
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         put("addr", addr);
+        put("memo", memo);
         put("coin", coin);
         put("amount", amount);
         put("fee", fee);

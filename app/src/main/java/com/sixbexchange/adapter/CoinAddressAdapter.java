@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.fivefivelike.mybaselibrary.base.BaseAdapter;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.sixbexchange.R;
@@ -46,7 +47,10 @@ public class CoinAddressAdapter extends BaseAdapter<CoinAddressBean> {
                 defaultClickLinsener.onClick(v, position, null);
             }
         });
-        tv_address.setText(s.getAddr());
+        tv_address.setText(s.getAddr()
+                + (((StringUtils.equalsIgnoreCase(s.getCoin(), "eos")) ||
+                (StringUtils.equalsIgnoreCase(s.getCoin(), "xrp"))) ? " : " + s.getMemo() : "")
+        );
         tv_mark.setText("地址备注：" + s.getRemark());
 
     }

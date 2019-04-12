@@ -18,6 +18,15 @@ public class CoinAddressBean {
     private String coin;
     private String addr;
     private String remark;
+    private String memo;
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
 
     public int getId() {
         return id;

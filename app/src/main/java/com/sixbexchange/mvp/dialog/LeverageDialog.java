@@ -61,6 +61,14 @@ public class LeverageDialog extends BaseDialog implements OnWheelChangedListener
         });
     }
 
+
+    StringWheelAdapter stringWheelAdapter;
+    int size=6;
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     public void showDilaog(String coin, List<String> showPosition) {
         leverage = coin;
         position = 0;
@@ -69,11 +77,15 @@ public class LeverageDialog extends BaseDialog implements OnWheelChangedListener
                 position = i;
             }
         }
-        month.setAdapter(new StringWheelAdapter(showPosition));
+        stringWheelAdapter = new StringWheelAdapter(showPosition);
+        stringWheelAdapter.setSize(size);
+        month.setAdapter(stringWheelAdapter);
         month.setOnWheelChangedListener(this);
         month.setCurrentIndex(position);
         show();
     }
+
+
 
     int position = 0;
     String leverage;

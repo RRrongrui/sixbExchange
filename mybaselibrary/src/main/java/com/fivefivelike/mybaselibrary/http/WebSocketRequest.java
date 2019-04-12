@@ -2,15 +2,17 @@ package com.fivefivelike.mybaselibrary.http;
 
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.TypeReference;
 import com.blankj.utilcode.util.ObjectUtils;
-import com.fivefivelike.mybaselibrary.entity.WSBean;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.SaveUtil;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
 import com.yanzhenjie.nohttp.rest.CacheMode;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -48,32 +50,51 @@ public class WebSocketRequest {
     int singTime = 5000;
     long returnPongTime = 0;
 
+
+    Map<String, String> pingMap;
+
     private void sendHandler() {
         if (disposable != null) {
             disposable.dispose();
         }
-        returnPongTime=System.currentTimeMillis();
-        disposable = Observable.interval(singTime,singTime, TimeUnit.MILLISECONDS)
+        returnPongTime = System.currentTimeMillis();
+        WebSocket webSocket = okWebsocket.getWebSocket();
+        pingMap = null;
+        if (webSocket != null) {
+            pingMap = new HashMap<>();
+            pingMap.put("uri", SaveUtil.getInstance().getString("auth"));
+            webSocket.send(GsonUtil.getInstance().toJson(pingMap));
+            KLog.i(REQUEST_TAG, "send  auth");
+        }
+        disposable = Observable.interval(singTime, singTime, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .onTerminateDetach()
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-                        if (returnPongTime == 0 || returnPongTime + singTime > System.currentTimeMillis()) {
-                            if (okWebsocket != null) {
-                                WebSocket webSocket = okWebsocket.getWebSocket();
-                                if (webSocket != null) {
-                                    webSocket.send("ping");
-                                } else {
-                                    startSocket();
+
+                        if (okWebsocket != null) {
+                            WebSocket webSocket = okWebsocket.getWebSocket();
+                            if (webSocket != null) {
+                                if (pingMap == null) {
+                                    pingMap = new HashMap<>();
+                                    pingMap.put("uri", SaveUtil.getInstance().getString("auth"));
+                                    webSocket.send(GsonUtil.getInstance().toJson(pingMap));
+                                    KLog.i(REQUEST_TAG, "send  auth");
+                                    if (!TextUtils.isEmpty(sendData)) {
+                                        sendData(sendData);
+                                    }
                                 }
+                                webSocket.send("{\"uri\":\"ping\"}");
+                                KLog.i(REQUEST_TAG, "send  ping");
                             } else {
                                 startSocket();
                             }
                         } else {
                             startSocket();
                         }
+
                     }
                 });
     }
@@ -111,45 +132,15 @@ public class WebSocketRequest {
         this.uid = uid;
     }
 
-    public void sendData(List<String> keys) {
-        if (keys != null) {
-            StringBuffer stringBuffer = new StringBuffer("");
-            for (int i = 0; i < keys.size(); i++) {
-                stringBuffer.append(",").append(keys.get(i));
-            }
-            //unregister(oldSend);
-            if (disposable != null) {
-                disposable.dispose();
-            }
-            oldSend = stringBuffer.toString();
-            register(oldSend);
-        }
-    }
+    String sendData;
 
-    public void sendSubData(String type, String set) {
-        //cmd sub cannal
-        //type key
-        //set json订阅内容
-        WSBean wsBean = new WSBean();
-        wsBean.setCmd("sub");
-        wsBean.setType(type);
-        wsBean.setSet(set);
+    public void sendData(String data) {
         if (okWebsocket != null) {
+            sendData = data;
             WebSocket webSocket = okWebsocket.getWebSocket();
             if (webSocket != null) {
-                webSocket.send(GsonUtil.getInstance().toJson(wsBean));
-            }
-        }
-    }
-
-    public void sendCannalData(String type) {
-        WSBean wsBean = new WSBean();
-        wsBean.setCmd("cannal");
-        wsBean.setType(type);
-        if (okWebsocket != null && isOpen) {
-            WebSocket webSocket = okWebsocket.getWebSocket();
-            if (webSocket != null) {
-                webSocket.send(GsonUtil.getInstance().toJson(wsBean));
+                KLog.i(REQUEST_TAG, "sendData  " + data);
+                webSocket.send(data);
             }
         }
     }
@@ -198,6 +189,13 @@ public class WebSocketRequest {
         }
     }
 
+    public WebSocketCallBack getCallBack(String clss) {
+        if (webSocketCallBacks != null && webSocketCallBacks.containsKey(clss)) {
+            return webSocketCallBacks.get(clss);
+        }
+        return null;
+    }
+
     public void remoceCallBack(String clss) {
         if (webSocketCallBacks != null && webSocketCallBacks.containsKey(clss)) {
             if (webSocketCallBacks != null) {
@@ -226,8 +224,11 @@ public class WebSocketRequest {
             public void onMessage(WebSocket webSocket, String text) {
                 super.onMessage(webSocket, text);
                 isOpen = true;
-                //KLog.i(REQUEST_TAG, "success  " + message);
-                if (ObjectUtils.equals("pong", text)) {
+                //KLog.i(REQUEST_TAG, "success  " + text);
+                Map<String, String> data = GsonUtil.getInstance().toMap(text,
+                        new TypeReference<Map<String, String>>() {
+                        });
+                if (ObjectUtils.equals("pong", data.get("uri"))) {
                     returnPongTime = System.currentTimeMillis();
                 } else {
                     serviceSuccess(text);
@@ -243,8 +244,8 @@ public class WebSocketRequest {
 
             @Override
             void loadHistory() {
-                if (!TextUtils.isEmpty(hisJson)) {
-                    register(hisJson);
+                if (!TextUtils.isEmpty(sendData)) {
+                    sendData(sendData);
                 }
             }
         };

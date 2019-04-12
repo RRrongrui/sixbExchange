@@ -9,13 +9,15 @@ import com.sixbexchange.BuildConfig;
 public class AppConst {
 
     //http://47.98.56.206:1913/symbol/info?name=testCoin.
-    public static final String app2BaseUrl = BuildConfig.app2BaseUrl;// "https://tblz.bicoin.com.cn";
     public static final boolean isSSL = BuildConfig.isSSL;
 
-    //    public static final String app2BaseUrl = "https://ex.bicoin.info";
-    //    public static final boolean isSSL = true;
-    //public static final String app2BaseUrl = "https://www.6b.top";
-    //public static final String app2BaseUrl = "http://test.6b.top";
+    public static final String app2BaseUrl = BuildConfig.app2BaseUrl;// "https://tblz.bicoin.com.cn";
+    public static final boolean isTest = false;
+
+//    public static final String app2BaseUrl = "http://test.6b.top";
+//    public static final boolean isTest = true;
+
+
     //public static final boolean isSSL = false;
     //    public static final String app2BaseUrl = "http://ex.bicoin.info";
     //    public static final boolean isSSL = false;
@@ -24,18 +26,9 @@ public class AppConst {
     //           public static final String wsAddress = "ws:" + "//192.168.0.22:1903/ws/";// ;
     //    public static final String wsAddressRegisterkeys = "http://192.168.0.22:1903/ws/resubscript";// ;
 
-    public static final String wsAddress = "wss://ws.bicoin.info/ws/";//;
-    //public static final String wsAddress = "ws://ws.blz.bicoin.com.cn/ws/";//;
-
-    //public static final String wsAddress2 = "ws://120.27.233.114:1911/orderws/order?apiKey=";//;
-    public static final String wsAddress2 = "wss://ex.bicoin.info/deal/orderws/order?apiKey=";//;
-
-    public static final String wsAddressRegisterkeys = "http://ws.bicoin.info/ws/resubscript";// ;
-    //public static final String wsAddressRegisterkeys = "http://ws.blz.bicoin.com.cn/ws/resubscript";// ;
+    public static final String wsAddress = "wss://1token.trade/api/v1/ws/tick";//;
 
 
-    //public static final String wsAddress = BuildConfig.wsAddress;
-    //public static final String wsAddressRegisterkeys = "http://ws.blz.bicoin.com.cn/ws/resubscript";// ;
     public static final String pushId = BuildConfig.pushId;// "5afcd70bf43e483b6900038c";
     public static final String pushSecret = BuildConfig.pushSecret;//"5a7d1aef606a29e7fd89a2db8511a875";
     public static final String xiaoMiPushId = BuildConfig.XiaoMiPushId;// "5afcd70bf43e483b6900038c";

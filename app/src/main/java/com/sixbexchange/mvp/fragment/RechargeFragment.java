@@ -37,12 +37,14 @@ public class RechargeFragment extends BaseDataBindFragment<RechargeDelegate, Rec
 
     public static RechargeFragment newInstance(
             String typeStr,
+            String exchName,
             int position,
             int exchPosition
     ) {
         RechargeFragment newFragment = new RechargeFragment();
         Bundle bundle = new Bundle();
         bundle.putString("typeStr", typeStr);
+        bundle.putString("exchName", exchName);
         bundle.putInt("position", position);
         bundle.putInt("exchPosition", exchPosition);
         newFragment.setArguments(bundle);
@@ -50,6 +52,7 @@ public class RechargeFragment extends BaseDataBindFragment<RechargeDelegate, Rec
     }
 
     String typeStr = "";
+    String exchName = "";
     int position = 0;
     int exchPosition = 0;
 
@@ -57,6 +60,7 @@ public class RechargeFragment extends BaseDataBindFragment<RechargeDelegate, Rec
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("typeStr", typeStr);
+        outState.putString("exchName", exchName);
         outState.putInt("position", position);
         outState.putInt("exchPosition", exchPosition);
     }
@@ -67,10 +71,12 @@ public class RechargeFragment extends BaseDataBindFragment<RechargeDelegate, Rec
         super.onLazyInitView(savedInstanceState);
         if (savedInstanceState != null) {
             typeStr = savedInstanceState.getString("typeStr", "");
+            exchName = savedInstanceState.getString("exchName", "");
             position = savedInstanceState.getInt("position");
             exchPosition = savedInstanceState.getInt("exchPosition");
         } else {
             typeStr = this.getArguments().getString("typeStr", "");
+            exchName = this.getArguments().getString("exchName", "");
             position = this.getArguments().getInt("position");
             exchPosition = this.getArguments().getInt("exchPosition");
         }
@@ -84,7 +90,7 @@ public class RechargeFragment extends BaseDataBindFragment<RechargeDelegate, Rec
     private void initTablelayout() {
         fragments = new ArrayList<>();
         fragments.add(RechargeAddressFragment.newInstance(typeStr, exchPosition));
-        fragments.add(new TransferFundsFragment());
+        fragments.add(TransferFundsFragment.newInstance(typeStr,exchName, exchPosition));
         if (innerPagerAdapter == null) {
             String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_recharge);
             mTabEntities = new ArrayList<>();

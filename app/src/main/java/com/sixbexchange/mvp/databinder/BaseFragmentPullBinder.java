@@ -52,6 +52,7 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .build()
                 .RxSendRequest();
     }
+
     public Disposable MyFollow(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
@@ -68,6 +69,7 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .build()
                 .RxSendRequest();
     }
+
     public Disposable getAccountDetail(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
@@ -77,6 +79,67 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .setRequestUrl(HttpUrl.getIntance().getAccountDetail)
                 .setShowDialog(true)
                 .setRequestName("钱包资金明细")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    public Disposable accountgetAccount(
+            String exchange,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        put("exchange", exchange);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestUrl(HttpUrl.getIntance().accountgetAccount)
+                .setShowDialog(false)
+                .setRequestName("获取持仓")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    public Disposable accountgetOrders(
+            String exchange,
+            String state,
+            String contract,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        put("exchange", exchange);
+        put("state", state);
+        put("contract", contract);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestUrl(HttpUrl.getIntance().accountgetOrders)
+                .setShowDialog(false)
+                .setRequestName("获取持仓")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    public Disposable allCoins(
+            String exchange,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        put("exchange", exchange);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestUrl(HttpUrl.getIntance().allCoins)
+                .setShowDialog(false)
+                .setRequestName("获取持仓")
                 .setRequestMode(HttpRequest.RequestMode.GET)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)

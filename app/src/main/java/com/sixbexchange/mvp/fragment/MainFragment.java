@@ -4,12 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
+import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
-import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.UUIDS;
 import com.fivefivelike.mybaselibrary.view.BottomBar;
 import com.fivefivelike.mybaselibrary.view.BottomBarTab;
 import com.sixbexchange.R;
+import com.sixbexchange.base.AppConst;
 import com.sixbexchange.mvp.databinder.MainBinder;
 import com.sixbexchange.mvp.delegate.MainDelegate;
 
@@ -53,6 +54,9 @@ public class MainFragment extends BaseDataBindFragment<MainDelegate, MainBinder>
     protected void bindEvenListener() {
         super.bindEvenListener();
         uid = UUIDS.getUUID() + System.currentTimeMillis();
+        WebSocketRequest.getInstance().intiWebSocket(AppConst.wsAddress,
+                this.getClass().getName(),
+                null);
         initView();
     }
 
@@ -104,11 +108,8 @@ public class MainFragment extends BaseDataBindFragment<MainDelegate, MainBinder>
         viewDelegate.viewHolder.bottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
-                if (mFragments != null && position != FIRST) {
+                if (mFragments != null) {
                     showHideFragment(mFragments[position], mFragments[prePosition]);
-                } else {
-                    viewDelegate.viewHolder.bottomBar.setCurrentItem(prePosition);
-                    ToastUtil.show("即将开放");
                 }
             }
 

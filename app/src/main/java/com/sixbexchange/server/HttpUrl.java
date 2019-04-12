@@ -36,7 +36,7 @@ public class HttpUrl {
     /**
      * 行情
      */
-    String dealUrl = "/api";
+    String dealUrl = AppConst.isTest?"":"/api";
 
     /**
      * 登录
@@ -122,4 +122,36 @@ public class HttpUrl {
      * 版本更新
      */
     public String getlatestversion = AppConst.app2BaseUrl + dealUrl + "/app/open/appversion/getlatestversion";
+    /**
+     * 交易所币种列表
+     */
+    public String allCoins = AppConst.app2BaseUrl + dealUrl + "/app/open/allCoins";
+    /**
+     * 资金划转
+     */
+    public String accounttrans = AppConst.app2BaseUrl + dealUrl + "/app/account/trans";
+    /**
+     * 获取持仓
+     */
+    public String accountgetAccount = AppConst.app2BaseUrl + dealUrl + "/app/account/getAccount";
+    /**
+     * 用户订单
+     */
+    public String accountgetOrders = AppConst.app2BaseUrl + dealUrl + "/app/account/getOrders";
+    /**
+     * 交易信息
+     */
+    public String tradedetail = AppConst.app2BaseUrl + dealUrl + "/app/trade/detail";
+    /**
+     * 交易所列表
+     */
+    public String exchangeList = AppConst.app2BaseUrl + dealUrl + "/app/trade/exchangeList";
+    /**
+     * 交易所交易对
+     */
+    public String tradelist = AppConst.app2BaseUrl + dealUrl + "/app/trade/list";
+    /**
+     * 获取开多可用
+     */
+    public String accountopen = AppConst.app2BaseUrl + dealUrl + "/app/account/open";
 }

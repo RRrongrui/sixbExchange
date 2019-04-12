@@ -112,7 +112,9 @@ public class AssetsFragment extends BaseDataBindFragment<AssetsDelegate, AssetsB
             mTitles.clear();
             for (int i = 0; i < data.size(); i++) {
                 mTitles.add(data.get(i).getExchangeCn());
-                fragments.add(ExchWalletFragment.newInstance(data.get(i).getExchange(),
+                fragments.add(ExchWalletFragment.newInstance(
+                        data.get(i).getExchange(),
+                        data.get(i).getExchangeCn(),
                         i));
             }
             viewDelegate.viewHolder.vp_sliding.setOffscreenPageLimit(1);

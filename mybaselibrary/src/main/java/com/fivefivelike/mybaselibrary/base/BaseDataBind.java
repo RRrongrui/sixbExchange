@@ -144,7 +144,7 @@ public abstract class BaseDataBind<T extends IDelegate> implements IDataBind<T> 
 
     public boolean isMissToken(int status) {
         //需要重新登录的 错误码
-        return status == 4444 || status == 4445 || status == 9998;
+        return status == 4444 || status == 4445 ;
     }
 
     public void loginAgain(FragmentActivity activity) {

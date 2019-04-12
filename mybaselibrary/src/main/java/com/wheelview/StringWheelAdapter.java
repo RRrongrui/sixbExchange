@@ -5,6 +5,11 @@ import java.util.List;
 
 public class StringWheelAdapter implements WheelAdapter {
     private List<String> list;
+    int size=6;
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 
     public StringWheelAdapter(List<String> list) {
         super();
@@ -27,7 +32,7 @@ public class StringWheelAdapter implements WheelAdapter {
 
     @Override
     public int getMaximumLength() {
-        return 6;
+        return size;
     }
 
 }

@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.fastjson.TypeReference;
+import com.blankj.utilcode.util.StringUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
@@ -133,6 +134,8 @@ public class WithdrawCoinFragment extends BaseDataBindFragment<WithdrawCoinDeleg
                     return;
                 }
                 addRequest(binder.sendExtract(
+                        (StringUtils.equalsIgnoreCase("eos", typeStr) ||
+                                StringUtils.equalsIgnoreCase("xrp", typeStr)) ? selectAddr.getMemo() : "",
                         selectAddr.getAddr(),
                         typeStr,
                         viewDelegate.viewHolder.tv_num.getText().toString(),
@@ -158,9 +161,16 @@ public class WithdrawCoinFragment extends BaseDataBindFragment<WithdrawCoinDeleg
                     @Override
                     public void onClick(View view, int position, Object item) {
                         selectAddr = coinAddressBeans.get(position);
-                        viewDelegate.viewHolder.tv_addr.setText(
+                        viewDelegate.viewHolder.tv_addr_name.setText(
                                 selectAddr.getRemark()
                         );
+                        viewDelegate.viewHolder.tv_addr.setText(
+                                selectAddr.getAddr() +
+                                        ((StringUtils.equalsIgnoreCase("eos", typeStr) ||
+                                                StringUtils.equalsIgnoreCase("xrp", typeStr)) ?
+                                                " : " + selectAddr.getMemo() : "")
+                        );
+
                     }
                 });
 
