@@ -73,6 +73,7 @@ public class HoldPositionBean {
      }
      */
 
+
     private String contract;
     private String totalAmount;
     private String available;
@@ -115,12 +116,29 @@ public class HoldPositionBean {
     private String unrealizedSettleShort;
     private String unrealizedShort;
     private String unrealizedShortRate;
+    private String lever_rate;
     private String realizedSettleShort;
     private String frozenPositionShort;
-    private DetailBean detail;
+    private Detail detail;
     private ExtraInfoBean extraInfo;
     private String liquidationPrice;
     private String liquidationPriceRate;
+
+    public String getLever_rate() {
+        return lever_rate;
+    }
+
+    public void setLever_rate(String lever_rate) {
+        this.lever_rate = lever_rate;
+    }
+
+    public Detail getDetail() {
+        return detail;
+    }
+
+    public void setDetail(Detail detail) {
+        this.detail = detail;
+    }
 
     public String getContract() {
         return contract;
@@ -474,13 +492,7 @@ public class HoldPositionBean {
         this.frozenPositionShort = frozenPositionShort;
     }
 
-    public DetailBean getDetail() {
-        return detail;
-    }
 
-    public void setDetail(DetailBean detail) {
-        this.detail = detail;
-    }
 
     public ExtraInfoBean getExtraInfo() {
         return extraInfo;
@@ -522,7 +534,181 @@ public class HoldPositionBean {
         }
     }
 
-    public static class DetailBean {
+    public static class Detail{
+
+        /**
+         * buy_price_avg : 0
+         * lever_rate : 20
+         * priceUnit : USD
+         * buy_available : 0
+         * leverageAvailable : 0
+         * marginUnit : ETH
+         * buy_amount : 0
+         * buy_profit_real : 0
+         * amountUnit : 张
+         * sell_amount : 4
+         * sell_price_cost : 170.23443303270437
+         * exchange : okef
+         * contractName : ETH
+         * buy_price_cost : 0
+         * sell_price_avg : 170.23443303270437
+         * sell_profit_real : 0
+         * sell_available : 3
+         */
+
+        private String buy_price_avg;
+        private String lever_rate;
+        private String priceUnit;
+        private String buy_available;
+        private int leverageAvailable;
+        private String marginUnit;
+        private String buy_amount;
+        private String buy_profit_real;
+        private String amountUnit;
+        private String sell_amount;
+        private String sell_price_cost;
+        private String exchange;
+        private String contractName;
+        private String buy_price_cost;
+        private String sell_price_avg;
+        private String sell_profit_real;
+        private String sell_available;
+
+        public String getBuy_price_avg() {
+            return buy_price_avg;
+        }
+
+        public void setBuy_price_avg(String buy_price_avg) {
+            this.buy_price_avg = buy_price_avg;
+        }
+
+        public String getLever_rate() {
+            return lever_rate;
+        }
+
+        public void setLever_rate(String lever_rate) {
+            this.lever_rate = lever_rate;
+        }
+
+        public String getPriceUnit() {
+            return priceUnit;
+        }
+
+        public void setPriceUnit(String priceUnit) {
+            this.priceUnit = priceUnit;
+        }
+
+        public String getBuy_available() {
+            return buy_available;
+        }
+
+        public void setBuy_available(String buy_available) {
+            this.buy_available = buy_available;
+        }
+
+        public int getLeverageAvailable() {
+            return leverageAvailable;
+        }
+
+        public void setLeverageAvailable(int leverageAvailable) {
+            this.leverageAvailable = leverageAvailable;
+        }
+
+        public String getMarginUnit() {
+            return marginUnit;
+        }
+
+        public void setMarginUnit(String marginUnit) {
+            this.marginUnit = marginUnit;
+        }
+
+        public String getBuy_amount() {
+            return buy_amount;
+        }
+
+        public void setBuy_amount(String buy_amount) {
+            this.buy_amount = buy_amount;
+        }
+
+        public String getBuy_profit_real() {
+            return buy_profit_real;
+        }
+
+        public void setBuy_profit_real(String buy_profit_real) {
+            this.buy_profit_real = buy_profit_real;
+        }
+
+        public String getAmountUnit() {
+            return amountUnit;
+        }
+
+        public void setAmountUnit(String amountUnit) {
+            this.amountUnit = amountUnit;
+        }
+
+        public String getSell_amount() {
+            return sell_amount;
+        }
+
+        public void setSell_amount(String sell_amount) {
+            this.sell_amount = sell_amount;
+        }
+
+        public String getSell_price_cost() {
+            return sell_price_cost;
+        }
+
+        public void setSell_price_cost(String sell_price_cost) {
+            this.sell_price_cost = sell_price_cost;
+        }
+
+        public String getExchange() {
+            return exchange;
+        }
+
+        public void setExchange(String exchange) {
+            this.exchange = exchange;
+        }
+
+        public String getContractName() {
+            return contractName;
+        }
+
+        public void setContractName(String contractName) {
+            this.contractName = contractName;
+        }
+
+        public String getBuy_price_cost() {
+            return buy_price_cost;
+        }
+
+        public void setBuy_price_cost(String buy_price_cost) {
+            this.buy_price_cost = buy_price_cost;
+        }
+
+        public String getSell_price_avg() {
+            return sell_price_avg;
+        }
+
+        public void setSell_price_avg(String sell_price_avg) {
+            this.sell_price_avg = sell_price_avg;
+        }
+
+        public String getSell_profit_real() {
+            return sell_profit_real;
+        }
+
+        public void setSell_profit_real(String sell_profit_real) {
+            this.sell_profit_real = sell_profit_real;
+        }
+
+        public String getSell_available() {
+            return sell_available;
+        }
+
+        public void setSell_available(String sell_available) {
+            this.sell_available = sell_available;
+        }
     }
 
     public static class ExtraInfoBean {

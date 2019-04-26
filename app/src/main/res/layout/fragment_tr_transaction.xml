@@ -28,12 +28,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:clipChildren="false"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="224"
+
                         android:orientation="horizontal">
 
                         <LinearLayout
@@ -54,7 +56,7 @@
                                 android:paddingBottom="@dimen/trans_15px"
                                 android:paddingLeft="@dimen/trans_30px"
                                 android:paddingTop="@dimen/trans_15px"
-                                android:text="BTC --"
+                                android:text="--"
                                 android:textColor="@color/color_font1"
                                 android:textSize="@dimen/text_trans_34px"/>
 
@@ -115,6 +117,8 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="151"
+                        android:clipChildren="false"
+                        android:background="@drawable/select_default_click"
                         android:gravity="right|center_vertical"
                         android:orientation="horizontal">
 
@@ -365,23 +369,22 @@
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal">
 
-                                <com.fivefivelike.mybaselibrary.view.LineTextView
+                                <TextView
                                     android:id="@+id/tv_buy_left"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="@dimen/trans_15px"
+                                    android:layout_marginRight="@dimen/trans_10px"
                                     android:gravity="center"
                                     android:lines="1"
                                     android:text="可用"
                                     android:textColor="@color/color_font3"
-                                    android:textSize="@dimen/text_trans_20px"
-                                    app:cnNum="3"/>
+                                    android:textSize="@dimen/text_trans_20px"/>
 
-                                <com.fivefivelike.mybaselibrary.view.SingleLineZoomTextView
+                                <TextView
                                     android:id="@+id/tv_buy_available"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="@dimen/trans_15px"
+                                    android:layout_marginRight="@dimen/trans_10px"
                                     android:layout_weight="1"
                                     android:text="--"
                                     android:textColor="@color/color_font1"
@@ -397,23 +400,21 @@
                                 android:orientation="horizontal"
                                 >
 
-                                <com.fivefivelike.mybaselibrary.view.LineTextView
+                                <TextView
                                     android:id="@+id/tv_buy_type"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="@dimen/trans_15px"
+                                    android:layout_marginRight="@dimen/trans_10px"
                                     android:gravity="center"
                                     android:lines="1"
                                     android:text="可开多"
                                     android:textColor="@color/color_font3"
-                                    android:textSize="@dimen/text_trans_20px"
-                                    app:cnNum="3"/>
+                                    android:textSize="@dimen/text_trans_20px"/>
 
-                                <com.fivefivelike.mybaselibrary.view.SingleLineZoomTextView
+                                <TextView
                                     android:id="@+id/tv_buy_type_num"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="@dimen/trans_15px"
                                     android:layout_weight="1"
                                     android:text="--"
                                     android:textColor="@color/color_font1"
@@ -452,24 +453,23 @@
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal">
 
-                                <com.fivefivelike.mybaselibrary.view.LineTextView
+                                <TextView
                                     android:id="@+id/tv_sell_left"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="@dimen/trans_15px"
+                                    android:layout_marginRight="@dimen/trans_10px"
                                     android:gravity="center"
                                     android:lines="1"
                                     android:text="可用"
                                     android:textColor="@color/color_font3"
-                                    android:textSize="@dimen/text_trans_20px"
-                                    app:cnNum="3"/>
+                                    android:textSize="@dimen/text_trans_20px"/>
 
-                                <com.fivefivelike.mybaselibrary.view.SingleLineZoomTextView
+                                <TextView
                                     android:id="@+id/tv_sell_available"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="@dimen/trans_15px"
                                     android:layout_weight="1"
+                                    android:layout_marginRight="@dimen/trans_10px"
                                     android:text="--"
                                     android:textColor="@color/color_font1"
                                     android:textSize="@dimen/text_trans_20px"/>
@@ -484,23 +484,21 @@
                                 android:orientation="horizontal"
                                 >
 
-                                <com.fivefivelike.mybaselibrary.view.LineTextView
+                                <TextView
                                     android:id="@+id/tv_sell_type"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="@dimen/trans_15px"
+                                    android:layout_marginRight="@dimen/trans_10px"
                                     android:gravity="center"
                                     android:lines="1"
                                     android:text="可开空"
                                     android:textColor="@color/color_font3"
-                                    android:textSize="@dimen/text_trans_20px"
-                                    app:cnNum="3"/>
+                                    android:textSize="@dimen/text_trans_20px"/>
 
-                                <com.fivefivelike.mybaselibrary.view.SingleLineZoomTextView
+                                <TextView
                                     android:id="@+id/tv_sell_type_num"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="@dimen/trans_15px"
                                     android:layout_weight="1"
                                     android:text="--"
                                     android:textColor="@color/color_font1"
@@ -681,6 +679,38 @@
                         android:text="@string/str_no_data"
                         android:textColor="@color/color_font4"
                         android:textSize="@dimen/text_trans_30px"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lin_close_all"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/trans_300px"
+                    android:background="@drawable/select_default_click"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:paddingBottom="@dimen/trans_30px"
+                    android:paddingTop="@dimen/trans_30px">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingBottom="@dimen/trans_10px"
+                        android:text="全部撤单"
+                        android:textColor="@color/mark_color"
+                        android:textSize="@dimen/text_trans_28px"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="查看所有未成交请去挂单页面"
+                        android:textColor="@color/color_font4"
+                        android:textSize="@dimen/text_trans_20px"/>
+
 
                 </LinearLayout>
 

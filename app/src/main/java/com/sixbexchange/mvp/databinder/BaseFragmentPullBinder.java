@@ -87,17 +87,19 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .RxSendRequest();
     }
 
-    public Disposable accountgetAccount(
+    public Disposable getCoinPosition(
             String exchange,
+            String coin,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         put("exchange", exchange);
+        put("coin", coin);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestUrl(HttpUrl.getIntance().accountgetAccount)
+                .setRequestUrl(HttpUrl.getIntance().getCoinPosition)
                 .setShowDialog(false)
-                .setRequestName("获取持仓")
+                .setRequestName("获取单个币种持仓")
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.Json)
                 .setRequestObj(baseMap)
@@ -128,20 +130,82 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .build()
                 .RxSendRequest();
     }
-
-    public Disposable allCoins(
+    public Disposable changeLeverage(
             String exchange,
+            String contract,
+            String rateOrAmount,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         put("exchange", exchange);
+        put("contract", contract);
+        put("rateOrAmount", rateOrAmount);
         return new HttpRequest.Builder()
-                .setRequestCode(0x124)
+                .setRequestCode(0x127)
                 .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestUrl(HttpUrl.getIntance().allCoins)
-                .setShowDialog(false)
-                .setRequestName("获取持仓")
-                .setRequestMode(HttpRequest.RequestMode.GET)
-                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestUrl(HttpUrl.getIntance().changeLeverage)
+                .setShowDialog(true)
+                .setRequestName("修改杠杆")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+    /*
+       公共参数：
+
+   exchange : 交易所( bitmex,okef)
+
+
+   bitmex 交易所：
+
+   matchPrice : 是否对手价（0 否，1 是）
+
+   price: 价格（就算是对手价也要传个价格过来 如果方向是1、4，则传 卖1 ； 如果方向是2、3，则传 买1）
+
+   type: 方向 （1 开多，2 开空，3 平多，4 平空） 市价平多是5 市价平空是6
+
+   currencyPair:交易对
+
+
+   其他交易所：
+
+   contract: 币对
+
+   price：价格
+
+   bs：方向（b 买，s 卖）
+
+   amount：数量
+       **/
+    public Disposable placeOrder(
+            String exchange,
+            String matchPrice,
+            String price,
+            int type,
+            String currencyPair,
+            String contract,
+            String amount,
+            String bs,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        put("exchange", exchange);
+        put("matchPrice", matchPrice);
+        put("price", price);
+        put("type", type);
+        put("currencyPair", currencyPair);
+        put("contract", contract);
+        put("bs",bs);
+        put("amount", amount);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x125)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestUrl(HttpUrl.getIntance().placeOrder)
+                .setShowDialog(true)
+                .setRequestName("下单")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
                 .setRequestObj(baseMap)
                 .setRequestCallback(requestCallback)
                 .build()

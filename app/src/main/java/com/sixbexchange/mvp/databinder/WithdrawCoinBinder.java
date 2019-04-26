@@ -88,8 +88,8 @@ public class WithdrawCoinBinder extends BaseDataBind<WithdrawCoinDelegate> {
     }
 
     public Disposable sendExtract(
-            String addr,
             String memo,
+            String addr,
             String coin,
             String amount,
             String fee,

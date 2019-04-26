@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
+import com.fivefivelike.mybaselibrary.http.WebSocket2Request;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.UUIDS;
@@ -55,6 +56,10 @@ public class MainFragment extends BaseDataBindFragment<MainDelegate, MainBinder>
         super.bindEvenListener();
         uid = UUIDS.getUUID() + System.currentTimeMillis();
         WebSocketRequest.getInstance().intiWebSocket(AppConst.wsAddress,
+                this.getClass().getName(),
+                null);
+
+        WebSocket2Request.getInstance().intiWebSocket(AppConst.wsAddress2,
                 this.getClass().getName(),
                 null);
         initView();
@@ -111,6 +116,12 @@ public class MainFragment extends BaseDataBindFragment<MainDelegate, MainBinder>
                 if (mFragments != null) {
                     showHideFragment(mFragments[position], mFragments[prePosition]);
                 }
+//                if (mFragments != null && position != FIRST) {
+//                    showHideFragment(mFragments[position], mFragments[prePosition]);
+//                } else {
+//                    ToastUtil.show("暂不开放");
+//                    viewDelegate.viewHolder.bottomBar.setCurrentItem(prePosition);
+//                }
             }
 
             @Override

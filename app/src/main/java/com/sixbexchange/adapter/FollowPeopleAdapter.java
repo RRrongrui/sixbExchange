@@ -2,11 +2,13 @@ package com.sixbexchange.adapter;
 
 import android.content.Context;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ObjectUtils;
 import com.circledialog.res.drawable.RadiuBg;
 import com.fivefivelike.mybaselibrary.base.BaseAdapter;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -29,7 +31,6 @@ public class FollowPeopleAdapter extends BaseAdapter<FollowPeopleBean> {
 
     private ImageView iv_piv;
     private TextView tv_name;
-    private RoundButton tv_sub;
     private TextView tv_progress;
     private View view_start;
     private View view_end;
@@ -40,6 +41,9 @@ public class FollowPeopleAdapter extends BaseAdapter<FollowPeopleBean> {
     private TextView tv_rate_title;
     private TextView tv_divided_into_title;
     private TextView tv_money_title;
+    private RoundButton tv_sub1;
+    private RoundButton tv_sub2;
+    private RoundButton tv_sub3;
 
     public FollowPeopleAdapter(Context context, List<FollowPeopleBean> datas) {
         super(context, R.layout.adapter_follow_people, datas);
@@ -51,7 +55,6 @@ public class FollowPeopleAdapter extends BaseAdapter<FollowPeopleBean> {
     protected void convert(ViewHolder holder, FollowPeopleBean s, final int position) {
         iv_piv = holder.getView(R.id.iv_piv);
         tv_name = holder.getView(R.id.tv_name);
-        tv_sub = holder.getView(R.id.tv_sub);
         tv_progress = holder.getView(R.id.tv_progress);
         view_start = holder.getView(R.id.view_start);
         view_end = holder.getView(R.id.view_end);
@@ -62,6 +65,15 @@ public class FollowPeopleAdapter extends BaseAdapter<FollowPeopleBean> {
         tv_money_title = holder.getView(R.id.tv_money_title);
         tv_divided_into_title = holder.getView(R.id.tv_divided_into_title);
         tv_rate_title = holder.getView(R.id.tv_rate_title);
+        tv_sub1 = holder.getView(R.id.tv_sub1);
+        tv_sub2 = holder.getView(R.id.tv_sub2);
+        tv_sub3 = holder.getView(R.id.tv_sub3);
+
+        tv_sub1.setText(s.getPrincipal());
+        tv_sub2.setText(s.getStandard());
+        tv_sub3.setVisibility((ObjectUtils.equals(s.getBicoinRate(), "0") ||
+                TextUtils.isEmpty(s.getBicoinRate()) ||
+                new BigDecimal(s.getBicoinRate()).floatValue() == 0) ? View.GONE : View.VISIBLE);
 
         view_start.setBackground(new RadiuBg(
                 CommonUtils.getColor(R.color.color_25A73F),
@@ -70,7 +82,6 @@ public class FollowPeopleAdapter extends BaseAdapter<FollowPeopleBean> {
 
         GlideUtils.loadImage(s.getIcon(), iv_piv);
         tv_name.setText(s.getNickName());
-        tv_sub.setText(s.getTitle());
 
         BigDecimal subtract = new BigDecimal(s.getAllAmount()).subtract(new BigDecimal(s.getRestAmount()));
         LinearLayout.LayoutParams view_startp = (LinearLayout.LayoutParams) view_start.getLayoutParams();
@@ -90,13 +101,13 @@ public class FollowPeopleAdapter extends BaseAdapter<FollowPeopleBean> {
             tv_commit.setText("跟单");
             tv_commit.setSolidColor(CommonUtils.getColor(R.color.color_FA8C16));
 
-            tv_rate_title.setText("实盘收益率");
+            tv_rate_title.setText("开放额度");
             tv_divided_into_title.setText("用户分成");
             tv_money_title.setText("起投金额");
             tv_rate.setText(Html.fromHtml(
-                    s.getBicoinRate() +
+                    s.getAllMoney() +
                             "<font color=\"" + CommonUtils.getStringColor(R.color.color_font3) +
-                            "\"<small><small><small>%</small></small></small>"
+                            "\"<small><small><small>" + s.getCurrency() + "</small></small></small>"
             ));
             tv_divided_into.setText(Html.fromHtml(
                     s.getBenitfitRate() +
@@ -125,13 +136,13 @@ public class FollowPeopleAdapter extends BaseAdapter<FollowPeopleBean> {
                             minute + "分后开始"
             );
 
-            tv_rate_title.setText("实盘收益率");
+            tv_rate_title.setText("开放额度");
             tv_divided_into_title.setText("用户分成");
             tv_money_title.setText("起投金额");
             tv_rate.setText(Html.fromHtml(
-                    s.getBicoinRate() +
+                    s.getAllMoney() +
                             "<font color=\"" + CommonUtils.getStringColor(R.color.color_font3) +
-                            "\"<small><small><small>%</small></small></small>"
+                            "\"<small><small><small>" + s.getCurrency() + "</small></small></small>"
             ));
             tv_divided_into.setText(Html.fromHtml(
                     s.getBenitfitRate() +
@@ -151,11 +162,11 @@ public class FollowPeopleAdapter extends BaseAdapter<FollowPeopleBean> {
             tv_commit.setText("已结束");
             tv_commit.setSolidColor(CommonUtils.getColor(R.color.black_transparent_100));
 
-            tv_rate_title.setText("实盘收益率");
+            tv_rate_title.setText("结束收益率");
             tv_divided_into_title.setText("用户分成");
             tv_money_title.setText("资金规模");
             tv_rate.setText(Html.fromHtml(
-                    s.getBicoinRate() +
+                    s.getWelfare() +
                             "<font color=\"" + CommonUtils.getStringColor(R.color.color_font3) +
                             "\"<small><small><small>%</small></small></small>"
             ));

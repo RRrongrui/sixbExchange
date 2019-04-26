@@ -69,13 +69,19 @@ public class DropDownPopu {
             recyclerview.setLayoutManager(new LinearLayoutManager(context) {
                 @Override
                 public boolean canScrollVertically() {
-                    return false;
+                    return true;
                 }
             });
             recyclerview.setAdapter(adapter);
             adapter.setOnItemClickListener(onItemClickListener);
+        } else {
+            adapter.setSelect(select);
+            if (data == adapter.getDatas()) {
+                adapter.notifyDataSetChanged();
+            } else {
+                adapter.setData(data);
+            }
         }
-        adapter.setSelect(select);
         popupWindow.showAsDropDown(anchor);
     }
 

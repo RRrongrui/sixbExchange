@@ -2,6 +2,16 @@ package com.sixbexchange.entity.bean;
 
 /**
  * Created by 郭青枫 on 2019/4/12 0012.
+ * {
+ "discount":7,
+ "discountInfo":null,
+ "name":"OKEx交割合约",
+ "code":"okef",
+ "sumAmount":0,
+ "availableAmount":0,
+ "accId":35,
+ "exchangeImg":"http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png"
+ }
  */
 
 public class ExchangeListBean {

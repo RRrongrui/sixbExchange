@@ -42,7 +42,63 @@ public class TradeDetailBean {
     private String index;
     private String textName;
     private String fee;
+    private String rate;
     private String secondType;
+    private String positionText;
+    private String delivery;
+    private String onlykey;
+    private int leverageAvailable;
+    private int kline;
+
+    public String getOnlykey() {
+        return onlykey;
+    }
+
+    public void setOnlykey(String onlykey) {
+        this.onlykey = onlykey;
+    }
+
+    public int getKline() {
+        return kline;
+    }
+
+    public void setKline(int kline) {
+        this.kline = kline;
+    }
+
+    public String getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(String delivery) {
+        this.delivery = delivery;
+    }
+
+    public int getLeverageAvailable() {
+        return leverageAvailable;
+    }
+
+    public void setLeverageAvailable(int leverageAvailable) {
+        this.leverageAvailable = leverageAvailable;
+    }
+
+    public String getPositionText() {
+        return positionText;
+    }
+
+    public void setPositionText(String positionText) {
+        this.positionText = positionText;
+    }
+
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+
+
 
     public String getId() {
         return id;

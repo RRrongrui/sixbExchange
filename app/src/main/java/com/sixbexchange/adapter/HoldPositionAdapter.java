@@ -5,13 +5,18 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ObjectUtils;
+import com.circledialog.res.drawable.RadiuBg;
 import com.fivefivelike.mybaselibrary.base.BaseAdapter;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.sixbexchange.R;
 import com.sixbexchange.entity.bean.HoldPositionBean;
+import com.sixbexchange.entity.bean.TradeDetailBean;
 import com.sixbexchange.utils.BigUIUtil;
+import com.sixbexchange.utils.UserSet;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -34,6 +39,11 @@ public class HoldPositionAdapter extends BaseAdapter<HoldPositionBean> {
     private TextView tv_end_price;
     private TextView tv_change;
     private TextView tv_close;
+    TradeDetailBean tradeDetailBean;
+
+    public void setTradeDetailBean(TradeDetailBean tradeDetailBean) {
+        this.tradeDetailBean = tradeDetailBean;
+    }
 
     public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
         this.defaultClickLinsener = defaultClickLinsener;
@@ -41,7 +51,6 @@ public class HoldPositionAdapter extends BaseAdapter<HoldPositionBean> {
 
     public HoldPositionAdapter(Context context, List<HoldPositionBean> datas) {
         super(context, R.layout.adapter_hold_position, datas);
-
     }
 
 
@@ -59,32 +68,56 @@ public class HoldPositionAdapter extends BaseAdapter<HoldPositionBean> {
         tv_change = holder.getView(R.id.tv_change);
         tv_close = holder.getView(R.id.tv_close);
 
-        String[] info = s.getContract().split("\\.");
-        //"contract": "eth.usd.t",##交易所/币种.市场.t(本周).n(次周).q(季度)
-        tv_name.setText(info[0] + info[2]
-                .replace("t", "本周")
-                .replace("n", "次周")
-                .replace("q", "季度")
-        );
+        tv_name.setText(s.getDetail().getContractName());
 
-        tv_open.setText(BigUIUtil.getinstance().getSymbol(info[1]) +
+        tv_open.setText(BigUIUtil.getinstance().getSymbol(s.getDetail().getPriceUnit()) +
                 BigUIUtil.getinstance().bigPrice(s.getAverageOpenPrice()));
         tv_rate.setText(BigUIUtil.getinstance().bigAmount(s.getUnrealizedRate()) + "%");
 
-        tv_income.setText(BigUIUtil.getinstance().bigAmount(s.getUnrealized()) +" "+ info[0]);
-        tv_amount.setText(BigUIUtil.getinstance().bigAmount(s.getTotalAmount()) + " "+info[0]);
-        tv_close_amount.setText(BigUIUtil.getinstance().bigAmount(s.getAvailable()) +" "+ info[0]);
-        tv_margin.setText(BigUIUtil.getinstance().bigAmount(s.getUsedMargin()) + " "+info[0]);
-        tv_end_price.setText(BigUIUtil.getinstance().getSymbol(info[1]) +" "+
+        tv_income.setText(BigUIUtil.getinstance().bigAmount(s.getUnrealized()) + " " + s.getDetail().getMarginUnit());
+        tv_amount.setText(BigUIUtil.getinstance().bigAmount(s.getTotalAmount().replace("-","")) + " " + s.getDetail().getAmountUnit());
+        tv_close_amount.setText(BigUIUtil.getinstance().bigAmount(s.getAvailable().replace("-","")) + " " + s.getDetail().getAmountUnit());
+        tv_margin.setText(BigUIUtil.getinstance().bigAmount(s.getUsedMargin()) + " " + s.getDetail().getMarginUnit());
+        tv_end_price.setText(BigUIUtil.getinstance().getSymbol(s.getDetail().getPriceUnit()) + " " +
                 BigUIUtil.getinstance().bigPrice(s.getLiquidationPrice()));
 
         //#spot 现货 future 期货------------------BM都是future
         if (ObjectUtils.equals("future", s.getType())) {
             tv_type.setVisibility(View.VISIBLE);
+            if (new BigDecimal(s.getTotalAmount()).doubleValue() >= 0) {
+                tv_type.setText("多头 " + s.getDetail().getLever_rate() + "X");
+                tv_type.setBackground(new RadiuBg(
+                        CommonUtils.getColor(UserSet.getinstance().getRiseColor()),
+                        5, 5, 5, 5
+                ));
+            } else if (new BigDecimal(s.getTotalAmount()).doubleValue() < 0) {
+                tv_type.setText("空头 " + s.getDetail().getLever_rate() + "X");
+                tv_type.setBackground(new RadiuBg(
+                        CommonUtils.getColor(UserSet.getinstance().getDropColor()),
+                        5, 5, 5, 5
+                ));
+            }
         } else {
             tv_type.setVisibility(View.GONE);
         }
 
+        if (s.getDetail().getLeverageAvailable() == 1) {
+            tv_change.setVisibility(View.VISIBLE);
+        } else {
+            tv_change.setVisibility(View.GONE);
+        }
+        tv_change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                defaultClickLinsener.onClick(v, position, null);
+            }
+        });
+        tv_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                defaultClickLinsener.onClick(v, position, null);
+            }
+        });
     }
 
 }

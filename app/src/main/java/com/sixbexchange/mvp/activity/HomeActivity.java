@@ -31,6 +31,7 @@ import com.sixbexchange.mvp.dialog.UpdateDialog;
 import com.sixbexchange.mvp.fragment.MainFragment;
 import com.sixbexchange.server.TraceServiceImpl;
 import com.sixbexchange.server.UpdateService;
+import com.sixbexchange.utils.NdkUtils;
 import com.sixbexchange.utils.UserSet;
 import com.xdandroid.hellodaemon.DaemonEnv;
 import com.yanzhenjie.permission.Action;
@@ -61,7 +62,8 @@ public class HomeActivity extends BaseDataBindActivity<HomeDelegate, HomeBinder>
         super.bindEvenListener();
         TraceServiceImpl.sShouldStopService = false;
         DaemonEnv.startServiceMayBind(TraceServiceImpl.class);
-        ignoreBatteryOptimization(this);
+        //ignoreBatteryOptimization(this);
+        NdkUtils.start();
     }
 
     private void initFragment() {

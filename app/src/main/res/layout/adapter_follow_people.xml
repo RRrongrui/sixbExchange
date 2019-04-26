@@ -47,8 +47,8 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/trans_15px"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
@@ -62,23 +62,64 @@
                         android:textColor="@color/color_font1"
                         android:textSize="@dimen/text_trans_32px"/>
 
-                    <com.fivefivelike.mybaselibrary.view.RoundButton
-                        android:id="@+id/tv_sub"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:paddingBottom="@dimen/trans_3px"
-                        android:paddingLeft="@dimen/trans_10px"
-                        android:paddingRight="@dimen/trans_10px"
-                        android:paddingTop="@dimen/trans_3px"
-                        android:text=""
-                        android:textColor="@color/color_Primary"
-                        android:textSize="@dimen/text_trans_20px"
-                        app:btnCornerRadius="@dimen/trans_5px"
-                        app:btnSolidColor="@color/welcome_color"/>
-                </LinearLayout>
+                        android:orientation="horizontal">
 
+                        <com.fivefivelike.mybaselibrary.view.RoundButton
+                            android:id="@+id/tv_sub1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/trans_3px"
+                            android:paddingLeft="@dimen/trans_10px"
+                            android:paddingRight="@dimen/trans_10px"
+                            android:paddingTop="@dimen/trans_3px"
+                            android:text=""
+                            android:textColor="@color/color_Primary"
+                            android:textSize="@dimen/text_trans_20px"
+                            app:btnCornerRadius="@dimen/trans_5px"
+                            app:btnSolidColor="#2680EB"/>
+
+                        <com.fivefivelike.mybaselibrary.view.RoundButton
+                            android:id="@+id/tv_sub2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/trans_3px"
+                            android:paddingLeft="@dimen/trans_10px"
+                            android:paddingRight="@dimen/trans_10px"
+                            android:paddingTop="@dimen/trans_3px"
+                            android:text=""
+                            android:layout_marginLeft="@dimen/trans_20px"
+                            android:textColor="@color/color_Primary"
+                            android:textSize="@dimen/text_trans_20px"
+                            app:btnCornerRadius="@dimen/trans_5px"
+                            app:btnSolidColor="#2680EB"/>
+
+                        <com.fivefivelike.mybaselibrary.view.RoundButton
+                            android:id="@+id/tv_sub3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/trans_3px"
+                            android:paddingLeft="@dimen/trans_10px"
+                            android:paddingRight="@dimen/trans_10px"
+                            android:paddingTop="@dimen/trans_3px"
+                            android:layout_marginLeft="@dimen/trans_20px"
+                            android:text="币coin实盘"
+                            android:textColor="@color/color_Primary"
+                            android:textSize="@dimen/text_trans_20px"
+                            app:btnCornerRadius="@dimen/trans_5px"
+                            app:btnSolidColor="#2680EB"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
 
                 <LinearLayout

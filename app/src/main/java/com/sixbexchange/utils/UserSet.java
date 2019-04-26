@@ -49,4 +49,26 @@ public class UserSet {
     public void setRedRise(boolean isRedRise) {
         SaveUtil.getInstance().saveBoolean("isRedRise", isRedRise);
     }
+    //用户设置k线分钟
+    public void setKTime(String kTime) {
+        SaveUtil.getInstance().saveString("kTime", kTime);
+    }
+
+    public String getKTime() {
+        String kTime = SaveUtil.getInstance().getString("kTime");
+        return TextUtils.isEmpty(kTime) ? "5m" : kTime;
+    }
+    //用户设置k线缩放级别
+    public float getKlineScale() {
+        String KlineScale = SaveUtil.getInstance().getString("KlineScale");
+        if (TextUtils.isEmpty(KlineScale)) {
+            return 1f;
+        } else {
+            return Float.parseFloat(KlineScale);
+        }
+    }
+
+    public void setKlineScale(float KlineScale) {
+        SaveUtil.getInstance().saveString("KlineScale", KlineScale + "");
+    }
 }

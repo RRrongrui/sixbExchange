@@ -3,22 +3,23 @@ package com.sixbexchange.mvp.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.blankj.utilcode.util.CacheUtils;
+import com.circledialog.CircleDialogHelper;
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.view.DropDownPopu;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.sixbexchange.R;
 import com.sixbexchange.adapter.HoldPositionAdapter;
-import com.sixbexchange.base.CacheName;
+import com.sixbexchange.entity.bean.ExchSelectPositionBean;
 import com.sixbexchange.entity.bean.HoldPositionBean;
+import com.sixbexchange.entity.bean.TradeDetailBean;
 import com.sixbexchange.mvp.databinder.BaseFragmentPullBinder;
 import com.sixbexchange.mvp.delegate.BaseFragentPullDelegate;
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
+import com.sixbexchange.mvp.dialog.ClosePositionDialog;
+import com.sixbexchange.mvp.dialog.LevelDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,19 +36,11 @@ public class TrPositionFragment extends BasePullFragment<BaseFragentPullDelegate
         return new BaseFragmentPullBinder(viewDelegate);
     }
 
-    String currency;
-    String exchange="okef";
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
         initList(new ArrayList<HoldPositionBean>());
-        currency = CacheUtils.getInstance().getString(CacheName.TradeCoinCache);
-        exchange = CacheUtils.getInstance().getString(CacheName.TradeExchangeCache);
-        addRequest(binder.allCoins(
-                exchange,
-                this
-        ));
     }
 
     HoldPositionAdapter adapter;
@@ -55,80 +48,147 @@ public class TrPositionFragment extends BasePullFragment<BaseFragentPullDelegate
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        onRefresh();
-        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
     }
+
+    LevelDialog levelDialog;
+    int selectPosition = 0;
+    ClosePositionDialog closePositionDialog;
 
     private void initList(List<HoldPositionBean> data) {
         if (adapter == null) {
             adapter = new HoldPositionAdapter(getActivity(), data);
+            adapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+                @Override
+                public void onClick(View view, int p, Object item) {
+                    selectPosition = p;
+                    if (view.getId() == R.id.tv_change) {
+                        if (levelDialog == null) {
+                            levelDialog = new LevelDialog(getActivity(), new DefaultClickLinsener() {
+                                @Override
+                                public void onClick(View view, int position, Object item) {
+                                    addRequest(binder.changeLeverage(
+                                            tradeDetailBean.getExchange(),
+                                            adapter.getDatas().get(selectPosition).getContract(),
+                                            ((String) item).replace("x", ""),
+                                            TrPositionFragment.this
+                                    ));
+                                }
+                            });
+                        }
+                        levelDialog.showDilaog(
+                                adapter.getDatas().get(p).getLever_rate());
+                    } else {
+                        if (closePositionDialog == null) {
+                            closePositionDialog = new ClosePositionDialog(getActivity(), new DefaultClickLinsener() {
+                                @Override
+                                public void onClick(View view, int position, Object item) {
+                                    if (position == 0) {
+                                        CircleDialogHelper.initDefaultDialog(
+                                                getActivity(),
+                                                "确定市价全平" + "\n" +
+                                                        adapter.getDatas().get(selectPosition).getDetail().getContractName() +
+                                                        (adapter.getDatas().get(selectPosition).getTotalAmount().contains("-")
+                                                                ? "空头" : "多头") +
+                                                        (adapter.getDatas().get(selectPosition).getDetail().getLever_rate() + "X"),
+                                                new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View v) {
+                                                        addRequest(binder.placeOrder(
+                                                                tradeDetailBean.getExchange(),
+                                                                "1",
+                                                                "",
+                                                                adapter.getDatas().get(selectPosition).getTotalAmount().contains("-") ? 6 : 5,
+                                                                adapter.getDatas().get(selectPosition).getContract(),
+                                                                adapter.getDatas().get(selectPosition).getContract(),
+                                                                adapter.getDatas().get(selectPosition).getAvailable().replace("-",""),
+                                                                adapter.getDatas().get(selectPosition).getTotalAmount().contains("-") ? "b" : "s",
+                                                                TrPositionFragment.this
+                                                        ));
+                                                    }
+                                                }
+                                        ).show();
+                                    } else if (position == 1) {
+                                        String[] info = ((String) item).split("/");
+                                        addRequest(binder.placeOrder(
+                                                tradeDetailBean.getExchange(),
+                                                "0",
+                                                info[0],
+                                                adapter.getDatas().get(selectPosition).getTotalAmount().contains("-") ? 4 : 3,
+                                                adapter.getDatas().get(selectPosition).getContract(),
+                                                adapter.getDatas().get(selectPosition).getContract(),
+                                                info[1],
+                                                adapter.getDatas().get(selectPosition).getTotalAmount().contains("-") ? "b" : "s",
+                                                TrPositionFragment.this
+                                        ));
+                                    }
+                                }
+                            });
+                        }
+                        closePositionDialog.showDialog(adapter.getDatas().get(p));
+                    }
+                }
+            });
             viewDelegate.viewHolder.pull_recycleview.setBackgroundColor(CommonUtils.getColor(R.color.base_bg));
             initHeader();
             initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
         } else {
+            adapter.setTradeDetailBean(tradeDetailBean);
             getDataBack(adapter.getDatas(), data, adapter);
         }
     }
 
     public IconFontTextview tv_coin;
-    DropDownPopu dropDownPopu;
-    List<String> coins;
 
 
     private void initHeader() {
-        View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_order_header, null);
+        View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_position_header, null);
         this.tv_coin = (IconFontTextview) rootView.findViewById(R.id.tv_coin);
-        tv_coin.setText(currency + " " + CommonUtils.getString(R.string.ic_Down));
         tv_coin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //下拉选择币种
-                if (dropDownPopu == null) {
-                    dropDownPopu = new DropDownPopu();
-                }
-                dropDownPopu.show(
-                        coins, viewDelegate.getmToolbarRightImg1(), getActivity(),
-                        new MultiItemTypeAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                                currency = coins.get(position);
-                                tv_coin.setText(currency + " " + CommonUtils.getString(R.string.ic_Down));
-                                //通知其他页面 切换 币种
-                                if (getParentFragment() instanceof TransactionFragment) {
-                                    ((TransactionFragment) getParentFragment()).changeCoin(currency);
-                                }
-                            }
-
-                            @Override
-                            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                                return false;
-                            }
-                        }
-                );
+                ((TransactionFragment) getParentFragment()).showSelectCoins(v,
+                        selectPositionBean.getName());
             }
         });
         viewDelegate.viewHolder.fl_pull.addView(rootView, 0);
     }
 
-    public void changeExch(String exch) {
+    ExchSelectPositionBean selectPositionBean;
+    TradeDetailBean tradeDetailBean;
+
+    public void initTradeDetail(ExchSelectPositionBean s, TradeDetailBean t) {
         //请求新数据 获取新的币种列表
-        addRequest(binder.allCoins(
-                exch,
-                this
-        ));
+        selectPositionBean = s;
+        tradeDetailBean = t;
+        tv_coin.setText(s.getName() + " " + CommonUtils.getString(R.string.ic_Down));
+        initList(new ArrayList<HoldPositionBean>());
+        onRefresh();
     }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
             case 0x123:
-                initList(GsonUtil.getInstance().toList(data, "position", HoldPositionBean.class));
+                List<HoldPositionBean> holdPositionBeans = GsonUtil.getInstance().toList(data, HoldPositionBean.class);
+                initList(holdPositionBeans);
+                break;
+            case 0x125:
+                //平仓
+                onRefresh();
+                break;
+            case 0x127:
+                onRefresh();
                 break;
         }
     }
 
     @Override
     protected void refreshData() {
-        addRequest(binder.accountgetAccount(exchange, this));
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+        addRequest(binder.getCoinPosition(
+                tradeDetailBean.getExchange(),
+                selectPositionBean.getCurrency(),
+                this));
     }
 }

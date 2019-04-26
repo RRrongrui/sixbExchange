@@ -9,7 +9,6 @@ public class CacheName {
     public static final String TradeExchangeCache = "TradeExchange";
     public static final String TradeIdCache = "TradeId";
     public static final String TradeCoinCache = "TradeCoin";
-    public static final String ExchangeListCache = "ExchangeList";
 
 
 

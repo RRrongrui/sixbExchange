@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
 
-            <TextView
+            <com.fivefivelike.mybaselibrary.view.IconFontTextview
                 android:id="@+id/tv_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

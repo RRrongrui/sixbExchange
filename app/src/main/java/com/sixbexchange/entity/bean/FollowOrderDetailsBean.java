@@ -67,7 +67,34 @@ public class FollowOrderDetailsBean {
     private String bicoinRate;
     private String restTime;
     private String welfare;
+    private String standard;
     private String closeTimeStr;
+    private String benifitRefresh;
+    private String benifitDistribution;
+
+    public String getBenifitRefresh() {
+        return benifitRefresh;
+    }
+
+    public void setBenifitRefresh(String benifitRefresh) {
+        this.benifitRefresh = benifitRefresh;
+    }
+
+    public String getBenifitDistribution() {
+        return benifitDistribution;
+    }
+
+    public void setBenifitDistribution(String benifitDistribution) {
+        this.benifitDistribution = benifitDistribution;
+    }
+
+    public String getStandard() {
+        return standard;
+    }
+
+    public void setStandard(String standard) {
+        this.standard = standard;
+    }
 
     public String getId() {
         return id;

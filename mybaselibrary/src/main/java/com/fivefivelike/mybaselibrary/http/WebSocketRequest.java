@@ -7,11 +7,9 @@ import com.blankj.utilcode.util.ObjectUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.SaveUtil;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
-import com.yanzhenjie.nohttp.rest.CacheMode;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
@@ -80,8 +78,9 @@ public class WebSocketRequest {
                                 if (pingMap == null) {
                                     pingMap = new HashMap<>();
                                     pingMap.put("uri", SaveUtil.getInstance().getString("auth"));
-                                    webSocket.send(GsonUtil.getInstance().toJson(pingMap));
-                                    KLog.i(REQUEST_TAG, "send  auth");
+                                    String s = GsonUtil.getInstance().toJson(pingMap);
+                                    webSocket.send(s);
+                                    KLog.i(REQUEST_TAG, "send  auth"+s);
                                     if (!TextUtils.isEmpty(sendData)) {
                                         sendData(sendData);
                                     }
@@ -147,41 +146,6 @@ public class WebSocketRequest {
 
     String hisJson = "";
 
-    private void register(String json) {
-        LinkedHashMap baseMap = new LinkedHashMap<>();
-        baseMap.put("uid", uid);
-        baseMap.put("keys", "" + json + "");
-        KLog.i(REQUEST_TAG, "register  " + json);
-        hisJson = json;
-        isSend = true;
-        disposable = new HttpRequest.Builder()
-                .setRequestCode(0x123)
-                .setRequestUrl(registerUrl)
-                .setShowDialog(false)
-                .setRequestName("注册web")
-                .setCacheMode(CacheMode.ONLY_REQUEST_NETWORK)
-                .setRequestMode(HttpRequest.RequestMode.POST)
-                .setParameterMode(HttpRequest.ParameterMode.Json)
-                .setRequestObj(baseMap)
-                .setRequestCallback(new RequestCallback() {
-                    @Override
-                    public void success(int requestCode, String data, String errorData) {
-                        KLog.i(REQUEST_TAG, "success  " + "register");
-
-                        isSend = false;
-                    }
-
-                    @Override
-                    public void error(int requestCode, Throwable exThrowable, String errorData) {
-
-                    }
-
-
-                })
-                .build()
-                .RxSendRequest();
-    }
-
 
     public void addCallBack(String clss, WebSocketCallBack webSocketCallBack) {
         if (webSocketCallBacks != null && !webSocketCallBacks.containsKey(clss)) {
@@ -224,7 +188,7 @@ public class WebSocketRequest {
             public void onMessage(WebSocket webSocket, String text) {
                 super.onMessage(webSocket, text);
                 isOpen = true;
-                //KLog.i(REQUEST_TAG, "success  " + text);
+               // KLog.i(REQUEST_TAG, "success  " + text);
                 Map<String, String> data = GsonUtil.getInstance().toMap(text,
                         new TypeReference<Map<String, String>>() {
                         });

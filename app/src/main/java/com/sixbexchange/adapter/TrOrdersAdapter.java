@@ -1,6 +1,7 @@
 package com.sixbexchange.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ObjectUtils;
@@ -11,6 +12,7 @@ import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.RoundButton;
 import com.sixbexchange.R;
 import com.sixbexchange.entity.bean.OrderBean;
+import com.sixbexchange.entity.bean.TradeDetailBean;
 import com.sixbexchange.utils.BigUIUtil;
 import com.sixbexchange.utils.UserSet;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -33,7 +35,11 @@ public class TrOrdersAdapter extends BaseAdapter<OrderBean> {
     private TextView tv_open_price;
     private TextView tv_hold_amount;
     private TextView tv_margin;
+    TradeDetailBean tradeDetailBean;
 
+    public void setTradeDetailBean(TradeDetailBean tradeDetailBean) {
+        this.tradeDetailBean = tradeDetailBean;
+    }
 
     public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
         this.defaultClickLinsener = defaultClickLinsener;
@@ -55,12 +61,14 @@ public class TrOrdersAdapter extends BaseAdapter<OrderBean> {
         tv_close = holder.getView(R.id.tv_close);
         tv_margin = holder.getView(R.id.tv_margin);
 
-        String[] info = s.getContract().split("/")[1].split("\\.");
-        tv_name.setText(info[0] + info[2]
-                .replace("t", "本周")
-                .replace("n", "次周")
-                .replace("q", "季度")
-        );
+        tv_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                defaultClickLinsener.onClick(v, position, null);
+            }
+        });
+
+        tv_name.setText(tradeDetailBean.getCurrencyPairName());
         if (ObjectUtils.equals("b", s.getBs())) {
             tv_type.setText("做多");
             tv_type.setBackground(new RadiuBg(
@@ -79,7 +87,7 @@ public class TrOrdersAdapter extends BaseAdapter<OrderBean> {
         tv_hold_amount.setText(BigUIUtil.getinstance().bigAmount(s.getDealt_amount()));
 
 
-        tv_open_price.setText(BigUIUtil.getinstance().getSymbol(info[1]) + " " +
+        tv_open_price.setText(BigUIUtil.getinstance().getSymbol(tradeDetailBean.getPriceUnit()) + " " +
                 BigUIUtil.getinstance().bigPrice(s.getEntrust_price()));
 
 

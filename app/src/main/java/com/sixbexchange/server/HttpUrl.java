@@ -36,7 +36,7 @@ public class HttpUrl {
     /**
      * 行情
      */
-    String dealUrl = AppConst.isTest?"":"/api";
+    String dealUrl = AppConst.isTest ? "" : "/api";
 
     /**
      * 登录
@@ -151,7 +151,43 @@ public class HttpUrl {
      */
     public String tradelist = AppConst.app2BaseUrl + dealUrl + "/app/trade/list";
     /**
-     * 获取开多可用
+     * 获取开仓可用
      */
     public String accountopen = AppConst.app2BaseUrl + dealUrl + "/app/account/open";
+    /**
+     * 获取平单可用
+     */
+    public String accountclose = AppConst.app2BaseUrl + dealUrl + "/app/account/close";
+    /**
+     * 获取单个币种持仓
+     */
+    public String getCoinPosition = AppConst.app2BaseUrl + dealUrl + "/app/account/getCoinPosition";
+    /**
+     * 下单
+     */
+    public String placeOrder = AppConst.app2BaseUrl + dealUrl + "/app/account/placeOrder";
+    /**
+     * 撤单
+     */
+    public String cancelOrder = AppConst.app2BaseUrl + dealUrl + "/app/account/cancelOrder";
+    /**
+     * 全部撤单
+     */
+    public String cancelAllOrder = AppConst.app2BaseUrl + dealUrl + "/app/account/cancelAllOrder";
+    /**
+     * 持仓页面下拉框数据
+     */
+    public String tradeCoins = AppConst.app2BaseUrl + dealUrl + "/app/open/tradeCoins";
+    /**
+     * 修改杠杆
+     */
+    public String changeLeverage = AppConst.app2BaseUrl + dealUrl + "/app/account/changeLeverage";
+    /**
+     * 获取当前杠杆
+     */
+    public String getLeverage = AppConst.app2BaseUrl + dealUrl + "/app/account/getLeverage";
+    /**
+     * 获取k线
+     */
+    public String candles = AppConst.app2BaseUrl + dealUrl + "/app/trade/candles";
 }

@@ -101,19 +101,38 @@ public class FollowOrderDetailsFragment extends BaseDataBindFragment<FollowOrder
         GlideUtils.loadImage(s.getIcon(), viewDelegate.viewHolder.iv_pic);
         viewDelegate.viewHolder.tv_name.setText(s.getNickName());
         viewDelegate.viewHolder.tv_sub.setText(s.getTitle());
-        viewDelegate.viewHolder.tv_rate.setText(s.getBicoinRate());
+        viewDelegate.viewHolder.tv_rate.setText(s.getBenitfitRate());
         viewDelegate.viewHolder.tv_days.setText(s.getCloseDay());
-        viewDelegate.viewHolder.tv_money.setText(new BigDecimal(s.getAllMoney())
-                .divide(new BigDecimal(s.getAllAmount()), 2, RoundingMode.DOWN).toPlainString());
-        viewDelegate.viewHolder.tv_unit.setText(s.getCurrency());
-        BigDecimal divide = new BigDecimal(s.getRestAmount()).multiply(new BigDecimal("100"))
-                .divide(new BigDecimal(s.getAllAmount()), 2, RoundingMode.DOWN);
-        BigDecimal subtract = new BigDecimal("100").subtract(divide);
+
+        viewDelegate.viewHolder.tv_real_rate.setText(s.getBicoinRate() + "%");
+
+        viewDelegate.viewHolder.tv_max_money.setText(
+                new BigDecimal(s.getAllMoney())
+                        .multiply(new BigDecimal(s.getAmountMax()))
+                        .divide(new BigDecimal(s.getAllAmount()), 2, RoundingMode.DOWN)
+                        .toPlainString());
+
+        viewDelegate.viewHolder.tv_follow_money.setText(
+                new BigDecimal(s.getAllMoney())
+                        .multiply(new BigDecimal(s.getAmountMin()))
+                        .divide(new BigDecimal(s.getAllAmount()), 2, RoundingMode.DOWN)
+                        .toPlainString());
+
+
+        viewDelegate.viewHolder.tv_follow_unit.setText(s.getCurrency());
+        viewDelegate.viewHolder.tv_max_unit.setText(s.getCurrency());
+
         viewDelegate.viewHolder.tv_progress_start.setText(
-                subtract.toPlainString() + "%"
+                "已抢投" +
+                        new BigDecimal(s.getAllAmount())
+                                .subtract(new BigDecimal(s.getRestAmount()))
+                                .multiply(new BigDecimal("100"))
+                                .divide(new BigDecimal(s.getAllAmount()), 2, RoundingMode.DOWN)
+                                .toPlainString()
+                        + "%"
         );
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) viewDelegate.viewHolder.tv_progress_start.getLayoutParams();
-        layoutParams.weight = subtract.floatValue();
+        layoutParams.weight = new BigDecimal(s.getAllAmount()).subtract(new BigDecimal(s.getRestAmount())).floatValue();
         viewDelegate.viewHolder.tv_progress_start.setLayoutParams(layoutParams);
         viewDelegate.viewHolder.tv_progress_start.setBackground(new RadiuBg(
                 CommonUtils.getColor(R.color.color_25A73F),
@@ -121,25 +140,36 @@ public class FollowOrderDetailsFragment extends BaseDataBindFragment<FollowOrder
         ));
 
         LinearLayout.LayoutParams layoutParams2 = (LinearLayout.LayoutParams) viewDelegate.viewHolder.view_progress_end.getLayoutParams();
-        layoutParams2.weight = divide.floatValue();
+        layoutParams2.weight = new BigDecimal(s.getRestAmount()).floatValue();
         viewDelegate.viewHolder.view_progress_end.setLayoutParams(layoutParams2);
+        viewDelegate.viewHolder.tv_all.setText(" "+s.getAllMoney());
+        viewDelegate.viewHolder.tv_all_unit.setText(" "+ s.getCurrency()+",剩余 ");
+        viewDelegate.viewHolder.tv_rest.setText( new BigDecimal(s.getAllMoney())
+                .multiply(new BigDecimal(s.getRestAmount()))
+                .divide(new BigDecimal(s.getAllAmount()), 2, RoundingMode.DOWN)
+                .stripTrailingZeros()
+                .toPlainString());
+        viewDelegate.viewHolder.tv_rest_unit.setText(" "+ s.getCurrency()+"");
 
-        viewDelegate.viewHolder.tv_all.setText(
-                CommonUtils.getString(R.string.ic_Info) + "总额" + s.getAllMoney() + s.getCurrency() +
-                        ",剩余" + new BigDecimal(s.getAllMoney()).multiply(new BigDecimal(s.getRestAmount()))
-                        .divide(new BigDecimal(s.getAllAmount()), 0, RoundingMode.DOWN).toPlainString() +
-                        s.getCurrency()
-        );
 
         viewDelegate.viewHolder.tv_content_interest.setText(s.getShareMemo());
         viewDelegate.viewHolder.tv_content_introduction.setText(s.getMemo());
 
-        viewDelegate.viewHolder.tv_info1.setText(s.getEndTimeStr());
-        viewDelegate.viewHolder.tv_info2.setText(s.getDealType());
-        viewDelegate.viewHolder.tv_info3.setText(s.getLeverage());
-        viewDelegate.viewHolder.tv_info4.setText(s.getStopRate() + "%");
-        viewDelegate.viewHolder.tv_info5.setText(s.getOwnMoney() + s.getCurrency());
+        viewDelegate.viewHolder.tv_start_time.setText(s.getEndTimeStr());
+        viewDelegate.viewHolder.tv_updata_income.setText(s.getBenifitRefresh());
+        viewDelegate.viewHolder.tv_send_income.setText(s.getBenifitDistribution());
+
+
+        viewDelegate.viewHolder.tv_info1.setText(s.getStandard());
+        viewDelegate.viewHolder.tv_info2.setText(s.getPrincipal());
+        viewDelegate.viewHolder.tv_info3.setText(s.getStopRate() + "%");
+        viewDelegate.viewHolder.tv_info4.setText(s.getAllMoney() + s.getCurrency());
+        viewDelegate.viewHolder.tv_info5.setText(s.getDealType());
         viewDelegate.viewHolder.tv_info6.setText(s.getMoneyManage());
+        viewDelegate.viewHolder.tv_info7.setText(s.getOwnMoney() + s.getCurrency());
+        viewDelegate.viewHolder.tv_info8.setText(s.getLeverage());
+
+
         viewDelegate.viewHolder.tv_buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

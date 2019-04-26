@@ -9,6 +9,8 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.fastjson.TypeReference;
+import com.blankj.utilcode.util.StringUtils;
+import com.circledialog.CircleDialogHelper;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
@@ -94,6 +96,9 @@ public class RechargeAddressFragment extends BaseDataBindFragment<RechargeAddres
         addRequest(binder.addrinfo(typeStr, exchPosition, this));
         addRequest(binder.getAccountDetail(this));
         viewDelegate.viewHolder.tv_select_coins.setText(typeStr);
+
+
+
     }
 
     List<String> coins;
@@ -106,6 +111,16 @@ public class RechargeAddressFragment extends BaseDataBindFragment<RechargeAddres
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
             case 0x123:
+                if ((StringUtils.equalsIgnoreCase("eos", typeStr) ||
+                        StringUtils.equalsIgnoreCase("xrp", typeStr))) {
+                    CircleDialogHelper.initDefaultDialog(getActivity(), typeStr+"充值需要输入MEMO,否则不会到账", null)
+                            .setNegative(CommonUtils.getString(R.string.str_cancel), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    getActivity().onBackPressed();
+                                }
+                            }).show();
+                }
                 addr = GsonUtil.getInstance().getValue(data, "addr");
                 remark = GsonUtil.getInstance().getValue(data, "remark");
                 notice = GsonUtil.getInstance().getValue(data, "notice");

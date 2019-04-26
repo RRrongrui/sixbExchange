@@ -187,6 +187,9 @@ public class WithdrawCoinFragment extends BaseDataBindFragment<WithdrawCoinDeleg
                 addressDialog.showDilaog(select, address);
             }
         });
+
+
+
     }
 
     List<String> coins;

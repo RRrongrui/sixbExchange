@@ -64,6 +64,15 @@ public class FollowPeopleBean {
     private String welfare;//盈利
 
     private String closeTimeStr;//结束时间
+    private String standard;//结束时间
+
+    public String getStandard() {
+        return standard;
+    }
+
+    public void setStandard(String standard) {
+        this.standard = standard;
+    }
 
     public Long getId() {
         return id;
