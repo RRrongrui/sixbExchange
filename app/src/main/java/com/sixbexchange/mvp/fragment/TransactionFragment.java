@@ -3,6 +3,7 @@ package com.sixbexchange.mvp.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.blankj.utilcode.util.CacheUtils;
@@ -280,6 +281,10 @@ public class TransactionFragment extends BaseDataBindFragment<TransactionDelegat
                                         selectLists.get(i).getList().get(j).getCurrencyPair())) {
                                     tradeDetailBean = selectLists.get(i).getList().get(j);
                                     setChildTradeDetail();
+                                    trPositionFragment.initTradeDetail(exchCoins.get(position),
+                                            tradeDetailBean);
+                                    return;
+                                }else if(TextUtils.isEmpty(exchCoins.get(position).getCurrencyPair())){
                                     trPositionFragment.initTradeDetail(exchCoins.get(position),
                                             tradeDetailBean);
                                     return;

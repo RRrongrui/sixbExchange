@@ -79,20 +79,30 @@ public class MyFollowAdapter extends BaseAdapter<MyFollowBean> {
                         "<font color=\"" + CommonUtils.getStringColor(R.color.color_font3) +
                         "\"<small><small><small>" + s.getCurrency() + "</small></small></small>"
         ));
-        donutProgress.setMax(s.getAllAmount());
+        donutProgress.setMax(
+                new BigDecimal(s.getCloseDay()).intValue()
+        );
 
         // private Integer status;//1 未开始   ，  0 进行中 ，2 运行中 ，3 已结束
         if (s.getStatus() == 1) {
             donutProgress.setProgress(0);
             donutProgress.setText("未开始");
         } else if (s.getStatus() == 0) {
-            donutProgress.setProgress(s.getAmount());
+            donutProgress.setProgress(
+                    new BigDecimal(
+                            ((System.currentTimeMillis() - s.getEndTime()) /
+                                    1000 / 60 / 60 / 24) + "")
+                            .setScale(0, RoundingMode.DOWN).intValue());
             donutProgress.setText("进行中");
         } else if (s.getStatus() == 2) {
-            donutProgress.setProgress(s.getAmount());
+            donutProgress.setProgress(
+                    new BigDecimal(
+                            ((System.currentTimeMillis() - s.getEndTime()) /
+                                    1000 / 60 / 60 / 24) + "")
+                            .setScale(0, RoundingMode.DOWN).intValue());
             donutProgress.setText("运行中");
         } else if (s.getStatus() == 3) {
-            donutProgress.setProgress(0);
+            donutProgress.setProgress(new BigDecimal(s.getCloseDay()).intValue());
             donutProgress.setText("已结束");
         }
 

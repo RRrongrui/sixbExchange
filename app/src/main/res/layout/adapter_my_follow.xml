@@ -156,7 +156,7 @@
                         android:layout_width="@dimen/trans_160px"
                         android:layout_height="@dimen/trans_160px"
                         app:donut_circle_starting_degree="-90"
-                        app:donut_finished_color="@color/mark_color"
+                        app:donut_finished_color="#2D99FF"
                         app:donut_finished_stroke_width="@dimen/trans_10px"
                         app:donut_max="100"
                         app:donut_progress="50"

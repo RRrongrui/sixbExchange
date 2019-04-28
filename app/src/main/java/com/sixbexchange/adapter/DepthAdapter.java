@@ -110,7 +110,7 @@ public class DepthAdapter extends BaseAdapter<DepthBean> {
                 tv_num.setText(BigUIUtil.getinstance().bigEnglishNum(
                         bigDecimal
                                 .divide(new BigDecimal("1000"),
-                                        8, RoundingMode.DOWN).toPlainString(), numSize) + "K");
+                                        8, RoundingMode.DOWN).toPlainString(), 2) + "K");
             } else {
                 tv_num.setText(BigUIUtil.getinstance().bigEnglishNum(s.getVolume(), numSize));
             }
