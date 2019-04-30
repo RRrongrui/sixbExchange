@@ -17,6 +17,7 @@ import com.sixbexchange.utils.UserSet;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 /**
@@ -75,9 +76,9 @@ public class HoldPositionAdapter extends BaseAdapter<HoldPositionBean> {
         tv_rate.setText(BigUIUtil.getinstance().bigAmount(s.getUnrealizedRate()) + "%");
 
         tv_income.setText(BigUIUtil.getinstance().bigAmount(s.getUnrealized()) + " " + s.getDetail().getMarginUnit());
-        tv_amount.setText(BigUIUtil.getinstance().bigAmount(s.getTotalAmount().replace("-","")) + " " + s.getDetail().getAmountUnit());
-        tv_close_amount.setText(BigUIUtil.getinstance().bigAmount(s.getAvailable().replace("-","")) + " " + s.getDetail().getAmountUnit());
-        tv_margin.setText(BigUIUtil.getinstance().bigAmount(s.getUsedMargin()) + " " + s.getDetail().getMarginUnit());
+        tv_amount.setText(BigUIUtil.getinstance().bigAmount(s.getTotalAmount().replace("-", "")) + " " + s.getDetail().getAmountUnit());
+        tv_close_amount.setText(BigUIUtil.getinstance().bigAmount(s.getAvailable().replace("-", "")) + " " + s.getDetail().getAmountUnit());
+        tv_margin.setText(new BigDecimal(s.getUsedMargin()).setScale(4, RoundingMode.DOWN).toPlainString() + " " + s.getDetail().getMarginUnit());
         tv_end_price.setText(BigUIUtil.getinstance().getSymbol(s.getDetail().getPriceUnit()) + " " +
                 BigUIUtil.getinstance().bigPrice(s.getLiquidationPrice()));
 
@@ -85,13 +86,13 @@ public class HoldPositionAdapter extends BaseAdapter<HoldPositionBean> {
         if (ObjectUtils.equals("future", s.getType())) {
             tv_type.setVisibility(View.VISIBLE);
             if (new BigDecimal(s.getTotalAmount()).doubleValue() >= 0) {
-                tv_type.setText("多头 " + s.getDetail().getLever_rate() + "X");
+                tv_type.setText("多头 " + s.getDetail().getLeverage() + "X");
                 tv_type.setBackground(new RadiuBg(
                         CommonUtils.getColor(UserSet.getinstance().getRiseColor()),
                         5, 5, 5, 5
                 ));
             } else if (new BigDecimal(s.getTotalAmount()).doubleValue() < 0) {
-                tv_type.setText("空头 " + s.getDetail().getLever_rate() + "X");
+                tv_type.setText("空头 " + s.getDetail().getLeverage() + "X");
                 tv_type.setBackground(new RadiuBg(
                         CommonUtils.getColor(UserSet.getinstance().getDropColor()),
                         5, 5, 5, 5

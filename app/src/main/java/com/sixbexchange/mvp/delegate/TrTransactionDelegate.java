@@ -97,7 +97,7 @@ public class TrTransactionDelegate extends BaseDelegate {
         public LinearLayout lin_order_type;
         public IconFontTextview tv_lever;
         public LinearLayout lin_lever;
-        public SingleLineZoomTextView tv_now_price;
+        public TextView tv_now_price;
         public ImageView iv_to_kline;
         public LinearLayout lin_to_kline;
         public TextView tv_open;
@@ -129,8 +129,8 @@ public class TrTransactionDelegate extends BaseDelegate {
         public TextView tv_coin_num;
         public RecyclerView rv_buy;
         public RecyclerView rv_sell;
-        public SingleLineZoomTextView tv_latest_index;
-        public SingleLineZoomTextView tv_fund_rate;
+        public TextView tv_latest_index;
+        public TextView tv_fund_rate;
         public RecyclerView recycler_view;
         public LinearLayout lin_no_order;
         public LinearLayout lin_close_all;

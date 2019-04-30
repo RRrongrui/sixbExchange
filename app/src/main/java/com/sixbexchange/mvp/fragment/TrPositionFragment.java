@@ -100,7 +100,7 @@ public class TrPositionFragment extends BasePullFragment<BaseFragentPullDelegate
                                                                 adapter.getDatas().get(selectPosition).getTotalAmount().contains("-") ? 6 : 5,
                                                                 adapter.getDatas().get(selectPosition).getContract(),
                                                                 adapter.getDatas().get(selectPosition).getContract(),
-                                                                adapter.getDatas().get(selectPosition).getAvailable().replace("-",""),
+                                                                adapter.getDatas().get(selectPosition).getAvailable().replace("-", ""),
                                                                 adapter.getDatas().get(selectPosition).getTotalAmount().contains("-") ? "b" : "s",
                                                                 TrPositionFragment.this
                                                         ));
@@ -178,7 +178,10 @@ public class TrPositionFragment extends BasePullFragment<BaseFragentPullDelegate
                 onRefresh();
                 break;
             case 0x127:
+                //更新杠杆
                 onRefresh();
+                //刷新交易页面
+                ((TransactionFragment) getParentFragment()).initTrTransaction();
                 break;
         }
     }

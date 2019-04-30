@@ -146,6 +146,7 @@ public class TransactionFragment extends BaseDataBindFragment<TransactionDelegat
                         tradeDetailBean.getCurrencyPair(),
                         this
                 ));
+                initTrTransaction();
                 break;
             case 0x128:
                 //获取杠杆
@@ -156,6 +157,13 @@ public class TransactionFragment extends BaseDataBindFragment<TransactionDelegat
                                 CommonUtils.getString(R.string.ic_Down)
                 );
                 break;
+        }
+    }
+
+
+    public void initTrTransaction() {
+        if (trTransactionFragment != null) {
+            trTransactionFragment.initTradeDetail(tradeDetailBean);
         }
     }
 
@@ -171,7 +179,6 @@ public class TransactionFragment extends BaseDataBindFragment<TransactionDelegat
 
     String leverage;
     LevelDialog levelDialog;
-
 
 
     //分配交易对信息
@@ -284,7 +291,7 @@ public class TransactionFragment extends BaseDataBindFragment<TransactionDelegat
                                     trPositionFragment.initTradeDetail(exchCoins.get(position),
                                             tradeDetailBean);
                                     return;
-                                }else if(TextUtils.isEmpty(exchCoins.get(position).getCurrencyPair())){
+                                } else if (TextUtils.isEmpty(exchCoins.get(position).getCurrencyPair())) {
                                     trPositionFragment.initTradeDetail(exchCoins.get(position),
                                             tradeDetailBean);
                                     return;

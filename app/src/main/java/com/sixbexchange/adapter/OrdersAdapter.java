@@ -116,12 +116,17 @@ public class OrdersAdapter extends BaseAdapter<OrderBean> {
                         .replace("part-deal-withdrawn", "已撤单")
                         .replace("error-order", "错误订单")
         );
-        Date time = DateUtils.getTime(s.getEntrust_time(),DateUtils.TIME_STYLE_S11);
+        Date time = DateUtils.getTime(s.getEntrust_time(), DateUtils.TIME_STYLE_S11);
+        if (time != null) {
+            tv_time.setText(
+                    TimeUtils.date2String(time, DEFAULT_FORMAT));
+        }
+        time = DateUtils.getTime(s.getEntrust_time(), DateUtils.TIME_STYLE_S10);
         if (time != null) {
             tv_time.setText(
                     TimeUtils.date2String(time, DEFAULT_FORMAT));
         } else {
-            tv_time.setText("");
+            tv_time.setText(s.getEntrust_time());
         }
     }
 

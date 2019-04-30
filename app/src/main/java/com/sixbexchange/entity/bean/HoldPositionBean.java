@@ -573,6 +573,15 @@ public class HoldPositionBean {
         private String sell_price_avg;
         private String sell_profit_real;
         private String sell_available;
+        private String leverage;
+
+        public String getLeverage() {
+            return leverage;
+        }
+
+        public void setLeverage(String leverage) {
+            this.leverage = leverage;
+        }
 
         public String getBuy_price_avg() {
             return buy_price_avg;

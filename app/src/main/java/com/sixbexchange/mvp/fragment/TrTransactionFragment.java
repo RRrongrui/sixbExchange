@@ -119,18 +119,18 @@ public class TrTransactionFragment extends BaseDataBindFragment<TrTransactionDel
             ToastUtil.show("请输入正确的数量");
             return;
         }
-        if (!UiHeplUtils.isDouble(viewDelegate.viewHolder.tv_order_num.getText().toString()) &&
-                !ObjectUtils.equals("市价", viewDelegate.viewHolder.tv_order_num.getText().toString())) {
+        if (!UiHeplUtils.isDouble(viewDelegate.viewHolder.tv_order_price.getText().toString()) &&
+                !ObjectUtils.equals("市价", viewDelegate.viewHolder.tv_order_price.getText().toString())) {
             ToastUtil.show("请输入正确的价格");
             return;
         }
         boolean isMarketPrice = ObjectUtils.equals("市价",
-                viewDelegate.viewHolder.tv_order_num.getText().toString());
+                viewDelegate.viewHolder.tv_order_price.getText().toString());
         boolean isBuy = type == 1 || type == 4;
         addRequest(binder.placeOrder(
                 tradeDetailBean.getExchange(),
                 isMarketPrice ? "1" : "0",
-                isMarketPrice ? isBuy ? asksAdapter.getDatas().get(depthSize - 1).getPrice() : bidsAdapter.getDatas().get(0).getPrice() : viewDelegate.viewHolder.tv_order_price.getText().toString(),
+                isMarketPrice ? (isBuy ? asksAdapter.getDatas().get(depthSize - 1).getPrice() : bidsAdapter.getDatas().get(0).getPrice()) : viewDelegate.viewHolder.tv_order_price.getText().toString(),
                 type,
                 tradeDetailBean.getOnlykey(),
                 tradeDetailBean.getCurrencyPair(),
@@ -483,10 +483,10 @@ public class TrTransactionFragment extends BaseDataBindFragment<TrTransactionDel
 
             if (type == 0) {
                 viewDelegate.viewHolder.tv_buy_type_num.setText(transactionBean.getAvailableOpenMore() + tradeDetailBean.getAmountUnit());
-                viewDelegate.viewHolder.tv_buy_available.setText(transactionBean.getUsableOpenMore() + tradeDetailBean.getCurrency());
+                viewDelegate.viewHolder.tv_buy_available.setText(transactionBean.getUsableOpenMore() + tradeDetailBean.getMarginUnit());
 
                 viewDelegate.viewHolder.tv_sell_type_num.setText(transactionBean.getAvailableOpenSpace() + tradeDetailBean.getAmountUnit());
-                viewDelegate.viewHolder.tv_sell_available.setText(transactionBean.getUsableOpenSpace() + tradeDetailBean.getCurrency());
+                viewDelegate.viewHolder.tv_sell_available.setText(transactionBean.getUsableOpenSpace() + tradeDetailBean.getMarginUnit());
             } else {
                 viewDelegate.viewHolder.tv_buy_available.setText(transactionBean.getAvailableflatSpace() + tradeDetailBean.getAmountUnit());
                 viewDelegate.viewHolder.tv_sell_available.setText(transactionBean.getAvailableflatMore() + tradeDetailBean.getAmountUnit());
