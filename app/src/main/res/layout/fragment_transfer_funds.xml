@@ -13,6 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/trans_300px"
             android:orientation="vertical">
 
 
@@ -130,8 +131,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/trans_45px"
-                    android:orientation="horizontal"
                     android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:paddingLeft="@dimen/trans_50px"
                     android:paddingRight="@dimen/trans_50px">
 
@@ -168,6 +169,7 @@
                             android:textColor="@color/color_font2"
                             android:textColorHint="@color/color_font3"
                             android:textSize="@dimen/text_trans_28px"/>
+
                         <com.fivefivelike.mybaselibrary.view.IconFontTextview
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -177,11 +179,11 @@
                             android:textColor="@color/color_font3"
                             android:textSize="@dimen/text_trans_28px"/>
 
+                    </LinearLayout>
+
+
                 </LinearLayout>
 
-
-
-            </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -229,25 +231,48 @@
                     </LinearLayout>
 
                 </LinearLayout>
-            <com.fivefivelike.mybaselibrary.view.RoundButton
-                android:id="@+id/tv_commit"
+
+                <com.fivefivelike.mybaselibrary.view.RoundButton
+                    android:id="@+id/tv_commit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/trans_50px"
+                    android:layout_marginLeft="@dimen/trans_50px"
+                    android:layout_marginRight="@dimen/trans_50px"
+                    android:layout_marginTop="@dimen/trans_65px"
+                    android:gravity="center"
+                    android:padding="@dimen/trans_25px"
+                    android:text="确定划转"
+                    android:textColor="@color/color_Primary"
+                    android:textSize="@dimen/text_trans_36px"
+                    app:btnCornerRadius="@dimen/trans_5px"
+                    app:btnSolidColor="@color/mark_color"/>
+
+
+            </LinearLayout>
+
+            <com.fivefivelike.mybaselibrary.view.FontTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/trans_25px"
+                android:layout_marginLeft="@dimen/trans_50px"
+                android:layout_marginTop="@dimen/trans_90px"
+                android:gravity="center"
+                android:text="说明"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_32px"
+                app:TypeFace="Bold"/>
+
+            <TextView
+                android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/trans_50px"
                 android:layout_marginLeft="@dimen/trans_50px"
                 android:layout_marginRight="@dimen/trans_50px"
-                android:layout_marginTop="@dimen/trans_65px"
-                android:gravity="center"
-                android:padding="@dimen/trans_25px"
-                android:text="确定划转"
-                android:textColor="@color/color_Primary"
-                android:textSize="@dimen/text_trans_36px"
-                app:btnCornerRadius="@dimen/trans_5px"
-                app:btnSolidColor="@color/mark_color"/>
-
-
-        </LinearLayout>
-
+                android:lineSpacingExtra="@dimen/trans_20px"
+                android:text=""
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_26px"/>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

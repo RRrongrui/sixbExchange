@@ -190,4 +190,12 @@ public class HttpUrl {
      * 获取k线
      */
     public String candles = AppConst.app2BaseUrl + dealUrl + "/app/trade/candles";
+    /**
+     * 交易所交易对
+     */
+    public String tradeall = AppConst.app2BaseUrl + dealUrl + "/app/trade/all";
+    /**
+     * 管理保证金
+     */
+    public String transferMargin = AppConst.app2BaseUrl + dealUrl + "/app/account/transferMargin";
 }

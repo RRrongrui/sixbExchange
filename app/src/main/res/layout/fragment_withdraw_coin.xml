@@ -16,7 +16,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/trans_300px">
 
             <View
                 android:layout_width="match_parent"
@@ -197,7 +198,7 @@
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/trans_50px"
                 android:paddingRight="@dimen/trans_50px"
-                android:visibility="gone">
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -222,7 +223,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:hint="请输入资金密码"
-                        android:inputType="numberDecimal"
+                        android:inputType="numberPassword"
                         android:paddingBottom="@dimen/trans_10px"
                         android:paddingLeft="@dimen/trans_25px"
                         android:paddingRight="@dimen/trans_25px"
@@ -231,18 +232,6 @@
                         android:textColor="@color/color_font2"
                         android:textColorHint="@color/color_font3"
                         android:textSize="@dimen/text_trans_28px"/>
-
-                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                        android:id="@+id/tv_set_pw"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:paddingLeft="@dimen/trans_25px"
-                        android:paddingRight="@dimen/trans_25px"
-                        android:text="去设置"
-                        android:textColor="@color/mark_color"
-                        android:textSize="@dimen/text_trans_28px"/>
-
 
                 </LinearLayout>
             </LinearLayout>
@@ -342,6 +331,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/trans_50px"
                 android:layout_marginRight="@dimen/trans_50px"
+                android:lineSpacingExtra="@dimen/trans_20px"
                 android:text=""
                 android:textColor="@color/color_font3"
                 android:textSize="@dimen/text_trans_26px"/>

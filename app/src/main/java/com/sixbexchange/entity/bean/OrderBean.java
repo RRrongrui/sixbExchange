@@ -38,7 +38,6 @@ public class OrderBean {
     String bs;
     String client_oid;
     String comment;
-    String commission;
     String contract;
     String dealt_amount;
     String entrust_amount;
@@ -52,7 +51,21 @@ public class OrderBean {
     String last_update;
     String exchange_update;
     String status;
-    String tags;
+    String commission;
+    String frozen_margin;
+    /**
+     * tags : {"type":"open"}
+     */
+
+    private String tags;
+
+    public String getFrozen_margin() {
+        return frozen_margin;
+    }
+
+    public void setFrozen_margin(String frozen_margin) {
+        this.frozen_margin = frozen_margin;
+    }
 
     public String getEntrust_amount() {
         return entrust_amount;
@@ -213,4 +226,6 @@ public class OrderBean {
     public void setTags(String tags) {
         this.tags = tags;
     }
+
+
 }

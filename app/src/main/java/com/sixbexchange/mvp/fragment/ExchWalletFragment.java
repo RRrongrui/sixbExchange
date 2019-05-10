@@ -90,8 +90,9 @@ public class ExchWalletFragment extends BasePullFragment<BaseFragentPullDelegate
             exchName = this.getArguments().getString("exchName", "");
             position = this.getArguments().getInt("position");
         }
-        initList(new ArrayList<WalletCoinBean>());
         onRefresh();
+        initList(new ArrayList<WalletCoinBean>());
+
     }
 
     private void initList(List<WalletCoinBean> data) {
@@ -103,13 +104,17 @@ public class ExchWalletFragment extends BasePullFragment<BaseFragentPullDelegate
                     if (getParentFragment().getParentFragment() instanceof MainFragment) {
                         if (view.getId() == R.id.tv_withdraw) {
                             ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(
-                                    WithdrawCoinFragment.newInstance(adapter.getDatas().get(p).getCoin(), position));
+                                    WithdrawCoinFragment.newInstance(
+                                            adapter.getDatas().get(p).getCoin(),
+                                            position));
                         } else if (view.getId() == R.id.tv_transfer) {
                             ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(
-                                    RechargeFragment.newInstance(adapter.getDatas().get(p).getCoin(), exchName, 1, position));
+                                    RechargeFragment.newInstance(adapter.getDatas().get(p).getCoin().replace("XBT","BTC")
+                                            , exchName, 1, position));
                         } else if (view.getId() == R.id.tv_recharge) {
                             ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(
-                                    RechargeFragment.newInstance(adapter.getDatas().get(p).getCoin(), exchName, 0, position));
+                                    RechargeFragment.newInstance(adapter.getDatas().get(p).getCoin()
+                                            , exchName, 0, position));
                         }
                     }
                 }
@@ -162,6 +167,6 @@ public class ExchWalletFragment extends BasePullFragment<BaseFragentPullDelegate
 
     @Override
     protected void refreshData() {
-        addRequest(binder.getAccountDetail(this));
+        addRequest(binder.getAccountDetail(adapter == null, this));
     }
 }

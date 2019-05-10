@@ -15,13 +15,14 @@ public class AssetsBinder extends BaseDataBind<AssetsDelegate> {
     }
 
     public Disposable getAccount(
+            boolean isShow,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestUrl(HttpUrl.getIntance().getAccount)
-                .setShowDialog(true)
+                .setShowDialog(isShow)
                 .setRequestName("获取钱包列表")
                 .setRequestMode(HttpRequest.RequestMode.GET)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)

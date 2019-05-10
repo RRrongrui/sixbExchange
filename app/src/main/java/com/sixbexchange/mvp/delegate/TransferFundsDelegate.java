@@ -31,6 +31,7 @@ public class TransferFundsDelegate extends BaseDelegate {
         public TextView tv_in;
         public EditText tv_num;
         public RoundButton tv_commit;
+        public TextView tv_content;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -40,6 +41,7 @@ public class TransferFundsDelegate extends BaseDelegate {
             this.tv_in = (TextView) rootView.findViewById(R.id.tv_in);
             this.tv_num = (EditText) rootView.findViewById(R.id.tv_num);
             this.tv_commit = (RoundButton) rootView.findViewById(R.id.tv_commit);
+            this.tv_content = (TextView) rootView.findViewById(R.id.tv_content);
         }
 
     }

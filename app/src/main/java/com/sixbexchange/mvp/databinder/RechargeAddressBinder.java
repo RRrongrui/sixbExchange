@@ -24,7 +24,7 @@ public class RechargeAddressBinder extends BaseDataBind<RechargeAddressDelegate>
                 .setRequestCode(0x123)
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestUrl(position == 1 ? HttpUrl.getIntance().depositAddress : HttpUrl.getIntance().addrinfo)
-                .setShowDialog(true)
+                .setShowDialog(false)
                 .setRequestName("充币地址")
                 .setRequestMode(HttpRequest.RequestMode.GET)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)

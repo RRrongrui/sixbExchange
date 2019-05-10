@@ -49,6 +49,19 @@ public class TradeDetailBean {
     private String onlykey;
     private int leverageAvailable;
     private int kline;
+    /**
+     * id : 25
+     * minPriceUnit : 0.5
+     * minAmountUnit : 1
+     * fee : 0.8
+     * ch : -1.753162
+     * vol : 2315235884
+     * la : 5632
+     */
+
+    private String ch;
+    private String vol;
+    private String la;
 
     public String getOnlykey() {
         return onlykey;
@@ -234,5 +247,29 @@ public class TradeDetailBean {
 
     public void setSecondType(String secondType) {
         this.secondType = secondType;
+    }
+
+    public String getCh() {
+        return ch;
+    }
+
+    public void setCh(String ch) {
+        this.ch = ch;
+    }
+
+    public String getVol() {
+        return vol;
+    }
+
+    public void setVol(String vol) {
+        this.vol = vol;
+    }
+
+    public String getLa() {
+        return la;
+    }
+
+    public void setLa(String la) {
+        this.la = la;
     }
 }

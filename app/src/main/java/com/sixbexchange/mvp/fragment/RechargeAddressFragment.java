@@ -59,6 +59,13 @@ public class RechargeAddressFragment extends BaseDataBindFragment<RechargeAddres
         super.bindEvenListener();
 
     }
+    String content="1.主流币的充值到6b，第一个网络确认后20分钟内到账。\n" +
+            "2.6b和站内okex合约之前的资金划转：0手续费，10秒内确认到账。\n" +
+            "3.6b的提现，每天处理一次，当天18点前的提现申请，当天处理完毕。每周日休息。\n" +
+            "4.bitmex独立账户体系：开户0.001btc（正常交易3天退还），享受15%的手续费返佣，网页和app交易不需要翻墙。\n" +
+            "5.6b站内的bitmex合约交易，是独立账户体系，有独立的充值地址，独立提现。\n" +
+            "6.站内bitmex的充值：第一个链上网络确认后，20分钟内到账。站内bitmex的充值：每天处理一次，当天18点前的提现申请，当天处理完毕，提现手续费0.0005btc。每周日休息。\n" +
+            "7.bitmex和6b站内的资金划转，两周内上线。";
 
 
     public static RechargeAddressFragment newInstance(
@@ -84,8 +91,8 @@ public class RechargeAddressFragment extends BaseDataBindFragment<RechargeAddres
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
+    protected void bindEvenListenerBuyState(Bundle savedInstanceState) {
+        super.bindEvenListenerBuyState(savedInstanceState);
         if (savedInstanceState != null) {
             typeStr = savedInstanceState.getString("typeStr", "");
             exchPosition = savedInstanceState.getInt("exchPosition");
@@ -93,13 +100,40 @@ public class RechargeAddressFragment extends BaseDataBindFragment<RechargeAddres
             typeStr = this.getArguments().getString("typeStr", "");
             exchPosition = this.getArguments().getInt("exchPosition");
         }
+        viewDelegate.viewHolder.tv_content.setText(content);
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
         addRequest(binder.addrinfo(typeStr, exchPosition, this));
         addRequest(binder.getAccountDetail(this));
         viewDelegate.viewHolder.tv_select_coins.setText(typeStr);
+    }
 
-
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
 
     }
+
+    boolean isShow = false;
+
+    public void showDialog() {
+        if (!isShow && (StringUtils.equalsIgnoreCase("eos", typeStr) ||
+                StringUtils.equalsIgnoreCase("xrp", typeStr))) {
+            isShow = true;
+            CircleDialogHelper.initDefaultDialog(getActivity(),
+                    typeStr + "充值需要输入MEMO,否则不会到账", null)
+                    .setNegative(CommonUtils.getString(R.string.str_cancel), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            getActivity().onBackPressed();
+                        }
+                    }).show();
+        }
+    }
+
 
     List<String> coins;
     String addr;
@@ -111,20 +145,9 @@ public class RechargeAddressFragment extends BaseDataBindFragment<RechargeAddres
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
             case 0x123:
-                if ((StringUtils.equalsIgnoreCase("eos", typeStr) ||
-                        StringUtils.equalsIgnoreCase("xrp", typeStr))) {
-                    CircleDialogHelper.initDefaultDialog(getActivity(), typeStr+"充值需要输入MEMO,否则不会到账", null)
-                            .setNegative(CommonUtils.getString(R.string.str_cancel), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    getActivity().onBackPressed();
-                                }
-                            }).show();
-                }
                 addr = GsonUtil.getInstance().getValue(data, "addr");
                 remark = GsonUtil.getInstance().getValue(data, "remark");
                 notice = GsonUtil.getInstance().getValue(data, "notice");
-                viewDelegate.viewHolder.tv_content.setText(notice);
                 viewDelegate.viewHolder.lin_memo.setVisibility(TextUtils.isEmpty(remark) ? View.GONE : View.VISIBLE);
                 viewDelegate.viewHolder.tv_address.setText(addr + "");
                 viewDelegate.viewHolder.tv_memo.setText(remark + "");
@@ -176,6 +199,10 @@ public class RechargeAddressFragment extends BaseDataBindFragment<RechargeAddres
                 map.remove("name");
                 map.remove("position");
                 coins = new ArrayList<>();
+                if (map.containsKey("XBT")) {
+                    map.put("BTC", map.get("XBT"));
+                    map.remove("XBT");
+                }
                 for (String key : map.keySet()) {
                     coins.add(key);
                 }

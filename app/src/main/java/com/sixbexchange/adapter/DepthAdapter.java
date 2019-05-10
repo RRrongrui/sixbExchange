@@ -1,8 +1,6 @@
 package com.sixbexchange.adapter;
 
 import android.content.Context;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ObjectUtils;
@@ -32,8 +30,8 @@ public class DepthAdapter extends BaseAdapter<DepthBean> {
     int getRiseColor;
     int getDropColor;
 
-    private View view_left;
-    private View view_right;
+//    private View view_left;
+//    private View view_right;
 
     private int priceSize=2;
     private int numSize=2;
@@ -59,37 +57,21 @@ public class DepthAdapter extends BaseAdapter<DepthBean> {
         getDropColor = CommonUtils.getColor(UserSet.getinstance().getDropColor());
     }
 
-    String max = "0";
-
-    @Override
-    public void setData(List<DepthBean> data) {
-        max = "0";
-        for (int i = 0; i < data.size(); i++) {
-            if (ObjectUtils.equals("--", data.get(i).getVolume())) {
-                break;
-            }
-            if (new BigDecimal(data.get(i).getVolume()).doubleValue() >
-                    new BigDecimal(max).doubleValue()) {
-                max = data.get(i).getVolume();
-            }
-        }
-        super.setData(data);
-    }
 
     @Override
     protected void convert(ViewHolder holder, DepthBean s, final int position) {
         tv_price = holder.getView(R.id.tv_price);
         tv_num = holder.getView(R.id.tv_num);
-        view_left = holder.getView(R.id.view_left);
-        view_right = holder.getView(R.id.view_right);
+//        view_left = holder.getView(R.id.view_left);
+//        view_right = holder.getView(R.id.view_right);
         if (isBuy) {
             tv_price.setTextColor(getRiseColor);
-            view_right.setBackgroundColor(getRiseColor);
+            //view_right.setBackgroundColor(getRiseColor);
         } else {
             tv_price.setTextColor(getDropColor);
-            view_right.setBackgroundColor(getDropColor);
+            //view_right.setBackgroundColor(getDropColor);
         }
-        view_right.setAlpha(0.15f);
+        //view_right.setAlpha(0.15f);
 
 
         if (ObjectUtils.equals("--", s.getPrice())) {
@@ -100,10 +82,10 @@ public class DepthAdapter extends BaseAdapter<DepthBean> {
         }
         if (ObjectUtils.equals("--", s.getVolume())) {
             tv_num.setText(s.getVolume());
-            view_right.setVisibility(View.GONE);
+            //view_right.setVisibility(View.GONE);
             isHaveData = false;
         } else {
-            view_right.setVisibility(View.VISIBLE);
+            //view_right.setVisibility(View.VISIBLE);
             isHaveData = true;
             BigDecimal bigDecimal = new BigDecimal(s.getVolume());
             if (new BigDecimal(s.getVolume()).doubleValue() > 1000) {
@@ -115,15 +97,15 @@ public class DepthAdapter extends BaseAdapter<DepthBean> {
                 tv_num.setText(BigUIUtil.getinstance().bigEnglishNum(s.getVolume(), numSize));
             }
 
-            LinearLayout.LayoutParams layoutLeft = (LinearLayout.LayoutParams)
-                    view_left.getLayoutParams();
-            layoutLeft.weight = new BigDecimal(max).floatValue() - bigDecimal.floatValue();
-            view_left.setLayoutParams(layoutLeft);
-
-            LinearLayout.LayoutParams layoutRight = (LinearLayout.LayoutParams)
-                    view_right.getLayoutParams();
-            layoutRight.weight = bigDecimal.floatValue();
-            view_right.setLayoutParams(layoutRight);
+//            LinearLayout.LayoutParams layoutLeft = (LinearLayout.LayoutParams)
+//                    view_left.getLayoutParams();
+//            layoutLeft.weight = new BigDecimal(max).floatValue() - bigDecimal.floatValue();
+//            view_left.setLayoutParams(layoutLeft);
+//
+//            LinearLayout.LayoutParams layoutRight = (LinearLayout.LayoutParams)
+//                    view_right.getLayoutParams();
+//            layoutRight.weight = bigDecimal.floatValue();
+//            view_right.setLayoutParams(layoutRight);
 
 
         }

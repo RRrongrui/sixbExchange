@@ -77,7 +77,7 @@ public class OrdersAdapter extends BaseAdapter<OrderBean> {
         tv_name.setText(tradeDetailBean.getCurrencyPairName());
 
         if (ObjectUtils.equals("b", s.getBs())) {
-            tv_type.setText("买入/做多");
+            tv_type.setText("买入/开多");
             tv_type.setBackground(new RadiuBg(
                     CommonUtils.getColor(UserSet.getinstance().getRiseColor()),
                     5, 5, 5, 5

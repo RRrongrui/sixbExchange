@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tl="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <include layout="@layout/include_toolbar_with_statusbar"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/trans_90px"
+            android:gravity="center"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <com.tablayout.SegmentTabLayout
+                android:id="@+id/tl_1"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_60px"
+                android:layout_gravity="center_horizontal"
+                tl:tl_bar_color="@color/color_Primary"
+                tl:tl_indicator_color="@color/mark_color"
+                tl:tl_indicator_corner_radius="@dimen/trans_8px"
+                tl:tl_tab_padding="@dimen/trans_20px"
+                app:tl_textsize="@dimen/text_trans_26px"
+                app:tl_tab_width="@dimen/trans_200px"
+                app:tl_tab_space_equal="true"
+                />
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <com.circledialog.view.NoSlideViewPager
+        android:id="@+id/vp_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        >
+
+    </com.circledialog.view.NoSlideViewPager>
+
+
+</LinearLayout>

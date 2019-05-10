@@ -86,7 +86,6 @@
             android:name=".mvp.activity.WebActivityActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
-
     </application>
 
 </manifest>

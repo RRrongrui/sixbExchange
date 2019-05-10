@@ -44,17 +44,20 @@ public class WithdrawCoinFragment extends BaseDataBindFragment<WithdrawCoinDeleg
         return new WithdrawCoinBinder(viewDelegate);
     }
 
+    String content = "1.主流币的充值到6b，第一个网络确认后20分钟内到账。\n" +
+            "2.6b和站内okex合约之前的资金划转：0手续费，10秒内确认到账。\n" +
+            "3.6b的提现，每天处理一次，当天18点前的提现申请，当天处理完毕。每周日休息。\n" +
+            "4.bitmex独立账户体系：开户0.001btc（正常交易3天退还），享受15%的手续费返佣，网页和app交易不需要翻墙。\n" +
+            "5.6b站内的bitmex合约交易，是独立账户体系，有独立的充值地址，独立提现。\n" +
+            "6.站内bitmex的充值：第一个链上网络确认后，20分钟内到账。站内bitmex的充值：每天处理一次，当天18点前的提现申请，当天处理完毕，提现手续费0.0005btc。每周日休息。\n" +
+            "7.bitmex和6b站内的资金划转，两周内上线。";
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle("提币"));
-        viewDelegate.viewHolder.tv_set_pw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                start(new FundPasswordFragment());
-            }
-        });
+        viewDelegate.viewHolder.tv_content.setText(content);
+
         viewDelegate.viewHolder.tv_set_addr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +105,12 @@ public class WithdrawCoinFragment extends BaseDataBindFragment<WithdrawCoinDeleg
     }
 
     @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+        viewDelegate.viewHolder.tv_pw.setText("");
+    }
+
+    @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         if (savedInstanceState != null) {
@@ -111,6 +120,7 @@ public class WithdrawCoinFragment extends BaseDataBindFragment<WithdrawCoinDeleg
             typeStr = this.getArguments().getString("typeStr", "");
             exchPosition = this.getArguments().getInt("exchPosition");
         }
+
         viewDelegate.viewHolder.tv_select_coins.setText(typeStr);
         addRequest(binder.getAccountDetail(this));
         addRequest(binder.extract(typeStr, this));
@@ -133,6 +143,10 @@ public class WithdrawCoinFragment extends BaseDataBindFragment<WithdrawCoinDeleg
                     ToastUtil.show("请输入验证码");
                     return;
                 }
+                if (TextUtils.isEmpty(viewDelegate.viewHolder.tv_pw.getText().toString())) {
+                    ToastUtil.show("请输入资金密码");
+                    return;
+                }
                 addRequest(binder.sendExtract(
                         (StringUtils.equalsIgnoreCase("eos", typeStr) ||
                                 StringUtils.equalsIgnoreCase("xrp", typeStr)) ? selectAddr.getMemo() : "",
@@ -141,6 +155,8 @@ public class WithdrawCoinFragment extends BaseDataBindFragment<WithdrawCoinDeleg
                         viewDelegate.viewHolder.tv_num.getText().toString(),
                         withdrawCoinBean.getFee() + "",
                         viewDelegate.viewHolder.tv_code.getText().toString(),
+                        exchPosition + 1 + "",
+                        viewDelegate.viewHolder.tv_pw.getText().toString(),
                         WithdrawCoinFragment.this
                 ));
             }
@@ -189,7 +205,6 @@ public class WithdrawCoinFragment extends BaseDataBindFragment<WithdrawCoinDeleg
         });
 
 
-
     }
 
     List<String> coins;
@@ -207,7 +222,10 @@ public class WithdrawCoinFragment extends BaseDataBindFragment<WithdrawCoinDeleg
                 withdrawCoinBean = GsonUtil.getInstance().toObj(data, WithdrawCoinBean.class);
                 viewDelegate.viewHolder.tv_num.setHint("最小提币单位" + withdrawCoinBean.getMin() + typeStr);
                 coinAddressBeans = GsonUtil.getInstance().toList(data, "list", CoinAddressBean.class);
-                viewDelegate.viewHolder.tv_content.setText("提币手续费" + withdrawCoinBean.getFee() + typeStr);
+                viewDelegate.viewHolder.tv_content.setText(
+                        "提币手续费" + withdrawCoinBean.getFee() + typeStr + "\n\n" +
+                                content
+                );
                 break;
             case 0x124:
                 List<String> list = GsonUtil.getInstance().toList(
@@ -219,6 +237,10 @@ public class WithdrawCoinFragment extends BaseDataBindFragment<WithdrawCoinDeleg
                 map.remove("name");
                 map.remove("position");
                 coins = new ArrayList<>();
+                if (map.containsKey("XBT")) {
+                    map.put("BTC", map.get("XBT"));
+                    map.remove("XBT");
+                }
                 for (String key : map.keySet()) {
                     coins.add(key);
                 }
@@ -235,6 +257,7 @@ public class WithdrawCoinFragment extends BaseDataBindFragment<WithdrawCoinDeleg
                                     viewDelegate.viewHolder.tv_content.setText("");
                                     viewDelegate.viewHolder.tv_addr.setText("");
                                     viewDelegate.viewHolder.tv_code.setText("");
+                                    viewDelegate.viewHolder.tv_pw.setText("");
                                     selectAddr = null;
                                     addRequest(binder.extract(typeStr, WithdrawCoinFragment.this));
                                 }

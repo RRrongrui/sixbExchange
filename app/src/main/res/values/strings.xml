@@ -15,6 +15,16 @@
         <item>订单</item>
         <item>持仓</item>
     </string-array>
+    <string-array name="sa_select_okex_transaction_title">
+        <item>开仓</item>
+        <item>平仓</item>
+        <item>订单</item>
+        <item>持仓</item>
+    </string-array>
+    <string-array name="sa_select_change_margin_title">
+        <item>增加保证金</item>
+        <item>减少保证金</item>
+    </string-array>
     <string-array name="sa_select_user_oredr">
         <item>列表</item>
         <item>持有</item>

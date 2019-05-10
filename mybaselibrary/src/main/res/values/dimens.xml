@@ -514,6 +514,7 @@
     <dimen name="trans_497px">259.7742dp</dimen>
     <dimen name="trans_498px">260.29688dp</dimen>
     <dimen name="trans_499px">260.81958dp</dimen>
+    <dimen name="trans_1000px">520.81958dp</dimen>
     <dimen name="text_trans_1px">0.5226845sp</dimen>
     <dimen name="text_trans_2px">1.045369sp</dimen>
     <dimen name="text_trans_3px">1.5680535sp</dimen>

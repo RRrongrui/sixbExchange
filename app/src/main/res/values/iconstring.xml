@@ -31,6 +31,8 @@
     <string name="ic_dice_one">&#xe83a;</string>
     <string name="ic_erweima">&#xe640;</string>
     <string name="ic_Dots1">&#xe648;</string>
+    <string name="ic_seting">&#xe63b;</string>
+    <string name="ic_seting1">&#xe63a;</string>
 
 
 </resources>

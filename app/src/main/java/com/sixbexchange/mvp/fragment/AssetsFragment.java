@@ -57,17 +57,19 @@ public class AssetsFragment extends BaseDataBindFragment<AssetsDelegate, AssetsB
         viewDelegate.getmToolbarTitle().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onRefresh();
+                onRefresh(true);
             }
         });
     }
 
-    public void onRefresh() {
-        addRequest(binder.getAccount(AssetsFragment.this));
+    public void onRefresh(boolean isShow) {
+        addRequest(binder.getAccount(isShow, AssetsFragment.this));
         if (!ListUtils.isEmpty(fragments)) {
             if (fragments.size() > viewDelegate.viewHolder.vp_sliding.getCurrentItem()) {
                 if (fragments.get(viewDelegate.viewHolder.vp_sliding.getCurrentItem()) instanceof BasePullFragment) {
-                    ((BasePullFragment) fragments.get(viewDelegate.viewHolder.vp_sliding.getCurrentItem())).onRefresh();
+                    ((BasePullFragment) fragments
+                            .get(viewDelegate.viewHolder.vp_sliding.getCurrentItem()))
+                            .onRefresh();
                 }
             }
         }
@@ -100,7 +102,13 @@ public class AssetsFragment extends BaseDataBindFragment<AssetsDelegate, AssetsB
         super.onLazyInitView(savedInstanceState);
         initList(new ArrayList<ExchWalletBean>());
         fragments.clear();
-        addRequest(binder.getAccount(this));
+
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        onRefresh(exchWalletAdapter == null);
     }
 
     ArrayList<Fragment> fragments = new ArrayList<>();

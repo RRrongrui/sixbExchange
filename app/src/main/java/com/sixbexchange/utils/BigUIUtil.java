@@ -1,8 +1,10 @@
 package com.sixbexchange.utils;
 
 import android.text.TextUtils;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ObjectUtils;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.UiHeplUtils;
 
 import java.math.BigDecimal;
@@ -150,7 +152,31 @@ public class BigUIUtil {
         }
         return stringBuffer.toString();
     }
+    public void rateTextView(String rate, TextView textView) {
+        rateTextView(rate, 2, textView, true, true);
+    }
 
+    public void rateTextView(String rate, int size, TextView textView, boolean isChangeColor, boolean isAdd) {
+        if (!UiHeplUtils.isDouble(rate)) {
+            return;
+        }
+        if (textView == null) {
+            return;
+        }
+        if (new BigDecimal(rate).doubleValue() >= 0) {
+            if (isChangeColor) {
+                textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
+            }
+            textView.setText((isAdd ? "+" : "") + new BigDecimal(rate)
+                    .setScale(size, BigDecimal.ROUND_UP) .stripTrailingZeros().toPlainString() + "%");
+        } else {
+            if (isChangeColor) {
+                textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
+            }
+            textView.setText(new BigDecimal(rate).setScale(size, BigDecimal.ROUND_UP)
+                    .stripTrailingZeros().toPlainString()+ "%");
+        }
+    }
     //量 单位 显示规则
     //        >>>量
     //0
@@ -267,5 +293,20 @@ public class BigUIUtil {
         }
         return format;
     }
-
+    public String rateText(String rateTxt) {
+        if (TextUtils.isEmpty(rateTxt)) {
+            return "";
+        }
+        try {
+            BigDecimal bigDecimal = new BigDecimal(rateTxt);
+            String txt = bigDecimal.setScale(2, BigDecimal.ROUND_UP)
+                    .stripTrailingZeros().toPlainString();
+            if (bigDecimal.doubleValue() > 0) {
+                return "+" + txt;
+            }
+            return txt;
+        } catch (Exception e) {
+            return "";
+        }
+    }
 }

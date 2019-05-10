@@ -42,6 +42,14 @@ public class TransferFundsFragment extends BaseDataBindFragment<TransferFundsDel
 
     }
 
+    String content = "1.主流币的充值到6b，第一个网络确认后20分钟内到账。\n" +
+            "2.6b和站内okex合约之前的资金划转：0手续费，10秒内确认到账。\n" +
+            "3.6b的提现，每天处理一次，当天18点前的提现申请，当天处理完毕。每周日休息。\n" +
+            "4.bitmex独立账户体系：开户0.001btc（正常交易3天退还），享受15%的手续费返佣，网页和app交易不需要翻墙。\n" +
+            "5.6b站内的bitmex合约交易，是独立账户体系，有独立的充值地址，独立提现。\n" +
+            "6.站内bitmex的充值：第一个链上网络确认后，20分钟内到账。站内bitmex的充值：每天处理一次，当天18点前的提现申请，当天处理完毕，提现手续费0.0005btc。每周日休息。\n" +
+            "7.bitmex和6b站内的资金划转，两周内上线。";
+
     public static TransferFundsFragment newInstance(
             String typeStr,
             String exchName,
@@ -71,6 +79,7 @@ public class TransferFundsFragment extends BaseDataBindFragment<TransferFundsDel
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
+        viewDelegate.viewHolder.tv_content.setText(content);
         if (savedInstanceState != null) {
             typeStr = savedInstanceState.getString("typeStr", "");
             exchName = savedInstanceState.getString("exchName", "");
@@ -80,7 +89,9 @@ public class TransferFundsFragment extends BaseDataBindFragment<TransferFundsDel
             exchName = this.getArguments().getString("exchName", "");
             exchPosition = this.getArguments().getInt("exchPosition");
         }
-
+        if (ObjectUtils.equals(typeStr, "XBT")) {
+            typeStr = "BTC";
+        }
         viewDelegate.viewHolder.tv_commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,22 +116,26 @@ public class TransferFundsFragment extends BaseDataBindFragment<TransferFundsDel
                 ));
             }
         });
-        exchNames = new ArrayList<>();
-        exchList = new ArrayList<>();
+        inExchNames = new ArrayList<>();
+        outExchNames = new ArrayList<>();
+        intExchList = new ArrayList<>();
+        outExchList = new ArrayList<>();
         data = CacheUtils.getInstance().getString(CacheName.ExchWalletCache);
         initCoins();
-        initExchList();
         getOutExchList();
-        getInExchList();
-
+        initExchList();
     }
 
     Map<String, String> inExch;
     LeverageDialog inExchDialog;
 
     private void getInExchList() {
-        inExch = exchList.get(exchPosition);
-        viewDelegate.viewHolder.tv_in.setText(exchNames.get(exchPosition));
+        for (int i = 0; i < intExchList.size(); i++) {
+            if (ObjectUtils.equals(exchPosition + 1 + "", intExchList.get(i).get("position"))) {
+                inExch = intExchList.get(i);
+                viewDelegate.viewHolder.tv_in.setText(inExchNames.get(i));
+            }
+        }
         viewDelegate.viewHolder.tv_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,15 +144,15 @@ public class TransferFundsFragment extends BaseDataBindFragment<TransferFundsDel
                         @Override
                         public void onClick(View view, int position, Object item) {
                             initExchList();
-                            inExch = exchList.get(position);
-                            viewDelegate.viewHolder.tv_in.setText(exchNames.get(position));
+                            inExch = intExchList.get(position);
+                            viewDelegate.viewHolder.tv_in.setText(inExchNames.get(position));
+                            exchPosition = Integer.parseInt(intExchList.get(position).get("position")) - 1;
                             initCoins();
-                            exchPosition = position;
                         }
                     });
                     inExchDialog.setSize(15);
                 }
-                inExchDialog.showDilaog(inExch != null ? inExch.get("name") + "钱包" : "", exchNames);
+                inExchDialog.showDilaog(inExch != null ? inExch.get("name") + "钱包" : "", inExchNames);
             }
         });
     }
@@ -156,7 +171,11 @@ public class TransferFundsFragment extends BaseDataBindFragment<TransferFundsDel
         coins = new ArrayList<>();
         String coin = "";
         for (String key : map.keySet()) {
-            coins.add(key);
+            if (ObjectUtils.equals(key, "XBT")) {
+                coins.add("BTC");
+            } else {
+                coins.add(key);
+            }
             if (typeStr.equals(key)) {
                 coin = typeStr;
             }
@@ -164,6 +183,7 @@ public class TransferFundsFragment extends BaseDataBindFragment<TransferFundsDel
         if (TextUtils.isEmpty(coin)) {
             typeStr = coins.get(0);
         }
+
         viewDelegate.viewHolder.tv_select_coins.setText(typeStr);
         viewDelegate.viewHolder.lin_select_coin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,46 +204,76 @@ public class TransferFundsFragment extends BaseDataBindFragment<TransferFundsDel
         });
     }
 
-    List<Map<String, String>> exchList;
+    List<Map<String, String>> intExchList;
+    List<Map<String, String>> outExchList;
     Map<String, String> outExch;
     LeverageDialog outExchDialog;
-    List<String> exchNames;
+    List<String> inExchNames;
+    List<String> outExchNames;
 
     private void initExchList() {
         List<String> list = GsonUtil.getInstance().toList(
                 data, String.class
         );
-        exchList.clear();
-        exchNames.clear();
+        intExchList.clear();
+        outExchList.clear();
+        inExchNames.clear();
+        outExchNames.clear();
         boolean isHaveInExch = false;
         boolean isHaveOutExch = false;
+
+        Map<String, String> map;
         for (int i = 0; i < list.size(); i++) {
-            Map<String, String> map = GsonUtil.getInstance().toMap(list.get(i),
+            map = GsonUtil.getInstance().toMap(list.get(i),
                     new TypeReference<Map<String, String>>() {
                     });
+            if (map.containsKey("XBT")) {
+                map.put("BTC", map.get("XBT"));
+                map.remove("XBT");
+            }
             if (map.containsKey(typeStr)) {
-                if (inExch != null && ObjectUtils.equals(map.get("name"), inExch.get("name"))) {
+                if (!map.get("name").toLowerCase().contains("bitmex")) {
+                    intExchList.add(map);
+                    inExchNames.add(map.get("name") + "钱包");
+                }
+                outExchList.add(map);
+                outExchNames.add(map.get("name") + "钱包");
+            }
+        }
+        for (int i = 0; i < list.size(); i++) {
+            map = GsonUtil.getInstance().toMap(list.get(i),
+                    new TypeReference<Map<String, String>>() {
+                    });
+            if (map.containsKey("XBT")) {
+                map.put("BTC", map.get("XBT"));
+                map.remove("XBT");
+            }
+            if (inExch == null) {
+                getInExchList();
+            }
+            if (map.containsKey(typeStr)) {
+
+                if (inExch != null &&
+                        ObjectUtils.equals(map.get("name"), inExch.get("name"))) {
                     isHaveInExch = true;
                 }
                 if (outExch != null && ObjectUtils.equals(map.get("name"), outExch.get("name"))) {
                     isHaveOutExch = true;
                 }
-                exchList.add(map);
-                exchNames.add(map.get("name") + "钱包");
             }
         }
+
         if (!isHaveInExch) {
-            inExch = exchList.get(0);
             exchPosition = 0;
+            initCoins();
+            getInExchList();
         }
         if (!isHaveOutExch) {
             getOutExchList();
         } else {
             WalletCoinBean walletCoinBean = GsonUtil.getInstance().toObj(outExch.get(typeStr), WalletCoinBean.class);
             viewDelegate.viewHolder.tv_num.setHint("当前可用" +
-                    new BigDecimal(walletCoinBean.getAvi())
-                            .subtract(new BigDecimal(walletCoinBean.getLock()))
-                            .stripTrailingZeros().toPlainString() + typeStr
+                    walletCoinBean.getAvi() + typeStr
             );
         }
     }
@@ -238,9 +288,11 @@ public class TransferFundsFragment extends BaseDataBindFragment<TransferFundsDel
                     outExchDialog = new LeverageDialog(getActivity(), new DefaultClickLinsener() {
                         @Override
                         public void onClick(View view, int position, Object item) {
-                            outExch = exchList.get(position);
-                            viewDelegate.viewHolder.tv_out.setText(exchNames.get(position));
-                            WalletCoinBean walletCoinBean = GsonUtil.getInstance().toObj(outExch.get(typeStr), WalletCoinBean.class);
+                            outExch = outExchList.get(position);
+                            viewDelegate.viewHolder.tv_out.setText(outExchNames.get(position));
+                            WalletCoinBean walletCoinBean =
+                                    GsonUtil.getInstance().toObj(outExch.get(typeStr),
+                                            WalletCoinBean.class);
                             viewDelegate.viewHolder.tv_num.setHint("当前可用" +
                                     new BigDecimal(walletCoinBean.getAvi())
                                             .subtract(new BigDecimal(walletCoinBean.getLock()))
@@ -250,7 +302,8 @@ public class TransferFundsFragment extends BaseDataBindFragment<TransferFundsDel
                     });
                     outExchDialog.setSize(15);
                 }
-                outExchDialog.showDilaog(outExch != null ? outExch.get("name") + "钱包" : "", exchNames);
+                outExchDialog.showDilaog(outExch != null ?
+                        outExch.get("name") + "钱包" : "", outExchNames);
             }
         });
     }

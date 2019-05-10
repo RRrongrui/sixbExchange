@@ -24,7 +24,7 @@ import java.util.List;
  * 用户订单
  */
 
-public class TrOrdersAdapter extends BaseAdapter<OrderBean> {
+public class TrBMOrdersAdapter extends BaseAdapter<OrderBean> {
 
 
     DefaultClickLinsener defaultClickLinsener;
@@ -45,7 +45,7 @@ public class TrOrdersAdapter extends BaseAdapter<OrderBean> {
         this.defaultClickLinsener = defaultClickLinsener;
     }
 
-    public TrOrdersAdapter(Context context, List<OrderBean> datas) {
+    public TrBMOrdersAdapter(Context context, List<OrderBean> datas) {
         super(context, R.layout.adapter_tr_order, datas);
 
     }
@@ -69,14 +69,16 @@ public class TrOrdersAdapter extends BaseAdapter<OrderBean> {
         });
 
         tv_name.setText(tradeDetailBean.getCurrencyPairName());
+
+
         if (ObjectUtils.equals("b", s.getBs())) {
-            tv_type.setText("做多");
+            tv_type.setText("买入");
             tv_type.setBackground(new RadiuBg(
                     CommonUtils.getColor(UserSet.getinstance().getRiseColor()),
                     5, 5, 5, 5
             ));
         } else if (ObjectUtils.equals("s", s.getBs())) {
-            tv_type.setText("开空");
+            tv_type.setText("卖出");
             tv_type.setBackground(new RadiuBg(
                     CommonUtils.getColor(UserSet.getinstance().getDropColor()),
                     5, 5, 5, 5

@@ -1,6 +1,7 @@
 package com.sixbexchange.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -78,7 +79,7 @@ public class HoldPositionAdapter extends BaseAdapter<HoldPositionBean> {
         tv_income.setText(BigUIUtil.getinstance().bigAmount(s.getUnrealized()) + " " + s.getDetail().getMarginUnit());
         tv_amount.setText(BigUIUtil.getinstance().bigAmount(s.getTotalAmount().replace("-", "")) + " " + s.getDetail().getAmountUnit());
         tv_close_amount.setText(BigUIUtil.getinstance().bigAmount(s.getAvailable().replace("-", "")) + " " + s.getDetail().getAmountUnit());
-        tv_margin.setText(new BigDecimal(s.getUsedMargin()).setScale(4, RoundingMode.DOWN).toPlainString() + " " + s.getDetail().getMarginUnit());
+        tv_margin.setText(TextUtils.isEmpty(s.getUsedMargin()) ? "--" : new BigDecimal(s.getUsedMargin()).setScale(4, RoundingMode.DOWN).toPlainString() + " " + s.getDetail().getMarginUnit());
         tv_end_price.setText(BigUIUtil.getinstance().getSymbol(s.getDetail().getPriceUnit()) + " " +
                 BigUIUtil.getinstance().bigPrice(s.getLiquidationPrice()));
 

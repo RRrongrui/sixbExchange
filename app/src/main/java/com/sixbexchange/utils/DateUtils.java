@@ -30,6 +30,7 @@ public class DateUtils {
     public static String TIME_STYLE_S7 = "yyyy年MM月dd日HH时mm分ss秒";
     public static String TIME_STYLE_S10 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
     public static String TIME_STYLE_S11 = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX";
+    public static String TIME_STYLE_S13 = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ";
     public static String TIME_STYLE_S12 = "yyyy-MM-dd'T'HH:mm:ss'Z'";
     public static SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.S'Z'");
     public static SimpleDateFormat SDFS8 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+08:00'");

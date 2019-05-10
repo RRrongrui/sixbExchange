@@ -123,6 +123,15 @@ public class HoldPositionBean {
     private ExtraInfoBean extraInfo;
     private String liquidationPrice;
     private String liquidationPriceRate;
+    private String value;
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 
     public String getLever_rate() {
         return lever_rate;
@@ -574,6 +583,33 @@ public class HoldPositionBean {
         private String sell_profit_real;
         private String sell_available;
         private String leverage;
+        private String value;
+        private String valueUnit;
+        private String levChange;
+
+        public String getLevChange() {
+            return levChange;
+        }
+
+        public void setLevChange(String levChange) {
+            this.levChange = levChange;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        public String getValueUnit() {
+            return valueUnit;
+        }
+
+        public void setValueUnit(String valueUnit) {
+            this.valueUnit = valueUnit;
+        }
 
         public String getLeverage() {
             return leverage;

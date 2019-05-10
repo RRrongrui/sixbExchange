@@ -71,13 +71,14 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
     }
 
     public Disposable getAccountDetail(
+            boolean isShow,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestUrl(HttpUrl.getIntance().getAccountDetail)
-                .setShowDialog(true)
+                .setShowDialog(isShow)
                 .setRequestName("钱包资金明细")
                 .setRequestMode(HttpRequest.RequestMode.GET)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)
@@ -130,6 +131,7 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .build()
                 .RxSendRequest();
     }
+
     public Disposable changeLeverage(
             String exchange,
             String contract,
@@ -152,6 +154,7 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .build()
                 .RxSendRequest();
     }
+
     /*
        公共参数：
 
@@ -196,7 +199,7 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
         put("type", type);
         put("currencyPair", currencyPair);
         put("contract", contract);
-        put("bs",bs);
+        put("bs", bs);
         put("amount", amount);
         return new HttpRequest.Builder()
                 .setRequestCode(0x125)
@@ -204,6 +207,50 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .setRequestUrl(HttpUrl.getIntance().placeOrder)
                 .setShowDialog(true)
                 .setRequestName("下单")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    public Disposable cancelOrder(
+            String exchange,
+            String exchangeOid,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        put("exchange", exchange);
+        put("exchangeOid", exchangeOid);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x126)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestUrl(HttpUrl.getIntance().cancelOrder)
+                .setShowDialog(true)
+                .setRequestName("撤单")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    public Disposable transferMargin(
+            String exchange,
+            String contract,
+            String rateOrAmount,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        put("exchange", exchange);
+        put("contract", contract);
+        put("rateOrAmount", rateOrAmount);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x127)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestUrl(HttpUrl.getIntance().transferMargin)
+                .setShowDialog(true)
+                .setRequestName("管理保证金")
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.Json)
                 .setRequestObj(baseMap)

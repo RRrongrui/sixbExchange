@@ -15,6 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/trans_300px"
             android:orientation="vertical">
 
             <View
@@ -249,6 +250,7 @@
                 android:layout_marginTop="@dimen/trans_15px"
                 android:text=""
                 android:textColor="@color/color_font3"
+                android:lineSpacingExtra="@dimen/trans_20px"
                 android:textSize="@dimen/text_trans_22px"/>
 
 

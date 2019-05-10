@@ -2,6 +2,7 @@ package com.sixbexchange.mvp.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -86,10 +87,10 @@ public class RechargeFragment extends BaseDataBindFragment<RechargeDelegate, Rec
     ArrayList fragments;
     InnerPagerAdapter innerPagerAdapter;
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
-
+    RechargeAddressFragment rechargeAddressFragment;
     private void initTablelayout() {
         fragments = new ArrayList<>();
-        fragments.add(RechargeAddressFragment.newInstance(typeStr, exchPosition));
+        fragments.add(rechargeAddressFragment=RechargeAddressFragment.newInstance(typeStr, exchPosition));
         fragments.add(TransferFundsFragment.newInstance(typeStr,exchName, exchPosition));
         if (innerPagerAdapter == null) {
             String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_recharge);
@@ -107,8 +108,30 @@ public class RechargeFragment extends BaseDataBindFragment<RechargeDelegate, Rec
         } else {
             innerPagerAdapter.setDatas(fragments);
         }
+
+        viewDelegate.viewHolder.vp_root.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position==0){
+                    rechargeAddressFragment.showDialog();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         viewDelegate.viewHolder.tl_2.setCurrentTab(position);
         viewDelegate.viewHolder.vp_root.setCurrentItem(position);
+        if(position==0){
+            rechargeAddressFragment.showDialog();
+        }
     }
 
     @Override

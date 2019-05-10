@@ -14,6 +14,7 @@ import com.sixbexchange.R;
 import com.sixbexchange.base.AppConst;
 import com.sixbexchange.mvp.databinder.MainBinder;
 import com.sixbexchange.mvp.delegate.MainDelegate;
+import com.sixbexchange.mvp.fragment.transaction.TrParentsFragment;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -71,7 +72,7 @@ public class MainFragment extends BaseDataBindFragment<MainDelegate, MainBinder>
         mFragments = new SupportFragment[4];
         SupportFragment firstFragment = findChildFragment(UserOrderFragment.class);
         if (firstFragment == null) {
-            mFragments[FIRST] = transactionFragment = new TransactionFragment();
+            mFragments[FIRST] = transactionFragment = new TrParentsFragment();
             mFragments[SECOND] = userOrderFragment = new UserOrderFragment();
             mFragments[THIRD] = assetsFragment = new AssetsFragment();
             mFragments[FOUR] = mineFragment = new MineFragment();
@@ -85,7 +86,7 @@ public class MainFragment extends BaseDataBindFragment<MainDelegate, MainBinder>
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
             // 这里我们需要拿到mFragments的引用
-            mFragments[FIRST] = findChildFragment(TransactionFragment.class);
+            mFragments[FIRST] = findChildFragment(TrParentsFragment.class);
             mFragments[SECOND] = firstFragment;
             mFragments[THIRD] = findChildFragment(AssetsFragment.class);
             mFragments[FOUR] = findChildFragment(MineFragment.class);
@@ -97,7 +98,7 @@ public class MainFragment extends BaseDataBindFragment<MainDelegate, MainBinder>
         super.onActivityCreated(savedInstanceState);
     }
 
-    TransactionFragment transactionFragment;
+    TrParentsFragment transactionFragment;
     UserOrderFragment userOrderFragment;
     AssetsFragment assetsFragment;
     MineFragment mineFragment;
@@ -134,7 +135,7 @@ public class MainFragment extends BaseDataBindFragment<MainDelegate, MainBinder>
                 // 在FirstPagerFragment,FirstHomeFragment中接收, 因为是嵌套的Fragment
                 // 主要为了交互: 重选tab 如果列表不在顶部则移动到顶部,如果已经在顶部,则刷新
                 if (position == THIRD && assetsFragment != null) {
-                    assetsFragment.onRefresh();
+                    assetsFragment.onRefresh(true);
                 }
             }
         });

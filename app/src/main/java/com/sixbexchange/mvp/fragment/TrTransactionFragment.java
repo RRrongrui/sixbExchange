@@ -24,7 +24,7 @@ import com.fivefivelike.mybaselibrary.utils.UiHeplUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.sixbexchange.R;
 import com.sixbexchange.adapter.DepthAdapter;
-import com.sixbexchange.adapter.TrOrdersAdapter;
+import com.sixbexchange.adapter.TrOkexOrdersAdapter;
 import com.sixbexchange.base.CacheName;
 import com.sixbexchange.entity.bean.DepthBean;
 import com.sixbexchange.entity.bean.OrderBean;
@@ -198,11 +198,11 @@ public class TrTransactionFragment extends BaseDataBindFragment<TrTransactionDel
         isVisibility = false;
     }
 
-    TrOrdersAdapter adapter;
+    TrOkexOrdersAdapter adapter;
 
     private void initList(List<OrderBean> data) {
         if (adapter == null) {
-            adapter = new TrOrdersAdapter(getActivity(), data);
+            adapter = new TrOkexOrdersAdapter(getActivity(), data);
             adapter.setDefaultClickLinsener(new DefaultClickLinsener() {
                 @Override
                 public void onClick(View view, int position, Object item) {

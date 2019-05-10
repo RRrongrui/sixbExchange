@@ -94,6 +94,8 @@ public class WithdrawCoinBinder extends BaseDataBind<WithdrawCoinDelegate> {
             String amount,
             String fee,
             String vCode,
+            String exchange,
+            String transKey,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         put("addr", addr);
@@ -102,6 +104,8 @@ public class WithdrawCoinBinder extends BaseDataBind<WithdrawCoinDelegate> {
         put("amount", amount);
         put("fee", fee);
         put("vCode", vCode);
+        put("exchange", exchange);
+        put("transKey", transKey);
         return new HttpRequest.Builder()
                 .setRequestCode(0x127)
                 .setDialog(viewDelegate.getNetConnectDialog())
