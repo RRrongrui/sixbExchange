@@ -71,13 +71,12 @@ public class WebSocket2Request {
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-
                         if (okWebsocket != null) {
                             WebSocket webSocket = okWebsocket.getWebSocket();
                             if (webSocket != null) {
                                 if (pingMap == null) {
                                     pingMap = new HashMap<>();
-                                    pingMap.put("uri", SaveUtil.getInstance().getString("auth"));
+                                    pingMap.put("uri", "auth");
                                     webSocket.send(GsonUtil.getInstance().toJson(pingMap));
                                     KLog.i(REQUEST_TAG, "send  auth");
                                     if (!TextUtils.isEmpty(sendData)) {
@@ -144,8 +143,6 @@ public class WebSocket2Request {
     }
 
     String hisJson = "";
-
-
 
 
     public void addCallBack(String clss, WebSocketCallBack webSocketCallBack) {

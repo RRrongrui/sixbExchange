@@ -77,7 +77,7 @@ public class WebSocketRequest {
                             if (webSocket != null) {
                                 if (pingMap == null) {
                                     pingMap = new HashMap<>();
-                                    pingMap.put("uri", SaveUtil.getInstance().getString("auth"));
+                                    pingMap.put("uri", "auth");
                                     String s = GsonUtil.getInstance().toJson(pingMap);
                                     webSocket.send(s);
                                     KLog.i(REQUEST_TAG, "send  auth"+s);
