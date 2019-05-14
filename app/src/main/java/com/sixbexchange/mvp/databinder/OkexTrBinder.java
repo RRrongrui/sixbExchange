@@ -6,6 +6,7 @@ import com.blankj.utilcode.util.ObjectUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBind;
 import com.fivefivelike.mybaselibrary.http.HttpRequest;
 import com.fivefivelike.mybaselibrary.http.RequestCallback;
+import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.UiHeplUtils;
 import com.sixbexchange.mvp.delegate.OkexTrDelegate;
@@ -118,14 +119,12 @@ amount：数量
             isMarketPrice = ObjectUtils.equals("对手价",
                     viewDelegate.viewHolder.tv_order_price.getText().toString());
             if (isMarketPrice) {
-                price = isBuy ?
-                        viewDelegate.asksAdapter.getDatas().get(viewDelegate.depthSize - 1).getPrice() :
-                        viewDelegate.bidsAdapter.getDatas().get(0).getPrice();
+                price = getDepthPrice(isBuy);
             } else {
                 if (ObjectUtils.equals("买一价", viewDelegate.viewHolder.tv_order_price.getText().toString())) {
-                    price = viewDelegate.bidsAdapter.getDatas().get(0).getPrice();
+                    price = getDepthPrice(false);// viewDelegate.bidsAdapter.getDatas().get(0).getPrice();
                 } else if (ObjectUtils.equals("卖一价", viewDelegate.viewHolder.tv_order_price.getText().toString())) {
-                    price = viewDelegate.asksAdapter.getDatas().get(viewDelegate.depthSize - 1).getPrice();
+                    price = getDepthPrice(true);// viewDelegate.asksAdapter.getDatas().get(viewDelegate.depthSize - 1).getPrice();
                 } else {
                     price = viewDelegate.viewHolder.tv_order_price.getText().toString();
                 }
@@ -133,13 +132,17 @@ amount：数量
         } else {
             isMarketPrice = ObjectUtils.equals("市价",
                     viewDelegate.viewHolder.tv_order_price.getText().toString());
-            price = isMarketPrice ? (isBuy ?
-                    viewDelegate.asksAdapter.getDatas().get(viewDelegate.depthSize - 1).getPrice() :
-                    viewDelegate.bidsAdapter.getDatas().get(0).getPrice()) :
+            price = isMarketPrice ? getDepthPrice(isBuy) :
                     viewDelegate.viewHolder.tv_order_price.getText().toString();
         }
-
-
+        if(TextUtils.isEmpty(price)){
+            ToastUtil.show("数据不完整,请尝试刷新");
+            return;
+        }
+        if (!UiHeplUtils.isDouble(price)) {
+            ToastUtil.show("价格数据异常");
+            return;
+        }
         addRequest(placeOrder(
                 viewDelegate.tradeDetailBean.getExchange(),
                 isMarketPrice ? "1" : "0",
@@ -151,6 +154,15 @@ amount：数量
                 isBuy ? "b" : "s",
                 requestCallback
         ));
+    }
+
+    private String getDepthPrice(boolean isAsks) {
+        if (!ListUtils.isEmpty(viewDelegate.asksAdapter.getDatas()) && !ListUtils.isEmpty(viewDelegate.bidsAdapter.getDatas())) {
+            return isAsks ?
+                    viewDelegate.asksAdapter.getDatas().get(viewDelegate.depthSize - 1).getPrice() :
+                    viewDelegate.bidsAdapter.getDatas().get(0).getPrice();
+        }
+        return "";
     }
 
 

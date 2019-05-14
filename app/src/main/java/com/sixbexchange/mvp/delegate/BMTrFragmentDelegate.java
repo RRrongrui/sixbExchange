@@ -368,6 +368,7 @@ public class BMTrFragmentDelegate extends BaseDelegate {
 
             viewHolder.tv_sell_type.setText("可平多");
             viewHolder.tv_buy_type.setText("可平空");
+            viewHolder.tv_buy_type.setText("可平空");
 
             viewHolder.tv_buy_left.setText("冻结");
             viewHolder.tv_sell_left.setText("冻结");
@@ -399,8 +400,8 @@ public class BMTrFragmentDelegate extends BaseDelegate {
                 viewHolder.tv_sell_type_num.setText(transactionBean.getAvailableOpenSpace() + tradeDetailBean.getAmountUnit());
                 viewHolder.tv_sell_available.setText(transactionBean.getUsableOpenSpace() + tradeDetailBean.getMarginUnit());
             } else {
-                viewHolder.tv_buy_available.setText(transactionBean.getAvailableflatSpace() + tradeDetailBean.getAmountUnit());
-                viewHolder.tv_sell_available.setText(transactionBean.getAvailableflatMore() + tradeDetailBean.getAmountUnit());
+                viewHolder.tv_buy_type_num.setText(transactionBean.getAvailableflatSpace().replace("-", "") + tradeDetailBean.getAmountUnit());
+                viewHolder.tv_sell_type_num.setText(transactionBean.getAvailableflatMore().replace("-", "") + tradeDetailBean.getAmountUnit());
             }
         }
 
@@ -451,7 +452,7 @@ public class BMTrFragmentDelegate extends BaseDelegate {
         viewHolder.tv_sell_type_num.setText("--");
         viewHolder.tv_latest_index.setText("--");
         viewHolder.tv_now_price.setText("--");
-        viewHolder.tv_now_price.setTextSize(TypedValue.COMPLEX_UNIT_PX,CommonUtils.getDimensionPixelSize(R.dimen.text_trans_36px));
+        viewHolder.tv_now_price.setTextSize(TypedValue.COMPLEX_UNIT_PX, CommonUtils.getDimensionPixelSize(R.dimen.text_trans_36px));
 
         transactionBean.setAvailableflatMore("");
         transactionBean.setAvailableflatSpace("");

@@ -10,6 +10,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.blankj.utilcode.util.CacheUtils;
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.sixbexchange.R;
 import com.sixbexchange.adapter.WalletCoinAdapter;
@@ -17,6 +18,7 @@ import com.sixbexchange.base.CacheName;
 import com.sixbexchange.entity.bean.WalletCoinBean;
 import com.sixbexchange.mvp.databinder.BaseFragmentPullBinder;
 import com.sixbexchange.mvp.delegate.BaseFragentPullDelegate;
+import com.sixbexchange.mvp.dialog.OpenBitmexDialog;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
@@ -109,7 +111,7 @@ public class ExchWalletFragment extends BasePullFragment<BaseFragentPullDelegate
                                             position));
                         } else if (view.getId() == R.id.tv_transfer) {
                             ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(
-                                    RechargeFragment.newInstance(adapter.getDatas().get(p).getCoin().replace("XBT","BTC")
+                                    RechargeFragment.newInstance(adapter.getDatas().get(p).getCoin().replace("XBT", "BTC")
                                             , exchName, 1, position));
                         } else if (view.getId() == R.id.tv_recharge) {
                             ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(
@@ -137,6 +139,22 @@ public class ExchWalletFragment extends BasePullFragment<BaseFragentPullDelegate
             initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
         } else {
             getDataBack(adapter.getDatas(), data, adapter);
+            if (exchName.toLowerCase().contains("bitmex")&& ListUtils.isEmpty(data)) {
+                View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_open_bitmex, null);
+                rootView.findViewById(R.id.tv_open).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        OpenBitmexDialog openBitmexDialog=new OpenBitmexDialog(getActivity());
+                        openBitmexDialog.showDialog(new DefaultClickLinsener() {
+                            @Override
+                            public void onClick(View view, int position, Object item) {
+                                addRequest(binder.bitmexbind(ExchWalletFragment.this));
+                            }
+                        });
+                    }
+                });
+                viewDelegate.viewHolder.fl_rcv.addView(rootView);
+            }
         }
     }
 
@@ -160,6 +178,9 @@ public class ExchWalletFragment extends BasePullFragment<BaseFragentPullDelegate
                 }
                 initList(walletCoinBeans);
                 CacheUtils.getInstance().put(CacheName.ExchWalletCache, data);
+                break;
+            case 0x124:
+                addRequest(binder.getAccountDetail(true, this));
                 break;
         }
     }

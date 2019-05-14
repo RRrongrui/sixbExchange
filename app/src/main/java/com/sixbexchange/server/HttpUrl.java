@@ -198,4 +198,12 @@ public class HttpUrl {
      * 管理保证金
      */
     public String transferMargin = AppConst.app2BaseUrl + dealUrl + "/app/account/transferMargin";
+    /**
+     * 开启bitmex
+     */
+    public String bitmexbind = AppConst.app2BaseUrl + dealUrl + "/app/bitmex/bind";
+    /**
+     * bitmex开启状态
+     */
+    public String bitmexbindStatus = AppConst.app2BaseUrl + dealUrl + "/app/bitmex/bindStatus";
 }

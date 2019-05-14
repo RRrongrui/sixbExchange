@@ -107,9 +107,13 @@ public class BMTrFragment extends BaseDataBindFragment<BMTrFragmentDelegate, BMT
         if (isMarketPrice) {
             price = viewDelegate.oldPrice;
         } else if (ObjectUtils.equals("买一价", viewDelegate.viewHolder.tv_order_price.getText().toString())) {
-            price = ListUtils.isEmpty(viewDelegate.bidsAdapter.getDatas()) ? "" : viewDelegate.bidsAdapter.getDatas().get(0).getPrice();
+            price = getDepthPrice(false);//ListUtils.isEmpty(viewDelegate.bidsAdapter.getDatas()) ? "" : viewDelegate.bidsAdapter.getDatas().get(0).getPrice();
         } else if (ObjectUtils.equals("卖一价", viewDelegate.viewHolder.tv_order_price.getText().toString())) {
-            price = ListUtils.isEmpty(viewDelegate.asksAdapter.getDatas()) ? "" : viewDelegate.asksAdapter.getDatas().get(viewDelegate.depthSize - 1).getPrice();
+            price = getDepthPrice(true); //ListUtils.isEmpty(viewDelegate.asksAdapter.getDatas()) ? "" : viewDelegate.asksAdapter.getDatas().get(viewDelegate.depthSize - 1).getPrice();
+        }
+        if (TextUtils.isEmpty(price)) {
+            ToastUtil.show("数据不完整,请尝试刷新");
+            return;
         }
         if (!UiHeplUtils.isDouble(price)) {
             ToastUtil.show("价格数据异常");
@@ -126,6 +130,15 @@ public class BMTrFragment extends BaseDataBindFragment<BMTrFragmentDelegate, BMT
                 isBuy ? "b" : "s",
                 requestCallback
         ));
+    }
+
+    private String getDepthPrice(boolean isAsks) {
+        if (!ListUtils.isEmpty(viewDelegate.asksAdapter.getDatas()) && !ListUtils.isEmpty(viewDelegate.bidsAdapter.getDatas())) {
+            return isAsks ?
+                    viewDelegate.asksAdapter.getDatas().get(viewDelegate.depthSize - 1).getPrice() :
+                    viewDelegate.bidsAdapter.getDatas().get(0).getPrice();
+        }
+        return "";
     }
 
     @Override

@@ -258,4 +258,20 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .build()
                 .RxSendRequest();
     }
+    public Disposable bitmexbind(
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestUrl(HttpUrl.getIntance().bitmexbind)
+                .setShowDialog(true)
+                .setRequestName("开启bitmex")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 }
