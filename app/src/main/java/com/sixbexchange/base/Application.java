@@ -15,6 +15,7 @@ import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.fivefivelike.mybaselibrary.utils.UUIDS;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
+import com.fm.openinstall.OpenInstall;
 import com.sixbexchange.BuildConfig;
 import com.sixbexchange.mvp.activity.HomeActivity;
 import com.sixbexchange.mvp.activity.LoginAndRegisteredActivity;
@@ -95,6 +96,7 @@ public class Application extends BaseApp {
         if (isMainProcess()) {
             //EventBus.getDefault().register(this);
             //initNohttp();
+            OpenInstall.init(this);
             initNohttp();
             //开启log日志
             KLog.init(!AppConst.isSSL);

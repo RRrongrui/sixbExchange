@@ -1,6 +1,7 @@
 package com.sixbexchange.mvp.delegate;
 
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,7 +35,7 @@ public class FollowOrderDelegate extends BaseDelegate {
         public FontTextview tv_have;
         public TextView tv_content;
         public ImageView iv_reduce;
-        public FontTextview tv_num;
+        public EditText tv_num;
         public ImageView iv_add;
         public TextView tv_follow_num;
         public ImageView iv_check;
@@ -54,7 +55,7 @@ public class FollowOrderDelegate extends BaseDelegate {
             this.tv_have = (FontTextview) rootView.findViewById(R.id.tv_have);
             this.tv_content = (TextView) rootView.findViewById(R.id.tv_content);
             this.iv_reduce = (ImageView) rootView.findViewById(R.id.iv_reduce);
-            this.tv_num = (FontTextview) rootView.findViewById(R.id.tv_num);
+            this.tv_num = (EditText) rootView.findViewById(R.id.tv_num);
             this.iv_add = (ImageView) rootView.findViewById(R.id.iv_add);
             this.tv_follow_num = (TextView) rootView.findViewById(R.id.tv_follow_num);
             this.iv_check = (ImageView) rootView.findViewById(R.id.iv_check);

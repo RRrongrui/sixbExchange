@@ -2,7 +2,9 @@ package com.sixbexchange.mvp.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
 import android.text.Html;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -13,6 +15,7 @@ import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
+import com.fivefivelike.mybaselibrary.utils.UiHeplUtils;
 import com.sixbexchange.R;
 import com.sixbexchange.entity.bean.FollowOrderDetailsBean;
 import com.sixbexchange.entity.bean.WalletCoinBean;
@@ -120,6 +123,8 @@ public class FollowOrderFragment extends BaseDataBindFragment<FollowOrderDelegat
         }
     }
 
+    TextWatcher textWatcher;
+
     private void initView() {
         BigDecimal divide = new BigDecimal(s.getRestAmount()).multiply(new BigDecimal("100"))
                 .divide(new BigDecimal(s.getAllAmount()), 2, RoundingMode.DOWN);
@@ -167,7 +172,35 @@ public class FollowOrderFragment extends BaseDataBindFragment<FollowOrderDelegat
                                 "份。"
                 )
         );
+        textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable input) {
+                if (UiHeplUtils.isDouble(input.toString())) {
+                    int i = Integer.parseInt(input.toString());
+                    if (i > Integer.parseInt(s.getAmountMin()) || i < Integer.parseInt(s.getAmountMax())) {
+                        num = i;
+                        calculation();
+                    } else {
+                        viewDelegate.viewHolder.tv_num.removeTextChangedListener(textWatcher);
+                        viewDelegate.viewHolder.tv_num.setText(num + "");
+                        viewDelegate.viewHolder.tv_num.addTextChangedListener(textWatcher);
+                    }
+                } else {
+                    num = 0;
+                }
+            }
+        };
+        viewDelegate.viewHolder.tv_num.addTextChangedListener(textWatcher);
         num = Integer.parseInt(s.getAmountMin());
         viewDelegate.viewHolder.iv_reduce.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,6 +234,10 @@ public class FollowOrderFragment extends BaseDataBindFragment<FollowOrderDelegat
         viewDelegate.viewHolder.tv_commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (num == 0) {
+                    ToastUtil.show("请输入数量");
+                    return;
+                }
                 if (isSelect) {
                     addRequest(binder.followattend(id, num + "", FollowOrderFragment.this));
                 } else {

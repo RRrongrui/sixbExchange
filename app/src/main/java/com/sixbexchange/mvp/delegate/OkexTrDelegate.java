@@ -17,16 +17,19 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.CacheUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
+import com.fivefivelike.mybaselibrary.entity.ResultDialogEntity;
 import com.fivefivelike.mybaselibrary.http.HandlerHelper;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.utils.UiHeplUtils;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.RoundButton;
 import com.fivefivelike.mybaselibrary.view.SingleLineZoomTextView;
 import com.fivefivelike.mybaselibrary.view.SwipeRefreshLayout;
+import com.fivefivelike.mybaselibrary.view.dialog.ResultDialog;
 import com.sixbexchange.R;
 import com.sixbexchange.adapter.DepthAdapter;
 import com.sixbexchange.adapter.TrOkexOrdersAdapter;
@@ -58,6 +61,27 @@ public class OkexTrDelegate extends BaseDelegate {
 
     public void setVisibility(boolean visibility) {
         isVisibility = visibility;
+    }
+
+    ResultDialogEntity resultDialogEntity;
+
+    public void showTriggerDialog(String data) {
+        if (ObjectUtils.equals("1", GsonUtil.getInstance().getValue(data, "need"))) {
+            if (resultDialogEntity == null) {
+                resultDialogEntity = new ResultDialogEntity();
+                resultDialogEntity.setType("1");
+                resultDialogEntity.setConfirmBtn("知道了");
+            }
+            resultDialogEntity.setTitle(GsonUtil.getInstance().getValue(data, "remark"));
+            resultDialogEntity.setConfirmColor(CommonUtils.getStringColor(R.color.mark_color));
+            ResultDialog.getInstence()
+                    .ShowResultDialog(this.getActivity(), GsonUtil.getInstance().toJson(resultDialogEntity), new DefaultClickLinsener() {
+                        @Override
+                        public void onClick(View view, int position, Object item) {
+
+                        }
+                    });
+        }
     }
 
     public void setTradeDetailBean(TradeDetailBean tradeDetailBean) {
@@ -93,7 +117,7 @@ public class OkexTrDelegate extends BaseDelegate {
         viewHolder.tv_sell_type_num.setText("--");
         viewHolder.tv_latest_index.setText("--");
         viewHolder.tv_now_price.setText("--");
-        viewHolder.tv_now_price.setTextSize(TypedValue.COMPLEX_UNIT_PX,CommonUtils.getDimensionPixelSize(R.dimen.text_trans_36px));
+        viewHolder.tv_now_price.setTextSize(TypedValue.COMPLEX_UNIT_PX, CommonUtils.getDimensionPixelSize(R.dimen.text_trans_36px));
 
         transactionBean.setAvailableflatMore("");
         transactionBean.setAvailableflatSpace("");
@@ -406,6 +430,49 @@ public class OkexTrDelegate extends BaseDelegate {
 
     //开仓0  平仓1
     public int tradeMode = 0;
+    public boolean isLimit = true;
+
+    public void tradeTypeChange(boolean isLimit) {
+        this.isLimit = isLimit;
+        if (isLimit) {
+            viewHolder.tv_trigger.setBackground(CommonUtils.getDrawable(R.drawable.shape_gray_border_r5));
+            viewHolder.tv_limit.setBackground(CommonUtils.getDrawable(R.drawable.shape_mark_border_r5));
+            viewHolder.tv_trigger.setTextColor(CommonUtils.getColor(R.color.color_font4));
+            viewHolder.tv_limit.setTextColor(CommonUtils.getColor(R.color.mark_color));
+            if (tradeMode == 0) {
+                viewHolder.tv_order_price_title.setText("价格");
+                viewHolder.lin_trigger_price.setVisibility(View.GONE);
+                viewHolder.lin_order_select_price_open.setVisibility(View.VISIBLE);
+                ((LinearLayout.LayoutParams) viewHolder.lin_order_num.getLayoutParams()).topMargin = 0;
+                viewHolder.lin_order_num.requestLayout();
+            } else {
+                viewHolder.tv_order_price_title.setText("价格");
+                viewHolder.lin_trigger_price.setVisibility(View.GONE);
+                viewHolder.lin_order_select_price_close.setVisibility(View.VISIBLE);
+                tradeTypeChangeOpen(3);
+            }
+        } else {
+            viewHolder.tv_limit.setBackground(CommonUtils.getDrawable(R.drawable.shape_gray_border_r5));
+            viewHolder.tv_trigger.setBackground(CommonUtils.getDrawable(R.drawable.shape_mark_border_r5));
+            viewHolder.tv_limit.setTextColor(CommonUtils.getColor(R.color.color_font4));
+            viewHolder.tv_trigger.setTextColor(CommonUtils.getColor(R.color.mark_color));
+
+            if (tradeMode == 0) {
+                ((LinearLayout.LayoutParams) viewHolder.lin_order_num.getLayoutParams()).topMargin = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_20px);
+                viewHolder.lin_order_num.requestLayout();
+                viewHolder.tv_order_price_title.setText("委托价格");
+                viewHolder.lin_trigger_price.setVisibility(View.VISIBLE);
+                viewHolder.lin_order_select_price_open.setVisibility(View.GONE);
+            } else {
+                viewHolder.tv_order_price_title.setText("委托价格");
+                tradeTypeChangeClose(0);
+                viewHolder.lin_trigger_price.setVisibility(View.VISIBLE);
+                viewHolder.lin_order_select_price_close.setVisibility(View.GONE);
+            }
+
+        }
+
+    }
 
     public void tradeModeChange(int type) {
         tradeMode = type;
@@ -444,6 +511,7 @@ public class OkexTrDelegate extends BaseDelegate {
             viewHolder.tv_buy.setText("买入平空");
             viewHolder.tv_sell.setText("卖出平多");
 
+
             viewHolder.tv_buy_left.setText("可平空");
             viewHolder.tv_buy_type.setText("");
             viewHolder.tv_sell_left.setText("可平多");
@@ -456,7 +524,7 @@ public class OkexTrDelegate extends BaseDelegate {
             viewHolder.lin_order_select_price_close.setVisibility(View.VISIBLE);
 
         }
-
+        tradeTypeChange(isLimit);
         if (transactionBean != null && tradeDetailBean != null) {
             if (type == 0) {
                 viewHolder.tv_buy_type_num.setText(transactionBean.getAvailableOpenMore() + tradeDetailBean.getAmountUnit());
@@ -553,11 +621,17 @@ public class OkexTrDelegate extends BaseDelegate {
         public LinearLayout lin_to_kline;
         public TextView tv_open;
         public TextView tv_close;
+        public TextView tv_limit;
+        public TextView tv_order_price_title;
+        public TextView tv_trigger;
         public TextView tv_opponent_price;
         public FrameLayout fl_opponent_price_close;
         public TextView tv_limit_price;
         public FrameLayout fl_limit_price;
         public LinearLayout lin_order_select_price_close;
+        public EditText tv_trigger_price;
+        public TextView tv_trigger_price_unit;
+        public LinearLayout lin_trigger_price;
         public EditText tv_order_price;
         public TextView tv_order_price_unit;
         public LinearLayout lin_order_price;
@@ -607,11 +681,17 @@ public class OkexTrDelegate extends BaseDelegate {
             this.lin_to_kline = (LinearLayout) rootView.findViewById(R.id.lin_to_kline);
             this.tv_open = (TextView) rootView.findViewById(R.id.tv_open);
             this.tv_close = (TextView) rootView.findViewById(R.id.tv_close);
+            this.tv_limit = (TextView) rootView.findViewById(R.id.tv_limit);
+            this.tv_order_price_title = (TextView) rootView.findViewById(R.id.tv_order_price_title);
+            this.tv_trigger = (TextView) rootView.findViewById(R.id.tv_trigger);
             this.tv_opponent_price = (TextView) rootView.findViewById(R.id.tv_opponent_price);
             this.fl_opponent_price_close = (FrameLayout) rootView.findViewById(R.id.fl_opponent_price_close);
             this.tv_limit_price = (TextView) rootView.findViewById(R.id.tv_limit_price);
             this.fl_limit_price = (FrameLayout) rootView.findViewById(R.id.fl_limit_price);
             this.lin_order_select_price_close = (LinearLayout) rootView.findViewById(R.id.lin_order_select_price_close);
+            this.tv_trigger_price = (EditText) rootView.findViewById(R.id.tv_trigger_price);
+            this.tv_trigger_price_unit = (TextView) rootView.findViewById(R.id.tv_trigger_price_unit);
+            this.lin_trigger_price = (LinearLayout) rootView.findViewById(R.id.lin_trigger_price);
             this.tv_order_price = (EditText) rootView.findViewById(R.id.tv_order_price);
             this.tv_order_price_unit = (TextView) rootView.findViewById(R.id.tv_order_price_unit);
             this.lin_order_price = (LinearLayout) rootView.findViewById(R.id.lin_order_price);

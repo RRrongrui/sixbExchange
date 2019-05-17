@@ -286,7 +286,7 @@
                             android:src="@drawable/ic_reduce"
                             />
 
-                        <com.fivefivelike.mybaselibrary.view.FontTextview
+                        <EditText
                             android:id="@+id/tv_num"
                             android:layout_width="0dp"
                             android:layout_weight="1"
@@ -295,7 +295,9 @@
                             android:layout_marginRight="@dimen/trans_25px"
                             android:background="@color/base_mask"
                             android:gravity="center"
-                            android:text=""
+                            android:text="1"
+                            android:inputType="number"
+                            android:digits="0123456789"
                             android:textColor="@color/color_font1"
                             android:textSize="@dimen/text_trans_48px"/>
 

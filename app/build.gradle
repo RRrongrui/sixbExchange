@@ -147,7 +147,7 @@ dependencies {
     implementation 'com.umeng.umsdk:meizu-push:3.8.1'
     implementation 'com.umeng.umsdk:meizu-umengaccs:1.0.6'
     implementation 'cn.bingoogolapple:bga-qrcode-zxing:1.2.5'
-
+    implementation files('src/main/libs/OpenInstall_v2.2.0.jar')
     //implementation(name:'ndkutils-release',ext:'aar')
 }
 //密钥库类型: JKS

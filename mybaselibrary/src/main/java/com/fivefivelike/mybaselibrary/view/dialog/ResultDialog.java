@@ -106,10 +106,10 @@ public class ResultDialog {
                 .configPositive(new ConfigButton() {
                     @Override
                     public void onConfig(ButtonParams params) {
-                        if (TextUtils.isEmpty(resultDialogEntity.getCancelColor())) {
+                        if (TextUtils.isEmpty(resultDialogEntity.getConfirmColor())) {
                             params.textColor = context.getResources().getColor(R.color.color_blue);
                         } else {
-                            params.textColor = Color.parseColor(resultDialogEntity.getCancelColor());
+                            params.textColor = Color.parseColor(resultDialogEntity.getConfirmColor());
                         }
                     }
                 });

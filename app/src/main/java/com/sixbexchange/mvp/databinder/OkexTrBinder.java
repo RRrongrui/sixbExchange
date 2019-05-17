@@ -20,6 +20,23 @@ public class OkexTrBinder extends BaseDataBind<OkexTrDelegate> {
         super(viewDelegate);
     }
 
+    public Disposable orderremark(
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        put("exchange", "okef");
+        return new HttpRequest.Builder()
+                .setRequestCode(0x128)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestUrl(HttpUrl.getIntance().orderremark)
+                .setShowDialog(false)
+                .setRequestName("计划委托弹窗")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 
     public Disposable accountopen(
             String exchange,
@@ -62,6 +79,75 @@ public class OkexTrBinder extends BaseDataBind<OkexTrDelegate> {
                 .build()
                 .RxSendRequest();
     }
+
+    public void checkOrderStop(int type, RequestCallback requestCallback) {
+        if (TextUtils.isEmpty(viewDelegate.viewHolder.tv_trigger_price.getText().toString())) {
+            ToastUtil.show("请输入触发价格");
+            return;
+        }
+        if (!UiHeplUtils.isDouble(viewDelegate.viewHolder.tv_trigger_price.getText().toString())) {
+            ToastUtil.show("请输入正确的触发价格");
+            return;
+        }
+        if (TextUtils.isEmpty(viewDelegate.viewHolder.tv_order_price.getText().toString())) {
+            ToastUtil.show("请输入价格");
+            return;
+        }
+        if (!UiHeplUtils.isDouble(viewDelegate.viewHolder.tv_order_price.getText().toString())) {
+            ToastUtil.show("请输入正确的价格");
+            return;
+        }
+        if (TextUtils.isEmpty(viewDelegate.viewHolder.tv_order_num.getText().toString())) {
+            ToastUtil.show("请输入数量");
+            return;
+        }
+        if (!UiHeplUtils.isDouble(viewDelegate.viewHolder.tv_order_num.getText().toString())) {
+            ToastUtil.show("请输入正确的数量");
+            return;
+        }
+        addRequest(orderstop(
+                viewDelegate.tradeDetailBean.getExchange(),
+                viewDelegate.tradeDetailBean.getCurrencyPair(),
+                viewDelegate.tradeDetailBean.getOnlykey(),
+                type + "",
+                viewDelegate.viewHolder.tv_trigger_price.getText().toString(),
+                viewDelegate.viewHolder.tv_order_price.getText().toString(),
+                viewDelegate.viewHolder.tv_order_num.getText().toString(),
+                requestCallback
+        ));
+    }
+
+    public Disposable orderstop(
+            String exchange,
+            String contract,
+            String currencyPair,
+            String type,
+            String triggerPrice,
+            String entrustPrice,
+            String amount,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        put("exchange", exchange);
+        put("contract", contract);
+        put("currencyPair", currencyPair);
+        put("type", type);
+        put("triggerPrice", triggerPrice);
+        put("entrustPrice", entrustPrice);
+        put("amount", amount);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x125)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestUrl(HttpUrl.getIntance().orderstop)
+                .setShowDialog(true)
+                .setRequestName("计划委托")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
 
     /*
     公共参数：
@@ -135,7 +221,7 @@ amount：数量
             price = isMarketPrice ? getDepthPrice(isBuy) :
                     viewDelegate.viewHolder.tv_order_price.getText().toString();
         }
-        if(TextUtils.isEmpty(price)){
+        if (TextUtils.isEmpty(price)) {
             ToastUtil.show("数据不完整,请尝试刷新");
             return;
         }

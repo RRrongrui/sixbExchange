@@ -53,13 +53,34 @@ public class OkexTrCloseFragment extends BaseDataBindFragment<OkexTrDelegate, Ok
         viewDelegate.viewHolder.tv_buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binder.checkOrder(viewDelegate.tradeMode == 0 ? 1 : 4, OkexTrCloseFragment.this);
+                if (viewDelegate.isLimit) {
+                    binder.checkOrder(viewDelegate.tradeMode == 0 ? 1 : 4, OkexTrCloseFragment.this);
+                } else {
+                    binder.checkOrderStop(viewDelegate.tradeMode == 0 ? 1 : 4, OkexTrCloseFragment.this);
+                }
             }
         });
         viewDelegate.viewHolder.tv_sell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binder.checkOrder(viewDelegate.tradeMode == 0 ? 2 : 3, OkexTrCloseFragment.this);
+                if (viewDelegate.isLimit) {
+                    binder.checkOrder(viewDelegate.tradeMode == 0 ? 2 : 3, OkexTrCloseFragment.this);
+                } else {
+                    binder.checkOrderStop(viewDelegate.tradeMode == 0 ? 2 : 3, OkexTrCloseFragment.this);
+                }
+            }
+        });
+        viewDelegate.viewHolder.tv_limit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewDelegate.tradeTypeChange(true);
+            }
+        });
+        viewDelegate.viewHolder.tv_trigger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewDelegate.tradeTypeChange(false);
+                addRequest(binder.orderremark(OkexTrCloseFragment.this));
             }
         });
         if (viewDelegate.tradeDetailBean != null) {
@@ -186,6 +207,9 @@ public class OkexTrCloseFragment extends BaseDataBindFragment<OkexTrDelegate, Ok
             case 0x126:
                 //撤单
                 ((OkexTrParentsFragment) getParentFragment()).tradeOnRefreshData();
+                break;
+            case 0x128:
+                viewDelegate.showTriggerDialog(data);
                 break;
         }
     }

@@ -49,6 +49,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:theme,android:allowBackup">
+
+        <meta-data
+            android:name="com.openinstall.APP_KEY"
+            android:value="yx9k8m"/>
+
         <activity
             android:name=".mvp.activity.WelcomeActivity"
             android:launchMode="singleTask"
@@ -56,8 +61,13 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="yx9k8m"/>
             </intent-filter>
         </activity>
 

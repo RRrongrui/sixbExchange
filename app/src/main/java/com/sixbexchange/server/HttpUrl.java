@@ -206,4 +206,12 @@ public class HttpUrl {
      * bitmex开启状态
      */
     public String bitmexbindStatus = AppConst.app2BaseUrl + dealUrl + "/app/bitmex/bindStatus";
+    /**
+     * 计划委托
+     */
+    public String orderstop = AppConst.app2BaseUrl + dealUrl + "/app/order/stop";
+    /**
+     * 计划委托弹窗
+     */
+    public String orderremark = AppConst.app2BaseUrl + dealUrl + "/app/order/remark";
 }

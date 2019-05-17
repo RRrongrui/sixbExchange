@@ -13,6 +13,7 @@ public class TrParentsBinder extends BaseDataBind<TrParentsDelegate> {
     public TrParentsBinder(TrParentsDelegate viewDelegate) {
         super(viewDelegate);
     }
+
     public Disposable bitmexbindStatus(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
@@ -20,7 +21,7 @@ public class TrParentsBinder extends BaseDataBind<TrParentsDelegate> {
                 .setRequestCode(0x123)
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestUrl(HttpUrl.getIntance().bitmexbindStatus)
-                .setShowDialog(true)
+                .setShowDialog(false)
                 .setRequestName("bitmex开启状态")
                 .setRequestMode(HttpRequest.RequestMode.GET)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)
@@ -29,6 +30,7 @@ public class TrParentsBinder extends BaseDataBind<TrParentsDelegate> {
                 .build()
                 .RxSendRequest();
     }
+
     public Disposable bitmexbind(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
