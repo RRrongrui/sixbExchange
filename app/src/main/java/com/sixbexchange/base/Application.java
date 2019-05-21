@@ -21,6 +21,7 @@ import com.sixbexchange.mvp.activity.HomeActivity;
 import com.sixbexchange.mvp.activity.LoginAndRegisteredActivity;
 import com.sixbexchange.server.TraceServiceImpl;
 import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
 import com.xdandroid.hellodaemon.DaemonEnv;
 import com.yanzhenjie.nohttp.Headers;
 import com.yanzhenjie.nohttp.InitializationConfig;
@@ -60,8 +61,8 @@ public class Application extends BaseApp {
                 AppConst.umS1,
                 UMConfigure.DEVICE_TYPE_PHONE,
                 AppConst.pushSecret);
-        //        PlatformConfig.setWeixin("wxffed2b6f51e0ae36",
-        //                "dc8eedc035aff9a01d703e344d0aaeef");
+        PlatformConfig.setWeixin("wx5d125e55b5a7825d",
+                "cc1f32d534dd262602291529009bcc03");
         if (UMConfigure.getInitStatus()) {
             //initUmeng();
         }

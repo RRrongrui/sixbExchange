@@ -375,6 +375,12 @@ pre code{
 
                             <ul class="nav list-group">
                                 <li>
+                                        <a href="#775769a84ecc4597ba8e14ad7a06c2cb">根据交易所获取所有币种（交易）</a>
+                                    </li><li>
+                                        <a href="#25adffcd96494586b4ccda3a820d5f57">获取k线接口</a>
+                                    </li><li>
+                                        <a href="#c40dc1bdf3934d1dba16e0759b1260cc">根据交易所获取所有币种（提币/充币/划转）</a>
+                                    </li><li>
                                         <a href="#605c25675baa47bdafdfc2b160b9916a">获取账户交易明细信息</a>
                                     </li><li>
                                         <a href="#a55f1f28f8d14522979be8038cf4b670">获取所有账户交易信息</a>
@@ -389,6 +395,8 @@ pre code{
 
                             <ul class="nav list-group">
                                 <li>
+                                        <a href="#e2ccb13f6c1d42b081ed931d5d256c11">是否已填写邀请码接口</a>
+                                    </li><li>
                                         <a href="#9f95f3653b7d4280b79d07d45e588895">所有以/app形式的接口 除了登录（app/login） 注册（app/open/signup）</a>
                                     </li><li>
                                         <a href="#b229feac65524398ba72616c83072c08">用户注册接口</a>
@@ -451,6 +459,10 @@ pre code{
 
                             <ul class="nav list-group">
                                 <li>
+                                        <a href="#623695f587d6425984185cb2b3aca0a5">获取6b资产明细</a>
+                                    </li><li>
+                                        <a href="#fb4d3fdea61f417e87c6441cacdcc113">跟单列表接口</a>
+                                    </li><li>
                                         <a href="#48b325f13b244f9196f7fe52f0257fa7">获取提币地址接口</a>
                                     </li><li>
                                         <a href="#b690e9ef32244f04b1f9f761d9f4b0a7">删除提币地址</a>
@@ -496,6 +508,638 @@ pre code{
                 <h1>交易</h1>
                     
                     <div class="api-one">
+                            <h3 id="775769a84ecc4597ba8e14ad7a06c2cb">根据交易所获取所有币种（交易）</h3>
+                            <p>
+                                <a target="_blank"
+                                   href="https://apizza.net/pro/#/project/58da8d2869841a1ca1cd0741edbfcce5/browse?api=775769a84ecc4597ba8e14ad7a06c2cb"
+                                   class="label label-warning">在线测试</a>
+                                <a target="_blank"
+                                   href="https://apizza.net/pro/#/project/58da8d2869841a1ca1cd0741edbfcce5/browse?api=775769a84ecc4597ba8e14ad7a06c2cb"
+                                   class="label label-warning">在线浏览</a>
+                            </p>
+                            <p>请求方式：GET</p>
+                            <p>
+                                请求地址：http://localhost:8091/app/open/tradeCoins?exchange=                            </p>
+
+                            
+                            <table class="table table-hover">
+                                    <colgroup>
+                                        <col class="col-xs-2">
+                                        <col class="col-xs-1">
+                                        <col class="col-xs-1">
+                                        <col class="col-xs-7">
+                                        <col class="col-xs-2">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th><span class="label label-success">Query参数名</span></th>
+                                        <th>类型</th>
+                                        <th>必需</th>
+                                        <th>描述</th>
+                                        <th>示例 e.g.</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                            <td>exchange</td>
+                                            <td>string</td>
+                                            <td>
+                                                是
+                                                                                                </td>
+                                            <td>okef/bitmex</td>
+                                            <td></td>
+                                        </tr><tr>
+                                            <td></td>
+                                            <td>string</td>
+                                            <td>
+                                                是
+                                                                                                </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>                                    </tbody>
+                                </table>
+
+                            
+                            
+                            <p>返回示例：</p>
+                                <div class="highlight">
+                            <pre>
+                                <code class="json hljs">{
+    "code": 0,
+    "dialog": {
+        "type": "3",
+        "title": "OK",
+        "content": null,
+        "cancelBtn": null,
+        "confirmBtn": null,
+        "cancelColor": null,
+        "confirmColor": null,
+        "titleColor": null,
+        "contentColor": null,
+        "code": "0",
+        "url": null,
+        "time": null,
+        "cancelAndClose": false
+    },
+    "data": [
+        {   //okef返回格式
+            "name": "BTC",  
+            "currency": "BTC",
+            "currencyPair": "",
+            "leverageAvailable": 0
+        },
+        {
+            "name": "ETH",
+            "currency": "ETH",
+            "currencyPair": "",
+            "leverageAvailable": 0
+        },
+        {
+            "name": "LTC",
+            "currency": "LTC",
+            "currencyPair": "",
+            "leverageAvailable": 0
+        },
+        {
+            "name": "BCH",
+            "currency": "BCH",
+            "currencyPair": "",
+            "leverageAvailable": 0
+        },
+        {
+            "name": "BSV",
+            "currency": "BSV",
+            "currencyPair": "",
+            "leverageAvailable": 0
+        },
+        {
+            "name": "EOS",
+            "currency": "EOS",
+            "currencyPair": "",
+            "leverageAvailable": 0
+        },
+        {
+            "name": "XRP",
+            "currency": "XRP",
+            "currencyPair": "",
+            "leverageAvailable": 0
+        },
+        {
+            "name": "ETC",
+            "currency": "ETC",
+            "currencyPair": "",
+            "leverageAvailable": 0
+        },
+        {//bitmex返回格式
+            "name": "XBT永续合约",  
+            "currency": "XBTUSD",
+            "currencyPair": "XBTUSD",
+            "leverageAvailable": 1
+        },
+        {
+            "name": "XBTM19",
+            "currency": "XBTM19",
+            "currencyPair": "XBTM19",
+            "leverageAvailable": 1
+        },
+        {
+            "name": "XBTU19",
+            "currency": "XBTU19",
+            "currencyPair": "XBTU19",
+            "leverageAvailable": 1
+        },
+        {
+            "name": "ETH永续合约",
+            "currency": "ETHUSD",
+            "currencyPair": "ETHUSD",
+            "leverageAvailable": 1
+        },
+        {
+            "name": "ETHM19",
+            "currency": "ETHM19",
+            "currencyPair": "ETHM19",
+            "leverageAvailable": 1
+        },
+        {
+            "name": "BCHM19",
+            "currency": "BCHM19",
+            "currencyPair": "BCHM19",
+            "leverageAvailable": 1
+        },
+        {
+            "name": "ADAM19",
+            "currency": "ADAM19",
+            "currencyPair": "ADAM19",
+            "leverageAvailable": 1
+        },
+        {
+            "name": "XRPM19",
+            "currency": "XRPM19",
+            "currencyPair": "XRPM19",
+            "leverageAvailable": 1
+        },
+        {
+            "name": "EOSM19",
+            "currency": "EOSM19",
+            "currencyPair": "EOSM19",
+            "leverageAvailable": 1
+        },
+        {
+            "name": "LTCM19",
+            "currency": "LTCM19",
+            "currencyPair": "LTCM19",
+            "leverageAvailable": 1
+        },
+        {
+            "name": "TRXM19",
+            "currency": "TRXM19",
+            "currencyPair": "TRXM19",
+            "leverageAvailable": 1
+        }
+    ]
+}</code>
+                            </pre>
+                                </div>
+                            
+                        </div><div class="api-one">
+                            <h3 id="25adffcd96494586b4ccda3a820d5f57">获取k线接口</h3>
+                            <p>
+                                <a target="_blank"
+                                   href="https://apizza.net/pro/#/project/58da8d2869841a1ca1cd0741edbfcce5/browse?api=25adffcd96494586b4ccda3a820d5f57"
+                                   class="label label-warning">在线测试</a>
+                                <a target="_blank"
+                                   href="https://apizza.net/pro/#/project/58da8d2869841a1ca1cd0741edbfcce5/browse?api=25adffcd96494586b4ccda3a820d5f57"
+                                   class="label label-warning">在线浏览</a>
+                            </p>
+                            <p>请求方式：GET</p>
+                            <p>
+                                请求地址：http://localhost:8091/app/trade/candles?contract=huobip%2Fbtc.usdt&amp;duration=1h&amp;since=1555322400                            </p>
+
+                            <table class="table table-hover">
+                                    <colgroup>
+                                        <col class="col-xs-2">
+                                        <col class="col-xs-1">
+                                        <col class="col-xs-1">
+                                        <col class="col-xs-7">
+                                        <col class="col-xs-2">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th><span class="label label-success">Header参数名</span></th>
+                                        <th>类型</th>
+                                        <th>必需</th>
+                                        <th>描述</th>
+                                        <th>示例 e.g.</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                            <td>auth</td>
+                                            <td>string</td>
+                                            <td>
+                                                是
+                                                                                                </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>                                    </tbody>
+                                </table>
+                            <table class="table table-hover">
+                                    <colgroup>
+                                        <col class="col-xs-2">
+                                        <col class="col-xs-1">
+                                        <col class="col-xs-1">
+                                        <col class="col-xs-7">
+                                        <col class="col-xs-2">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th><span class="label label-success">Query参数名</span></th>
+                                        <th>类型</th>
+                                        <th>必需</th>
+                                        <th>描述</th>
+                                        <th>示例 e.g.</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                            <td>contract</td>
+                                            <td>string</td>
+                                            <td>
+                                                是
+                                                                                                </td>
+                                            <td>交易对</td>
+                                            <td>huobip%2Fbtc.usdt</td>
+                                        </tr><tr>
+                                            <td>duration</td>
+                                            <td>string</td>
+                                            <td>
+                                                是
+                                                                                                </td>
+                                            <td>时间段</td>
+                                            <td>1h</td>
+                                        </tr><tr>
+                                            <td>since</td>
+                                            <td>string</td>
+                                            <td>
+                                                是
+                                                                                                </td>
+                                            <td>起始时间</td>
+                                            <td>1555322400</td>
+                                        </tr>                                    </tbody>
+                                </table>
+
+                            
+                            
+                            <p>返回示例：</p>
+                                <div class="highlight">
+                            <pre>
+                                <code class="json hljs">{
+    "code": 0,
+    "dialog": {
+        "type": "3",
+        "title": "OK",
+        "content": null,
+        "cancelBtn": null,
+        "confirmBtn": null,
+        "cancelColor": null,
+        "confirmColor": null,
+        "titleColor": null,
+        "contentColor": null,
+        "code": "0",
+        "url": null,
+        "time": null,
+        "cancelAndClose": false
+    },
+    "data": [
+        {
+            "timestamp": "1555322400",
+            "contract": "huobip/btc.usdt",
+            "open": 5139.98,
+            "high": 5140,
+            "low": 5097.39,
+            "close": 5109.27,
+            "volume": 770.83442587,
+            "time": "2019-04-15T18:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555326000",
+            "contract": "huobip/btc.usdt",
+            "open": 5109.29,
+            "high": 5115.46,
+            "low": 5101.3,
+            "close": 5104.72,
+            "volume": 659.19059734,
+            "time": "2019-04-15T19:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555329600",
+            "contract": "huobip/btc.usdt",
+            "open": 5105.21,
+            "high": 5123.54,
+            "low": 5085.21,
+            "close": 5123.54,
+            "volume": 475.98871316,
+            "time": "2019-04-15T20:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555333200",
+            "contract": "huobip/btc.usdt",
+            "open": 5123.54,
+            "high": 5123.67,
+            "low": 5110,
+            "close": 5117.31,
+            "volume": 342.80310048,
+            "time": "2019-04-15T21:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555336800",
+            "contract": "huobip/btc.usdt",
+            "open": 5117.32,
+            "high": 5144.65,
+            "low": 5110,
+            "close": 5122.66,
+            "volume": 857.83170588,
+            "time": "2019-04-15T22:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555340400",
+            "contract": "huobip/btc.usdt",
+            "open": 5123.47,
+            "high": 5135.83,
+            "low": 5116.53,
+            "close": 5133.25,
+            "volume": 782.95142465,
+            "time": "2019-04-15T23:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555344000",
+            "contract": "huobip/btc.usdt",
+            "open": 5131.74,
+            "high": 5140.39,
+            "low": 5103.93,
+            "close": 5108.72,
+            "volume": 689.12837163,
+            "time": "2019-04-16T00:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555347600",
+            "contract": "huobip/btc.usdt",
+            "open": 5109.26,
+            "high": 5112.14,
+            "low": 4992.3,
+            "close": 5048.36,
+            "volume": 1783.87134373,
+            "time": "2019-04-16T01:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555351200",
+            "contract": "huobip/btc.usdt",
+            "open": 5048.31,
+            "high": 5055.1,
+            "low": 5013.67,
+            "close": 5039.66,
+            "volume": 664.92513946,
+            "time": "2019-04-16T02:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555354800",
+            "contract": "huobip/btc.usdt",
+            "open": 5039.66,
+            "high": 5045.51,
+            "low": 4995,
+            "close": 5006.02,
+            "volume": 972.4488592,
+            "time": "2019-04-16T03:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555358400",
+            "contract": "huobip/btc.usdt",
+            "open": 5005.69,
+            "high": 5023.12,
+            "low": 4935,
+            "close": 5018,
+            "volume": 1547.37066674,
+            "time": "2019-04-16T04:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555362000",
+            "contract": "huobip/btc.usdt",
+            "open": 5018.01,
+            "high": 5040.51,
+            "low": 5001.93,
+            "close": 5027.74,
+            "volume": 404.89434169,
+            "time": "2019-04-16T05:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555365600",
+            "contract": "huobip/btc.usdt",
+            "open": 5027.74,
+            "high": 5048.28,
+            "low": 5025.16,
+            "close": 5041.39,
+            "volume": 322.8472528,
+            "time": "2019-04-16T06:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555369200",
+            "contract": "huobip/btc.usdt",
+            "open": 5041,
+            "high": 5053.67,
+            "low": 5026,
+            "close": 5026.59,
+            "volume": 307.59113893,
+            "time": "2019-04-16T07:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555372800",
+            "contract": "huobip/btc.usdt",
+            "open": 5026.13,
+            "high": 5049.71,
+            "low": 5017.66,
+            "close": 5044.21,
+            "volume": 430.19083557,
+            "time": "2019-04-16T08:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555376400",
+            "contract": "huobip/btc.usdt",
+            "open": 5044.22,
+            "high": 5053.84,
+            "low": 5040.73,
+            "close": 5041.92,
+            "volume": 354.60974251,
+            "time": "2019-04-16T09:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555380000",
+            "contract": "huobip/btc.usdt",
+            "open": 5041.92,
+            "high": 5043.41,
+            "low": 5029,
+            "close": 5032.65,
+            "volume": 485.80360534,
+            "time": "2019-04-16T10:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555383600",
+            "contract": "huobip/btc.usdt",
+            "open": 5032.61,
+            "high": 5050,
+            "low": 5032.04,
+            "close": 5044.05,
+            "volume": 591.96527428,
+            "time": "2019-04-16T11:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555387200",
+            "contract": "huobip/btc.usdt",
+            "open": 5044.05,
+            "high": 5056.63,
+            "low": 5041.6,
+            "close": 5049.99,
+            "volume": 316.20705706,
+            "time": "2019-04-16T12:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555390800",
+            "contract": "huobip/btc.usdt",
+            "open": 5049.98,
+            "high": 5081.69,
+            "low": 5044.74,
+            "close": 5069.26,
+            "volume": 557.3175355,
+            "time": "2019-04-16T13:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555394400",
+            "contract": "huobip/btc.usdt",
+            "open": 5069.2,
+            "high": 5069.98,
+            "low": 5055.17,
+            "close": 5057.92,
+            "volume": 343.23219052,
+            "time": "2019-04-16T14:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555398000",
+            "contract": "huobip/btc.usdt",
+            "open": 5057.84,
+            "high": 5068.4,
+            "low": 5057.44,
+            "close": 5065.64,
+            "volume": 296.79027745,
+            "time": "2019-04-16T15:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555401600",
+            "contract": "huobip/btc.usdt",
+            "open": 5065.96,
+            "high": 5077.23,
+            "low": 5061.97,
+            "close": 5065.09,
+            "volume": 354.06118843,
+            "time": "2019-04-16T16:00:00+08:00",
+            "source": null
+        },
+        {
+            "timestamp": "1555405200",
+            "contract": "huobip/btc.usdt",
+            "open": 5065.09,
+            "high": 5077.05,
+            "low": 5064.79,
+            "close": 5071,
+            "volume": 363.25855297,
+            "time": "2019-04-16T17:00:00+08:00",
+            "source": "pubsub"
+        },
+        {
+            "timestamp": "1555408800",
+            "contract": "huobip/btc.usdt",
+            "open": 5071,
+            "high": 5071,
+            "low": 5070.18,
+            "close": 5070.18,
+            "volume": 0.1232,
+            "time": "2019-04-16T18:00:00+08:00",
+            "source": "pubsub"
+        }
+    ]
+}</code>
+                            </pre>
+                                </div>
+                            
+                        </div><div class="api-one">
+                            <h3 id="c40dc1bdf3934d1dba16e0759b1260cc">根据交易所获取所有币种（提币/充币/划转）</h3>
+                            <p>
+                                <a target="_blank"
+                                   href="https://apizza.net/pro/#/project/58da8d2869841a1ca1cd0741edbfcce5/browse?api=c40dc1bdf3934d1dba16e0759b1260cc"
+                                   class="label label-warning">在线测试</a>
+                                <a target="_blank"
+                                   href="https://apizza.net/pro/#/project/58da8d2869841a1ca1cd0741edbfcce5/browse?api=c40dc1bdf3934d1dba16e0759b1260cc"
+                                   class="label label-warning">在线浏览</a>
+                            </p>
+                            <p>请求方式：GET</p>
+                            <p>
+                                请求地址：http://test.6b.top/app/open/allCoins                            </p>
+
+                            
+                            <table class="table table-hover">
+                                    <colgroup>
+                                        <col class="col-xs-2">
+                                        <col class="col-xs-1">
+                                        <col class="col-xs-1">
+                                        <col class="col-xs-7">
+                                        <col class="col-xs-2">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th><span class="label label-success">Query参数名</span></th>
+                                        <th>类型</th>
+                                        <th>必需</th>
+                                        <th>描述</th>
+                                        <th>示例 e.g.</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                            <td>exchange</td>
+                                            <td>string</td>
+                                            <td>
+                                                是
+                                                                                                </td>
+                                            <td>1:6b 2:okef 3:okswap 4:bitmex</td>
+                                            <td></td>
+                                        </tr>                                    </tbody>
+                                </table>
+
+                            
+                            
+                            
+                            
+                        </div><div class="api-one">
                             <h3 id="605c25675baa47bdafdfc2b160b9916a">获取账户交易明细信息</h3>
                             <p>
                                 <a target="_blank"
@@ -602,23 +1246,29 @@ pre code{
         "cancelAndClose": false
     },
     "data": {
-        "id": 1,
-        "exchange": "okef",
-        "exchangeName": "OKEx交割合约",
-        "currencyPair": "okef/btc.usd.t",
-        "currency": "BTC",
-        "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BTC.png",
-        "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-        "currencyPairName": "BTC当周",
-        "priceUnit": "USD",
-        "amountUnit": "张",
-        "minPriceUnit": 0.01,
+        "id": 29,
+        "exchange": "bitmex",
+        "exchangeName": "BitMEX合约",
+        "currencyPair": "ETHM19",
+        "currency": "ETH",
+        "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/ETH.png",
+        "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_bitmex.png",
+        "currencyPairName": "ETHM19",
+        "priceUnit": "XBT",
+        "amountUnit": "ETH",
+        "minPriceUnit": 0.05,
         "minAmountUnit": 1,
-        "marginUnit": "BTC",
-        "index": "okef/btc.usd.i",
-        "textName": "全仓 20X",
-        "fee": 0.7,
-        "secondType": "当周"
+        "marginUnit": "XBT",
+        "index": "btimex/eth.usd",
+        "textName": "全仓模式",
+        "fee": 0.8,
+        "secondType": "季度合约",
+        "rate": "--",
+        "leverageAvailable": 1,
+        "positionText": "ETHM19",
+        "delivery": "bitmex/eth.btc.2019-06-28",
+        "onlykey": "BITMEX_ETH0628_BTC",
+        "kline": 1
     }
 }</code>
                             </pre>
@@ -816,460 +1466,646 @@ pre code{
     },
     "data": [
         {
-            "id": 1,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/btc.usd.t",
-            "currency": "BTC",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BTC.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "BTC当周",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.01,
-            "minAmountUnit": 1,
-            "marginUnit": "BTC",
-            "index": "okef/btc.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "当周"
+            "name": "当周合约",
+            "list": [
+                {
+                    "id": 1,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/btc.usd.t",
+                    "currency": "BTC",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BTC.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "BTC当周",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.01,
+                    "minAmountUnit": 1,
+                    "marginUnit": "BTC",
+                    "index": "okef/btc.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "当周合约"
+                },
+                {
+                    "id": 4,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/eth.usd.t",
+                    "currency": "ETH",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/ETH.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "ETH当周",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.001,
+                    "minAmountUnit": 1,
+                    "marginUnit": "ETH",
+                    "index": "okef/eth.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "当周合约"
+                },
+                {
+                    "id": 7,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/ltc.usd.t",
+                    "currency": "LTC",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/LTC.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "LTC当周",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.001,
+                    "minAmountUnit": 1,
+                    "marginUnit": "LTC",
+                    "index": "okef/ltc.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "当周合约"
+                },
+                {
+                    "id": 10,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/bch.usd.t",
+                    "currency": "BCH",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BCH.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "BCH当周",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.01,
+                    "minAmountUnit": 1,
+                    "marginUnit": "BCH",
+                    "index": "okef/bch.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "当周合约"
+                },
+                {
+                    "id": 13,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/bsv.usd.t",
+                    "currency": "BSV",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BSV.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "BSV当周",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.01,
+                    "minAmountUnit": 1,
+                    "marginUnit": "BSV",
+                    "index": "okef/bsv.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "当周合约"
+                },
+                {
+                    "id": 16,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/eos.usd.t",
+                    "currency": "EOS",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/EOS.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "EOS当周",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.001,
+                    "minAmountUnit": 1,
+                    "marginUnit": "EOS",
+                    "index": "okef/eos.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "当周合约"
+                },
+                {
+                    "id": 19,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/xrp.usd.t",
+                    "currency": "XRP",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/XRP.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "XRP当周",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.0001,
+                    "minAmountUnit": 1,
+                    "marginUnit": "XRP",
+                    "index": "okef/xrp.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "当周合约"
+                },
+                {
+                    "id": 22,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/etc.usd.t",
+                    "currency": "ETC",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/ETC.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "ETC当周",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.001,
+                    "minAmountUnit": 1,
+                    "marginUnit": "ETC",
+                    "index": "okef/etc.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "当周合约"
+                }
+            ]
         },
         {
-            "id": 2,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/btc.usd.n",
-            "currency": "BTC",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BTC.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "BTC次周",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.01,
-            "minAmountUnit": 1,
-            "marginUnit": "BTC",
-            "index": "okef/btc.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "次周"
+            "name": "次周合约",
+            "list": [
+                {
+                    "id": 2,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/btc.usd.n",
+                    "currency": "BTC",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BTC.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "BTC次周",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.01,
+                    "minAmountUnit": 1,
+                    "marginUnit": "BTC",
+                    "index": "okef/btc.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "次周合约"
+                },
+                {
+                    "id": 5,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/eth.usd.n",
+                    "currency": "ETH",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/ETH.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "ETH次周",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.001,
+                    "minAmountUnit": 1,
+                    "marginUnit": "ETH",
+                    "index": "okef/eth.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "次周合约"
+                },
+                {
+                    "id": 8,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/ltc.usd.n",
+                    "currency": "LTC",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/LTC.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "LTC次周",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.001,
+                    "minAmountUnit": 1,
+                    "marginUnit": "LTC",
+                    "index": "okef/ltc.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "次周合约"
+                },
+                {
+                    "id": 11,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/bch.usd.n",
+                    "currency": "BCH",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BCH.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "BCH次周",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.01,
+                    "minAmountUnit": 1,
+                    "marginUnit": "BCH",
+                    "index": "okef/bch.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "次周合约"
+                },
+                {
+                    "id": 14,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/bsv.usd.n",
+                    "currency": "BSV",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BSV.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "BSV次周",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.01,
+                    "minAmountUnit": 1,
+                    "marginUnit": "BSV",
+                    "index": "okef/bsv.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "次周合约"
+                },
+                {
+                    "id": 17,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/eos.usd.n",
+                    "currency": "EOS",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/EOS.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "EOS次周",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.001,
+                    "minAmountUnit": 1,
+                    "marginUnit": "EOS",
+                    "index": "okef/eos.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "次周合约"
+                },
+                {
+                    "id": 20,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/xrp.usd.n",
+                    "currency": "XRP",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/XRP.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "XRP次周",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.0001,
+                    "minAmountUnit": 1,
+                    "marginUnit": "XRP",
+                    "index": "okef/xrp.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "次周合约"
+                },
+                {
+                    "id": 23,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/etc.usd.n",
+                    "currency": "ETC",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/ETC.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "ETC次周",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.001,
+                    "minAmountUnit": 1,
+                    "marginUnit": "ETC",
+                    "index": "okef/etc.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "次周合约"
+                }
+            ]
         },
         {
-            "id": 3,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/btc.usd.q",
-            "currency": "BTC",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BTC.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "BTC季度",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.01,
-            "minAmountUnit": 1,
-            "marginUnit": "BTC",
-            "index": "okef/btc.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "季度"
-        },
-        {
-            "id": 4,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/eth.usd.t",
-            "currency": "ETH",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/ETH.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "ETH当周",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.001,
-            "minAmountUnit": 1,
-            "marginUnit": "ETH",
-            "index": "okef/eth.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "当周"
-        },
-        {
-            "id": 5,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/eth.usd.n",
-            "currency": "ETH",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/ETH.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "ETH次周",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.001,
-            "minAmountUnit": 1,
-            "marginUnit": "ETH",
-            "index": "okef/eth.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "次周"
-        },
-        {
-            "id": 6,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/eth.usd.q",
-            "currency": "ETH",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/ETH.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "ETH季度",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.001,
-            "minAmountUnit": 1,
-            "marginUnit": "ETH",
-            "index": "okef/eth.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "季度"
-        },
-        {
-            "id": 7,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/ltc.usd.t",
-            "currency": "LTC",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/LTC.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "LTC当周",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.001,
-            "minAmountUnit": 1,
-            "marginUnit": "LTC",
-            "index": "okef/ltc.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "当周"
-        },
-        {
-            "id": 8,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/ltc.usd.n",
-            "currency": "LTC",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/LTC.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "LTC次周",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.001,
-            "minAmountUnit": 1,
-            "marginUnit": "LTC",
-            "index": "okef/ltc.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "次周"
-        },
-        {
-            "id": 9,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/ltc.usd.q",
-            "currency": "LTC",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/LTC.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "LTC季度",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.001,
-            "minAmountUnit": 1,
-            "marginUnit": "LTC",
-            "index": "okef/ltc.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "季度"
-        },
-        {
-            "id": 10,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/bch.usd.t",
-            "currency": "BCH",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BCH.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "BCH当周",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.01,
-            "minAmountUnit": 1,
-            "marginUnit": "BCH",
-            "index": "okef/bch.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "当周"
-        },
-        {
-            "id": 11,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/bch.usd.n",
-            "currency": "BCH",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BCH.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "BCH次周",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.01,
-            "minAmountUnit": 1,
-            "marginUnit": "BCH",
-            "index": "okef/bch.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "次周"
-        },
-        {
-            "id": 12,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/bch.usd.q",
-            "currency": "BCH",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BCH.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "BCH季度",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.01,
-            "minAmountUnit": 1,
-            "marginUnit": "BCH",
-            "index": "okef/bch.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "季度"
-        },
-        {
-            "id": 13,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/bsv.usd.t",
-            "currency": "BSV",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BSV.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "BSV当周",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.01,
-            "minAmountUnit": 1,
-            "marginUnit": "BSV",
-            "index": "okef/bsv.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "当周"
-        },
-        {
-            "id": 14,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/bsv.usd.n",
-            "currency": "BSV",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BSV.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "BSV次周",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.01,
-            "minAmountUnit": 1,
-            "marginUnit": "BSV",
-            "index": "okef/bsv.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "次周"
-        },
-        {
-            "id": 15,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/bsv.usd.q",
-            "currency": "BSV",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BSV.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "BSV季度",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.01,
-            "minAmountUnit": 1,
-            "marginUnit": "BSV",
-            "index": "okef/bsv.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "季度"
-        },
-        {
-            "id": 16,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/eos.usd.t",
-            "currency": "EOS",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/EOS.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "EOS当周",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.001,
-            "minAmountUnit": 1,
-            "marginUnit": "EOS",
-            "index": "okef/eos.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "当周"
-        },
-        {
-            "id": 17,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/eos.usd.n",
-            "currency": "EOS",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/EOS.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "EOS次周",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.001,
-            "minAmountUnit": 1,
-            "marginUnit": "EOS",
-            "index": "okef/eos.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "次周"
-        },
-        {
-            "id": 18,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/eos.usd.q",
-            "currency": "EOS",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/EOS.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "EOS季度",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.001,
-            "minAmountUnit": 1,
-            "marginUnit": "EOS",
-            "index": "okef/eos.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "季度"
-        },
-        {
-            "id": 19,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/xrp.usd.t",
-            "currency": "XRP",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/XRP.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "XRP当周",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.0001,
-            "minAmountUnit": 1,
-            "marginUnit": "XRP",
-            "index": "okef/xrp.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "当周"
-        },
-        {
-            "id": 20,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/xrp.usd.n",
-            "currency": "XRP",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/XRP.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "XRP次周",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.0001,
-            "minAmountUnit": 1,
-            "marginUnit": "XRP",
-            "index": "okef/xrp.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "次周"
-        },
-        {
-            "id": 21,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/xrp.usd.q",
-            "currency": "XRP",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/XRP.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "XRP季度",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.0001,
-            "minAmountUnit": 1,
-            "marginUnit": "XRP",
-            "index": "okef/xrp.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "季度"
-        },
-        {
-            "id": 22,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/etc.usd.t",
-            "currency": "ETC",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/ETC.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "ETC当周",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.001,
-            "minAmountUnit": 1,
-            "marginUnit": "ETC",
-            "index": "okef/etc.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "当周"
-        },
-        {
-            "id": 23,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/etc.usd.n",
-            "currency": "ETC",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/ETC.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "ETC次周",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.001,
-            "minAmountUnit": 1,
-            "marginUnit": "ETC",
-            "index": "okef/etc.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "次周"
-        },
-        {
-            "id": 24,
-            "exchange": "okef",
-            "exchangeName": "OKEx交割合约",
-            "currencyPair": "okef/etc.usd.q",
-            "currency": "ETC",
-            "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/ETC.png",
-            "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
-            "currencyPairName": "ETC季度",
-            "priceUnit": "USD",
-            "amountUnit": "张",
-            "minPriceUnit": 0.001,
-            "minAmountUnit": 1,
-            "marginUnit": "ETC",
-            "index": "okef/etc.usd.i",
-            "textName": "全仓 20X",
-            "fee": 0.7,
-            "secondType": "季度"
+            "name": "季度合约",
+            "list": [
+                {
+                    "id": 3,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/btc.usd.q",
+                    "currency": "BTC",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BTC.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "BTC季度",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.01,
+                    "minAmountUnit": 1,
+                    "marginUnit": "BTC",
+                    "index": "okef/btc.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "季度合约"
+                },
+                {
+                    "id": 6,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/eth.usd.q",
+                    "currency": "ETH",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/ETH.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "ETH季度",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.001,
+                    "minAmountUnit": 1,
+                    "marginUnit": "ETH",
+                    "index": "okef/eth.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "季度合约"
+                },
+                {
+                    "id": 9,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/ltc.usd.q",
+                    "currency": "LTC",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/LTC.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "LTC季度",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.001,
+                    "minAmountUnit": 1,
+                    "marginUnit": "LTC",
+                    "index": "okef/ltc.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "季度合约"
+                },
+                {
+                    "id": 12,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/bch.usd.q",
+                    "currency": "BCH",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BCH.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "BCH季度",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.01,
+                    "minAmountUnit": 1,
+                    "marginUnit": "BCH",
+                    "index": "okef/bch.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "季度合约"
+                },
+                {
+                    "id": 15,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/bsv.usd.q",
+                    "currency": "BSV",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BSV.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "BSV季度",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.01,
+                    "minAmountUnit": 1,
+                    "marginUnit": "BSV",
+                    "index": "okef/bsv.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "季度合约"
+                },
+                {
+                    "id": 18,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/eos.usd.q",
+                    "currency": "EOS",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/EOS.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "EOS季度",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.001,
+                    "minAmountUnit": 1,
+                    "marginUnit": "EOS",
+                    "index": "okef/eos.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "季度合约"
+                },
+                {
+                    "id": 21,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/xrp.usd.q",
+                    "currency": "XRP",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/XRP.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "XRP季度",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.0001,
+                    "minAmountUnit": 1,
+                    "marginUnit": "XRP",
+                    "index": "okef/xrp.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "季度合约"
+                },
+                {
+                    "id": 24,
+                    "exchange": "okef",
+                    "exchangeName": "OKEx交割合约",
+                    "currencyPair": "okef/etc.usd.q",
+                    "currency": "ETC",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/ETC.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_okex.png",
+                    "currencyPairName": "ETC季度",
+                    "priceUnit": "USD",
+                    "amountUnit": "张",
+                    "minPriceUnit": 0.001,
+                    "minAmountUnit": 1,
+                    "marginUnit": "ETC",
+                    "index": "okef/etc.usd.i",
+                    "textName": "全仓 20X",
+                    "fee": 0.7,
+                    "secondType": "季度合约"
+                },
+                {
+                    "id": 26,
+                    "exchange": "bitmex",
+                    "exchangeName": "BitMEX合约",
+                    "currencyPair": "XBTM19",
+                    "currency": "XBT",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BTC.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_bitmex.png",
+                    "currencyPairName": "XBTM19",
+                    "priceUnit": "USD",
+                    "amountUnit": "USD",
+                    "minPriceUnit": 0.5,
+                    "minAmountUnit": 1,
+                    "marginUnit": "XBT",
+                    "index": "btimex/btc.usd",
+                    "textName": "全仓模式",
+                    "fee": 0.8,
+                    "secondType": "季度合约"
+                },
+                {
+                    "id": 27,
+                    "exchange": "bitmex",
+                    "exchangeName": "BitMEX合约",
+                    "currencyPair": "XBTU19",
+                    "currency": "XBT",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BTC.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_bitmex.png",
+                    "currencyPairName": "XBTU19",
+                    "priceUnit": "USD",
+                    "amountUnit": "USD",
+                    "minPriceUnit": 0.5,
+                    "minAmountUnit": 1,
+                    "marginUnit": "XBT",
+                    "index": "btimex/btc.usd",
+                    "textName": "全仓模式",
+                    "fee": 0.8,
+                    "secondType": "季度合约"
+                },
+                {
+                    "id": 29,
+                    "exchange": "bitmex",
+                    "exchangeName": "BitMEX合约",
+                    "currencyPair": "ETHM19",
+                    "currency": "ETH",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/ETH.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_bitmex.png",
+                    "currencyPairName": "ETHM19",
+                    "priceUnit": "XBT",
+                    "amountUnit": "ETH",
+                    "minPriceUnit": 0.05,
+                    "minAmountUnit": 1,
+                    "marginUnit": "XBT",
+                    "index": "btimex/eth.usd",
+                    "textName": "全仓模式",
+                    "fee": 0.8,
+                    "secondType": "季度合约"
+                },
+                {
+                    "id": 30,
+                    "exchange": "bitmex",
+                    "exchangeName": "BitMEX合约",
+                    "currencyPair": "BCHM19",
+                    "currency": "BCH",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BCH.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_bitmex.png",
+                    "currencyPairName": "BCHM19",
+                    "priceUnit": "XBT",
+                    "amountUnit": "BCH",
+                    "minPriceUnit": 0.00001,
+                    "minAmountUnit": 1,
+                    "marginUnit": "XBT",
+                    "index": "btimex/bch.usd",
+                    "textName": "全仓模式",
+                    "fee": 0.8,
+                    "secondType": "季度合约"
+                },
+                {
+                    "id": 31,
+                    "exchange": "bitmex",
+                    "exchangeName": "BitMEX合约",
+                    "currencyPair": "ADAM19",
+                    "currency": "ADA",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/ADA.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_bitmex.png",
+                    "currencyPairName": "ADAM19",
+                    "priceUnit": "XBT",
+                    "amountUnit": "ADA",
+                    "minPriceUnit": 1e-8,
+                    "minAmountUnit": 1,
+                    "marginUnit": "XBT",
+                    "index": "btimex/ada.usd",
+                    "textName": "全仓模式",
+                    "fee": 0.8,
+                    "secondType": "季度合约"
+                },
+                {
+                    "id": 32,
+                    "exchange": "bitmex",
+                    "exchangeName": "BitMEX合约",
+                    "currencyPair": "XRPM19",
+                    "currency": "XRP",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/XRP.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_bitmex.png",
+                    "currencyPairName": "XRPM19",
+                    "priceUnit": "XBT",
+                    "amountUnit": "XRP",
+                    "minPriceUnit": 1e-8,
+                    "minAmountUnit": 1,
+                    "marginUnit": "XBT",
+                    "index": "btimex/xrp.usd",
+                    "textName": "全仓模式",
+                    "fee": 0.8,
+                    "secondType": "季度合约"
+                },
+                {
+                    "id": 34,
+                    "exchange": "bitmex",
+                    "exchangeName": "BitMEX合约",
+                    "currencyPair": "EOSM19",
+                    "currency": "EOS",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/EOS.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_bitmex.png",
+                    "currencyPairName": "EOSM19",
+                    "priceUnit": "XBT",
+                    "amountUnit": "EOS",
+                    "minPriceUnit": 1e-7,
+                    "minAmountUnit": 1,
+                    "marginUnit": "XBT",
+                    "index": "btimex/eos.usd",
+                    "textName": "全仓模式",
+                    "fee": 0.8,
+                    "secondType": "季度合约"
+                },
+                {
+                    "id": 35,
+                    "exchange": "bitmex",
+                    "exchangeName": "BitMEX合约",
+                    "currencyPair": "LTCM19",
+                    "currency": "LTC",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/LTC.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_bitmex.png",
+                    "currencyPairName": "LTCM19",
+                    "priceUnit": "XBT",
+                    "amountUnit": "LTC",
+                    "minPriceUnit": 0.00001,
+                    "minAmountUnit": 1,
+                    "marginUnit": "XBT",
+                    "index": "btimex/ltc.usd",
+                    "textName": "全仓模式",
+                    "fee": 0.8,
+                    "secondType": "季度合约"
+                },
+                {
+                    "id": 36,
+                    "exchange": "bitmex",
+                    "exchangeName": "BitMEX合约",
+                    "currencyPair": "TRXM19",
+                    "currency": "TRX",
+                    "currencyIcon": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/TRX.png",
+                    "exchangeIcon": "http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_bitmex.png",
+                    "currencyPairName": "TRXM19",
+                    "priceUnit": "XBT",
+                    "amountUnit": "TRX",
+                    "minPriceUnit": 1e-8,
+                    "minAmountUnit": 1,
+                    "marginUnit": "XBT",
+                    "index": "btimex/trx.usd",
+                    "textName": "全仓模式",
+                    "fee": 0.8,
+                    "secondType": "季度合约"
+                }
+            ]
         }
     ]
 }</code>
@@ -1279,6 +2115,102 @@ pre code{
                         </div><h1>ot-app</h1>
                     
                     <div class="api-one">
+                            <h3 id="e2ccb13f6c1d42b081ed931d5d256c11">是否已填写邀请码接口</h3>
+                            <p>
+                                <a target="_blank"
+                                   href="https://apizza.net/pro/#/project/58da8d2869841a1ca1cd0741edbfcce5/browse?api=e2ccb13f6c1d42b081ed931d5d256c11"
+                                   class="label label-warning">在线测试</a>
+                                <a target="_blank"
+                                   href="https://apizza.net/pro/#/project/58da8d2869841a1ca1cd0741edbfcce5/browse?api=e2ccb13f6c1d42b081ed931d5d256c11"
+                                   class="label label-warning">在线浏览</a>
+                            </p>
+                            <p>请求方式：GET</p>
+                            <p>
+                                请求地址：https://www.6b.top/api/app/user/inviteState                            </p>
+
+                            <table class="table table-hover">
+                                    <colgroup>
+                                        <col class="col-xs-2">
+                                        <col class="col-xs-1">
+                                        <col class="col-xs-1">
+                                        <col class="col-xs-7">
+                                        <col class="col-xs-2">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th><span class="label label-success">Header参数名</span></th>
+                                        <th>类型</th>
+                                        <th>必需</th>
+                                        <th>描述</th>
+                                        <th>示例 e.g.</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                            <td>auth</td>
+                                            <td>string</td>
+                                            <td>
+                                                是
+                                                                                                </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>                                    </tbody>
+                                </table>
+                            
+
+                            
+                            <p>详细说明：</p>
+                                <p>
+                                <div class="detail-info">
+                                    <div><p>code: 4000/0</p><p>状态：已绑定/未绑定</p></div>
+                                </div>
+                                </p>
+                            <p>返回示例：</p>
+                                <div class="highlight">
+                            <pre>
+                                <code class="json hljs">{
+    "code": 4000,
+    "dialog": {
+        "type": "3",
+        "title": "已绑定",
+        "content": "已绑定",
+        "cancelBtn": null,
+        "confirmBtn": null,
+        "cancelColor": null,
+        "confirmColor": null,
+        "titleColor": null,
+        "contentColor": null,
+        "code": "400",
+        "url": null,
+        "time": null,
+        "cancelAndClose": false
+    },
+    "data": ""
+}
+
+{
+    "code": 0,
+    "dialog": {
+        "type": "3",
+        "title": "未绑定",
+        "content": "未绑定",
+        "cancelBtn": null,
+        "confirmBtn": null,
+        "cancelColor": null,
+        "confirmColor": null,
+        "titleColor": null,
+        "contentColor": null,
+        "code": "0",
+        "url": null,
+        "time": null,
+        "cancelAndClose": false
+    },
+    "data": ""
+}</code>
+                            </pre>
+                                </div>
+                            
+                        </div><div class="api-one">
                             <h3 id="9f95f3653b7d4280b79d07d45e588895">所有以/app形式的接口 除了登录（app/login） 注册（app/open/signup）</h3>
                             <p>
                                 <a target="_blank"
@@ -3904,16 +4836,18 @@ pre code{
         "list": [
             {
                 "id": 1,
-                "userId": 1356581551567011840,
+                "userId": 1356581551567011800,
                 "coin": "eth",
                 "addr": "0x8D9F89256B2902cBc0cf35cA8dF65fECce938505",
+                "memo" : "",
                 "remark": "eth提币地址"
             },
             {
                 "id": 3,
-                "userId": 1356581551567011840,
+                "userId": 1356581551567011800,
                 "coin": "eth",
                 "addr": "0xb096480093d8c87Ae7fFBa0e8B0943efF769249e",
+                "memo" : "",
                 "remark": "eth提币地址"
             }
         ],
@@ -4063,6 +4997,14 @@ pre code{
                                                                                                                 </td>
                                                     <td>手机验证码</td>
                                                     <td>6124</td>
+                                                </tr><tr>
+                                                    <td>memo</td>
+                                                    <td>string</td>
+                                                    <td>
+                                                        是
+                                                                                                                </td>
+                                                    <td></td>
+                                                    <td></td>
                                                 </tr>                                            </tbody>
                                         </table>
                             
@@ -4555,6 +5497,256 @@ pre code{
                         </div><h1>ot</h1>
                     
                     <div class="api-one">
+                            <h3 id="623695f587d6425984185cb2b3aca0a5">获取6b资产明细</h3>
+                            <p>
+                                <a target="_blank"
+                                   href="https://apizza.net/pro/#/project/58da8d2869841a1ca1cd0741edbfcce5/browse?api=623695f587d6425984185cb2b3aca0a5"
+                                   class="label label-warning">在线测试</a>
+                                <a target="_blank"
+                                   href="https://apizza.net/pro/#/project/58da8d2869841a1ca1cd0741edbfcce5/browse?api=623695f587d6425984185cb2b3aca0a5"
+                                   class="label label-warning">在线浏览</a>
+                            </p>
+                            <p>请求方式：GET</p>
+                            <p>
+                                请求地址：https://www.6b.top/api/user/ourAccountDetail                            </p>
+
+                            <table class="table table-hover">
+                                    <colgroup>
+                                        <col class="col-xs-2">
+                                        <col class="col-xs-1">
+                                        <col class="col-xs-1">
+                                        <col class="col-xs-7">
+                                        <col class="col-xs-2">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th><span class="label label-success">Header参数名</span></th>
+                                        <th>类型</th>
+                                        <th>必需</th>
+                                        <th>描述</th>
+                                        <th>示例 e.g.</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                            <td>auth</td>
+                                            <td>string</td>
+                                            <td>
+                                                是
+                                                                                                </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>                                    </tbody>
+                                </table>
+                            
+
+                            
+                            
+                            <p>返回示例：</p>
+                                <div class="highlight">
+                            <pre>
+                                <code class="json hljs">{
+    "msg": null,
+    "data": {
+        "BTC": {
+            "eva": 558410.02,
+            "lock": 64,
+            "btcEva": 69.999,
+            "avi": 5.999,
+            "img_url": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BTC.png"
+        },
+        "BCT": {
+            "eva": 0,
+            "lock": 2,
+            "btcEva": 0,
+            "avi": 2018.5468,
+            "img_url": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BCT.png"
+        },
+        "BSV": {
+            "eva": 0,
+            "lock": 0,
+            "btcEva": 0,
+            "avi": 0,
+            "img_url": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BSV.png"
+        },
+        "BCH": {
+            "eva": 0,
+            "lock": 0,
+            "btcEva": 0,
+            "avi": 0,
+            "img_url": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/BCH.png"
+        },
+        "XRP": {
+            "eva": 0,
+            "lock": 0,
+            "btcEva": 0,
+            "avi": 0,
+            "img_url": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/XRP.png"
+        },
+        "ETH": {
+            "eva": 532.33,
+            "lock": 0.011,
+            "btcEva": 0.0667136,
+            "avi": 2.549,
+            "img_url": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/ETH.png"
+        },
+        "EOS": {
+            "eva": 2.36,
+            "lock": 0,
+            "btcEva": 0.00029621,
+            "avi": 0.39,
+            "img_url": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/EOS.png"
+        },
+        "LTC": {
+            "eva": 0,
+            "lock": 0,
+            "btcEva": 0,
+            "avi": 0,
+            "img_url": "http://bicoin.oss-cn-beijing.aliyuncs.com/tokenicon/LTC.png"
+        }
+    },
+    "code": 0
+}</code>
+                            </pre>
+                                </div>
+                            
+                        </div><div class="api-one">
+                            <h3 id="fb4d3fdea61f417e87c6441cacdcc113">跟单列表接口</h3>
+                            <p>
+                                <a target="_blank"
+                                   href="https://apizza.net/pro/#/project/58da8d2869841a1ca1cd0741edbfcce5/browse?api=fb4d3fdea61f417e87c6441cacdcc113"
+                                   class="label label-warning">在线测试</a>
+                                <a target="_blank"
+                                   href="https://apizza.net/pro/#/project/58da8d2869841a1ca1cd0741edbfcce5/browse?api=fb4d3fdea61f417e87c6441cacdcc113"
+                                   class="label label-warning">在线浏览</a>
+                            </p>
+                            <p>请求方式：GET</p>
+                            <p>
+                                请求地址：http://test.6b.top/follow/show                            </p>
+
+                            <table class="table table-hover">
+                                    <colgroup>
+                                        <col class="col-xs-2">
+                                        <col class="col-xs-1">
+                                        <col class="col-xs-1">
+                                        <col class="col-xs-7">
+                                        <col class="col-xs-2">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th><span class="label label-success">Header参数名</span></th>
+                                        <th>类型</th>
+                                        <th>必需</th>
+                                        <th>描述</th>
+                                        <th>示例 e.g.</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                            <td>auth</td>
+                                            <td>string</td>
+                                            <td>
+                                                是
+                                                                                                </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>                                    </tbody>
+                                </table>
+                            <table class="table table-hover">
+                                    <colgroup>
+                                        <col class="col-xs-2">
+                                        <col class="col-xs-1">
+                                        <col class="col-xs-1">
+                                        <col class="col-xs-7">
+                                        <col class="col-xs-2">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th><span class="label label-success">Query参数名</span></th>
+                                        <th>类型</th>
+                                        <th>必需</th>
+                                        <th>描述</th>
+                                        <th>示例 e.g.</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                            <td>status</td>
+                                            <td>string</td>
+                                            <td>
+                                                是
+                                                                                                </td>
+                                            <td>0  进行中 , 1  历史   (不传默认1)</td>
+                                            <td></td>
+                                        </tr><tr>
+                                            <td>pStatus</td>
+                                            <td>string</td>
+                                            <td>
+                                                是
+                                                                                                </td>
+                                            <td>0: 不保本 1: 保本    （必须传）</td>
+                                            <td></td>
+                                        </tr><tr>
+                                            <td>pageNum</td>
+                                            <td>string</td>
+                                            <td>
+                                                是
+                                                                                                </td>
+                                            <td>默认1 起始页数</td>
+                                            <td></td>
+                                        </tr>                                    </tbody>
+                                </table>
+
+                            
+                            
+                            <p>返回示例：</p>
+                                <div class="highlight">
+                            <pre>
+                                <code class="json hljs">{
+    "code": 0,
+    "data": [
+        {
+            "id": 4,
+            "amountMax": 5,
+            "amountMin": 1,
+            "allAmount": 50,
+            "restAmount": 5,
+            "nickName": "寒冰掌",
+            "icon": "http://app.bicoin.com.cn/liu/%E5%AF%92%E5%86%B0%E6%8E%8C.jpg",
+            "exchange": "OKEx",
+            "memo": "寒冰掌于去年11月加入币coin实盘高手，从他105天的实盘展示中可以看出，主要投资于BTC、ETH等主流币种，对有确定性行情机会的把握能力较大，建议跟单金额每户限额2000美金",
+            "title": "特邀操盘手",
+            "startTime": 1553792400000,
+            "startTimeSrt": "2019-03-29 01:00:00",
+            "endTime": 1556827200000,
+            "endTimeStr": "2019-05-03 04:00:00",
+            "closeDay": 10,
+            "ownMoney": 5,
+            "stopRate": -30,
+            "dealType": "合约",
+            "leverage": 20,
+            "moneyManage": "交易所托管",
+            "allMoney": 5,
+            "currency": "BTC",
+            "status": 0,
+            "shareMemo": "内测期间，亏损和盈利由用户自行承担，跟单程序出现的问题导致的亏损由币coin承担，此为跟单账户，并非由大v主动操作的基金，实际跟单过程中，由于会有滑点，收益率会不如大v账户，请用户知悉。",
+            "benitfitRate": "100",
+            "principal": "不保本",
+            "bicoinRate": "970",
+            "restTime": "910913776",
+            "welfare": 1.5,
+            "closeTimeStr": "2019-05-13",
+            "standard": "币本位",
+            "principalState": 0
+        }
+    ]
+}
+
+</code>
+                            </pre>
+                                </div>
+                            
+                        </div><div class="api-one">
                             <h3 id="48b325f13b244f9196f7fe52f0257fa7">获取提币地址接口</h3>
                             <p>
                                 <a target="_blank"

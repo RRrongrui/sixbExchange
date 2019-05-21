@@ -1,8 +1,12 @@
 package com.sixbexchange.mvp.databinder;
 
+import android.text.TextUtils;
+
 import com.fivefivelike.mybaselibrary.base.BaseDataBind;
 import com.fivefivelike.mybaselibrary.http.HttpRequest;
 import com.fivefivelike.mybaselibrary.http.RequestCallback;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
+import com.fivefivelike.mybaselibrary.utils.UiHeplUtils;
 import com.sixbexchange.mvp.delegate.BMTrFragmentDelegate;
 import com.sixbexchange.server.HttpUrl;
 
@@ -12,6 +16,78 @@ public class BMTrFragmentBinder extends BaseDataBind<BMTrFragmentDelegate> {
 
     public BMTrFragmentBinder(BMTrFragmentDelegate viewDelegate) {
         super(viewDelegate);
+    }
+
+    public void checkOrderStop(int type, RequestCallback requestCallback) {
+        if (TextUtils.isEmpty(viewDelegate.viewHolder.tv_trigger_price.getText().toString())) {
+            ToastUtil.show("请输入触发价格");
+            return;
+        }
+        if (!UiHeplUtils.isDouble(viewDelegate.viewHolder.tv_trigger_price.getText().toString())) {
+            ToastUtil.show("请输入正确的触发价格");
+            return;
+        }
+        String price = "";
+        if (viewDelegate.stopLossType != 1) {
+            if (TextUtils.isEmpty(viewDelegate.viewHolder.tv_order_price.getText().toString())) {
+                ToastUtil.show("请输入价格");
+                return;
+            }
+            price = viewDelegate.viewHolder.tv_order_price.getText().toString();
+            if (!UiHeplUtils.isDouble(price)) {
+                ToastUtil.show("请输入正确的价格");
+                return;
+            }
+        }
+        if (TextUtils.isEmpty(viewDelegate.viewHolder.tv_order_num.getText().toString())) {
+            ToastUtil.show("请输入数量");
+            return;
+        }
+        if (!UiHeplUtils.isDouble(viewDelegate.viewHolder.tv_order_num.getText().toString())) {
+            ToastUtil.show("请输入正确的数量");
+            return;
+        }
+        addRequest(orderstop(
+                viewDelegate.tradeDetailBean.getExchange(),
+                viewDelegate.tradeDetailBean.getCurrencyPair(),
+                viewDelegate.tradeDetailBean.getOnlykey(),
+                type + "",
+                viewDelegate.viewHolder.tv_trigger_price.getText().toString(),
+                price,
+                viewDelegate.viewHolder.tv_order_num.getText().toString(),
+                requestCallback
+        ));
+    }
+
+    public Disposable orderstop(
+            String exchange,
+            String contract,
+            String currencyPair,
+            String type,
+            String triggerPrice,
+            String entrustPrice,
+            String amount,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        put("exchange", exchange);
+        put("contract", contract);
+        put("currencyPair", currencyPair);
+        put("type", type);
+        put("triggerPrice", triggerPrice);
+        put("entrustPrice", entrustPrice);
+        put("amount", amount);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x130)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestUrl(HttpUrl.getIntance().orderstop)
+                .setShowDialog(true)
+                .setRequestName("计划委托")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
     }
 
     public Disposable placeOrder(
@@ -31,7 +107,7 @@ public class BMTrFragmentBinder extends BaseDataBind<BMTrFragmentDelegate> {
         put("type", type);
         put("currencyPair", currencyPair);
         put("contract", contract);
-        put("bs",bs);
+        put("bs", bs);
         put("amount", amount);
         return new HttpRequest.Builder()
                 .setRequestCode(0x125)
@@ -46,6 +122,7 @@ public class BMTrFragmentBinder extends BaseDataBind<BMTrFragmentDelegate> {
                 .build()
                 .RxSendRequest();
     }
+
     public Disposable changeLeverage(
             String exchange,
             String contract,
@@ -174,6 +251,7 @@ public class BMTrFragmentBinder extends BaseDataBind<BMTrFragmentDelegate> {
                 .build()
                 .RxSendRequest();
     }
+
     public Disposable getLeverage(
             String exchange,
             String contract,

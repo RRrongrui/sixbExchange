@@ -214,4 +214,12 @@ public class HttpUrl {
      * 计划委托弹窗
      */
     public String orderremark = AppConst.app2BaseUrl + dealUrl + "/app/order/remark";
+    /**
+     *是否填写邀请码
+     */
+    public String inviteState = AppConst.app2BaseUrl + dealUrl + "/app/user/inviteState";
+    /**
+     *补填邀请码
+     */
+    public String setInviteCode = AppConst.app2BaseUrl + dealUrl + "/app/user/setInviteCode";
 }

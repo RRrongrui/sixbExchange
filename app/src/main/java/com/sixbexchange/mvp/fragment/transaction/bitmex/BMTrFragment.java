@@ -63,6 +63,10 @@ public class BMTrFragment extends BaseDataBindFragment<BMTrFragmentDelegate, BMT
                 if (isOpen || (!isOpen && viewDelegate.stopLossType == 0)) {
                     checkOrder(isOpen ? 1 : 4,
                             BMTrFragment.this);
+                } else if (viewDelegate.stopLossType == 2) {
+                    binder.checkOrderStop(isOpen ? 1 : 4, BMTrFragment.this);
+                } else {
+                    binder.checkOrderStop(6, BMTrFragment.this);
                 }
             }
         });
@@ -72,10 +76,13 @@ public class BMTrFragment extends BaseDataBindFragment<BMTrFragmentDelegate, BMT
                 if (isOpen || (!isOpen && viewDelegate.stopLossType == 0)) {
                     checkOrder(isOpen ? 2 : 3,
                             BMTrFragment.this);
+                } else if (viewDelegate.stopLossType == 2) {
+                    binder.checkOrderStop(isOpen ? 2 : 3, BMTrFragment.this);
+                } else {
+                    binder.checkOrderStop(5, BMTrFragment.this);
                 }
             }
         });
-
     }
 
     public void checkOrder(int type, RequestCallback requestCallback) {

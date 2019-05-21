@@ -24,8 +24,8 @@ public class InviteFriendsDelegate extends BaseDelegate {
 
     public static class ViewHolder {
         public View rootView;
-
         public ImageView iv_invite;
+        public TextView tv_input;
         public TextView tv_code;
         public RoundButton tv_Copy;
         public TextView tv_input_again;
@@ -38,8 +38,8 @@ public class InviteFriendsDelegate extends BaseDelegate {
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
-
             this.iv_invite = (ImageView) rootView.findViewById(R.id.iv_invite);
+            this.tv_input = (TextView) rootView.findViewById(R.id.tv_input);
             this.tv_code = (TextView) rootView.findViewById(R.id.tv_code);
             this.tv_Copy = (RoundButton) rootView.findViewById(R.id.tv_Copy);
             this.tv_input_again = (TextView) rootView.findViewById(R.id.tv_input_again);

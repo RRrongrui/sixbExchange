@@ -41,11 +41,22 @@
                     android:background="@color/mark_color"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_weight="1"
                     android:text="我的邀请码"
                     android:textColor="@color/color_font1"
+                    android:textSize="@dimen/text_trans_30px"/>
+
+                <TextView
+                    android:id="@+id/tv_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/trans_30px"
+                    android:visibility="gone"
+                    android:gravity="center"
+                    android:text="补填邀请码"
+                    android:textColor="@color/mark_color"
                     android:textSize="@dimen/text_trans_30px"/>
 
             </LinearLayout>
@@ -98,9 +109,9 @@
                 android:gravity="center"
                 android:paddingBottom="@dimen/trans_30px"
                 android:paddingTop="@dimen/trans_30px"
-                android:visibility="gone"
                 android:textColor="@color/mark_color"
-                android:textSize="@dimen/text_trans_28px"/>
+                android:textSize="@dimen/text_trans_28px"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -157,12 +168,11 @@
             <ImageView
                 android:id="@+id/iv_activity_rules"
                 android:layout_width="match_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/trans_50px"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
                 />
-
 
 
         </LinearLayout>
